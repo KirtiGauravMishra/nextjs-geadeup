@@ -57,7 +57,7 @@ export function PlatformFeatures() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {items.map(({ title, body, icon: Icon, soon }, i) => (
             <Reveal key={title} delay={i * 70}>
-              <div className="group h-full rounded-2xl border border-line bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-lg">
+              <div className="group h-full rounded-2xl border border-line bg-paper p-6 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--shadow-lifted)]">
                 <div className="flex items-start justify-between gap-2">
                   <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent-ink transition-transform duration-300 group-hover:scale-110">
                     <Icon />

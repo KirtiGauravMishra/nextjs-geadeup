@@ -17,7 +17,7 @@ export function VideoCard({ video }: { video: SampleVideo }) {
   const gradient = GRADIENTS[video.subject] ?? "linear-gradient(135deg,#274b8a,#6b8fd6)";
 
   return (
-    <figure className="overflow-hidden rounded-2xl border border-line bg-paper transition-shadow duration-300 hover:shadow-lg">
+    <figure className="overflow-hidden rounded-2xl border border-line bg-paper shadow-[var(--shadow-soft)] transition-shadow duration-300 hover:shadow-[var(--shadow-lifted)]">
       <div className="relative aspect-video bg-black">
         {playing ? (
           <video className="h-full w-full" src={video.src} controls autoPlay preload="none" />

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
+/* Light-only by design — this is a marketing site, not the app shell, and it
+   should never render differently because a visitor's OS is in dark mode. */
 :root {
+  color-scheme: light;
+
   --paper: #ffffff;
   --surface-alt: #f4f6f9;
   --ink: #10192b;
@@ -9,6 +13,7 @@
   --line: #e2e6ec;
 
   --accent: #d9691a;
+  --accent-2: #f0964a;
   --accent-soft: #fdecd8;
   --accent-ink: #7a3d0d;
 
@@ -16,26 +21,9 @@
   --teal-soft: #e1f2ee;
 
   --navy: #10192b;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0b0f16;
-    --surface-alt: #121826;
-    --ink: #eef1f6;
-    --ink-soft: #b9c2d1;
-    --muted: #8892a3;
-    --line: #232c3d;
-
-    --accent: #f0964a;
-    --accent-soft: #2c1c0e;
-    --accent-ink: #ffd9ac;
-
-    --teal: #3fbfa6;
-    --teal-soft: #10241f;
-
-    --navy: #05070b;
-  }
+  --shadow-soft: 0 1px 2px rgba(16, 25, 43, 0.04), 0 12px 28px -14px rgba(16, 25, 43, 0.14);
+  --shadow-lifted: 0 4px 10px rgba(16, 25, 43, 0.05), 0 24px 48px -18px rgba(16, 25, 43, 0.22);
 }
 
 /* Tailwind v4 CSS-first theme: every --color-* key below becomes utilities
@@ -53,6 +41,7 @@
   --color-teal: var(--teal);
   --color-teal-soft: var(--teal-soft);
   --color-navy: var(--navy);
+  --color-accent-2: var(--accent-2);
 }
 
 body {
@@ -91,7 +80,7 @@ body {
   font-weight: 600;
   font-size: 0.95rem;
   line-height: 1;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, filter 0.15s ease;
   white-space: nowrap;
 }
 .btn:active {
@@ -99,20 +88,31 @@ body {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #fff;
+  box-shadow: 0 8px 20px -8px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 .btn-primary:hover {
-  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--accent) 65%, transparent);
+  box-shadow: 0 14px 28px -10px color-mix(in srgb, var(--accent) 65%, transparent);
+  filter: brightness(1.04);
 }
 
 .btn-ghost {
-  background: transparent;
+  background: var(--paper);
   color: var(--ink);
   border: 1px solid var(--line);
 }
 .btn-ghost:hover {
   border-color: var(--ink-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Faint dot-grid used behind hero-style sections for depth without noise. */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 40%, transparent 90%);
 }
 
 .eyebrow {

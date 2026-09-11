@@ -37,7 +37,7 @@ export function FeatureGrid() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ title, body, icon: Icon }, i) => (
             <Reveal key={title} delay={i * 80}>
-              <div className="rounded-2xl border border-line bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <div className="rounded-2xl border border-line bg-paper p-6 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lifted)]">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent-ink">
                   <Icon />
                 </div>

@@ -11,6 +11,7 @@ const facts = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-line bg-paper">
+      <div aria-hidden="true" className="bg-dot-grid absolute inset-x-0 top-0 h-full" />
       <div
         aria-hidden="true"
         className="blob absolute -left-24 -top-24 h-72 w-72 rounded-full bg-accent-soft opacity-60 blur-3xl"
@@ -50,7 +51,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={150} className="relative">
-          <div className="rounded-2xl border border-line bg-surface-alt p-6 shadow-sm">
+          <div className="rounded-2xl border border-line bg-paper p-6 shadow-[var(--shadow-lifted)]">
             <p className="eyebrow">Sample test result</p>
             <p className="font-display mt-2 text-2xl font-extrabold text-ink">
               Physics · Ch. 4 — Laws of Motion
