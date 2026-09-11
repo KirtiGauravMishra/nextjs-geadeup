@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
 import { siteConfig } from "@/lib/site-config";
+import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -9,9 +10,10 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="py-16 sm:py-24">
-      <div className="container-page grid gap-12 lg:grid-cols-2">
-        <div>
+    <section className="relative overflow-hidden py-16 sm:py-24">
+      <div aria-hidden="true" className="bg-dot-grid absolute inset-x-0 top-0 h-full" />
+      <div className="container-page relative grid gap-12 lg:grid-cols-2">
+        <Reveal>
           <p className="eyebrow">Get in touch</p>
           <h1 className="font-display mt-3 text-4xl font-extrabold tracking-tight text-ink">
             Questions before you commit to anything?
@@ -29,11 +31,13 @@ export default function ContactPage() {
               {siteConfig.contactEmail}
             </a>
           </p>
-        </div>
+        </Reveal>
 
-        <div className="rounded-2xl border border-line bg-surface-alt p-7">
-          <ContactForm />
-        </div>
+        <Reveal delay={120}>
+          <div className="rounded-2xl border border-line bg-surface-alt p-7 shadow-[var(--shadow-soft)]">
+            <ContactForm />
+          </div>
+        </Reveal>
       </div>
     </section>
   );

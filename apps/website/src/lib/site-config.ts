@@ -9,6 +9,12 @@ export const siteConfig = {
     "structured video lessons, live quizzes, proctored tests and AI-analysed results for Classes 9 through 12.",
   url: "https://www.eduplus.example",
   contactEmail: "hello@eduplus.example",
+  // "Partner your institute" form on /institutes. Empty = the built-in
+  // client-side form is shown instead. Set to a Google Form's embed URL
+  // (open the form -> Send -> <> -> copy the src from the <iframe>, or take
+  // the normal form URL and swap /viewform for /viewform?embedded=true) to
+  // switch that section over to the embedded form.
+  partnerFormUrl: "",
   nav: [
     { href: "/#courses", label: "Courses" },
     { href: "/#platform", label: "Platform" },

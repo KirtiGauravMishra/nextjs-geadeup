@@ -2,9 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 
-const inputClass =
-  "mt-1.5 w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 text-ink outline-none focus:border-accent";
-
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitted">("idle");
 
@@ -16,7 +13,8 @@ export function ContactForm() {
 
   if (status === "submitted") {
     return (
-      <p className="rounded-lg bg-teal-soft px-4 py-3 text-sm font-medium text-ink">
+      <p className="flex items-center gap-2 rounded-lg bg-teal-soft px-4 py-3 text-sm font-medium text-ink">
+        <CheckIcon />
         Message sent. We usually reply within a day.
       </p>
     );
@@ -25,16 +23,16 @@ export function ContactForm() {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <label className="block text-sm">
-        <span className="font-medium text-ink-soft">Name</span>
-        <input name="name" required className={inputClass} />
+        <span className="field-label">Name</span>
+        <input name="name" required className="field-input" />
       </label>
       <label className="block text-sm">
-        <span className="font-medium text-ink-soft">Email</span>
-        <input name="email" type="email" required className={inputClass} />
+        <span className="field-label">Email</span>
+        <input name="email" type="email" required className="field-input" />
       </label>
       <label className="block text-sm">
-        <span className="font-medium text-ink-soft">I am a...</span>
-        <select name="role" className={inputClass}>
+        <span className="field-label">I am a...</span>
+        <select name="role" className="field-input">
           <option>Institute / school representative</option>
           <option>Student</option>
           <option>Parent</option>
@@ -43,12 +41,21 @@ export function ContactForm() {
         </select>
       </label>
       <label className="block text-sm">
-        <span className="font-medium text-ink-soft">Message</span>
-        <textarea name="message" rows={4} required className={inputClass} />
+        <span className="field-label">Message</span>
+        <textarea name="message" rows={4} required className="field-input" />
       </label>
       <button type="submit" className="btn btn-primary w-full">
         Send message
       </button>
     </form>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="shrink-0">
+      <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M5.5 9.2 7.8 11.5 12.5 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }

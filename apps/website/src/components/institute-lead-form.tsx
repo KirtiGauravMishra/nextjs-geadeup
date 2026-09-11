@@ -1,8 +1,45 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { siteConfig } from "@/lib/site-config";
 
 export function InstituteLeadForm() {
+  // Only ever embed a Google Forms URL here — this iframe's src is config,
+  // not user input, but pinning the host means a wrong paste can't turn into
+  // an arbitrary third-party embed on the page.
+  if (siteConfig.partnerFormUrl && /^https:\/\/docs\.google\.com\/forms\//.test(siteConfig.partnerFormUrl)) {
+    return <EmbeddedForm src={siteConfig.partnerFormUrl} />;
+  }
+  return <BuiltInForm />;
+}
+
+// Google Form embed — swapped in automatically once `siteConfig.partnerFormUrl`
+// is set. Google's own domain, standard `embedded=true` iframe pattern; no
+// script or credentials of ours cross into it.
+function EmbeddedForm({ src }: { src: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative mt-6 overflow-hidden rounded-xl border border-line bg-paper">
+      {!loaded && (
+        <div className="flex h-[600px] items-center justify-center text-sm text-muted">
+          Loading form…
+        </div>
+      )}
+      <iframe
+        src={src}
+        title="Partner your institute"
+        className={loaded ? "block h-[900px] w-full" : "hidden"}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+      >
+        Loading…
+      </iframe>
+    </div>
+  );
+}
+
+function BuiltInForm() {
   const [status, setStatus] = useState<"idle" | "submitted">("idle");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -14,7 +51,8 @@ export function InstituteLeadForm() {
 
   if (status === "submitted") {
     return (
-      <p className="mt-6 rounded-lg bg-teal-soft px-4 py-3 text-sm font-medium text-ink">
+      <p className="mt-6 flex items-center gap-2 rounded-lg bg-teal-soft px-4 py-3 text-sm font-medium text-ink">
+        <CheckIcon />
         Thanks — that&rsquo;s with our partnerships team. We&rsquo;ll email you shortly.
       </p>
     );
@@ -49,13 +87,17 @@ function Field({
 }) {
   return (
     <label className="block text-sm">
-      <span className="font-medium text-ink-soft">{label}</span>
-      <input
-        name={name}
-        type={type}
-        required={required}
-        className="mt-1.5 w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 text-ink outline-none focus:border-accent"
-      />
+      <span className="field-label">{label}</span>
+      <input name={name} type={type} required={required} className="field-input" />
     </label>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden="true" className="shrink-0">
+      <circle cx="9" cy="9" r="8" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M5.5 9.2 7.8 11.5 12.5 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
