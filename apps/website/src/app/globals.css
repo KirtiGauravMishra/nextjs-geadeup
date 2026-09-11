@@ -107,6 +107,56 @@ body {
   box-shadow: var(--shadow-soft);
 }
 
+/* Nav links with an animated underline that grows from the left on hover,
+   and stays shown via .active for the current route. */
+.nav-link {
+  position: relative;
+  color: var(--ink-soft);
+  transition: color 0.15s ease;
+}
+.nav-link:hover {
+  color: var(--ink);
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+.nav-link.active {
+  color: var(--ink);
+}
+
+.gradient-line {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--teal));
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.menu-pop {
+  animation: dropdown-in 0.18s ease-out;
+}
+
 .field-label {
   font-size: 0.875rem;
   font-weight: 500;
@@ -237,7 +287,8 @@ body {
   }
   .blob,
   .bar-grow,
-  .badge-soon::before {
+  .badge-soon::before,
+  .menu-pop {
     animation: none !important;
   }
 }
