@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #ffffff;
+  --surface-alt: #f4f6f9;
+  --ink: #10192b;
+  --ink-soft: #45526b;
+  --muted: #6b7686;
+  --line: #e2e6ec;
+
+  --accent: #d9691a;
+  --accent-soft: #fdecd8;
+  --accent-ink: #7a3d0d;
+
+  --teal: #0f7a68;
+  --teal-soft: #e1f2ee;
+
+  --navy: #10192b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0b0f16;
+    --surface-alt: #121826;
+    --ink: #eef1f6;
+    --ink-soft: #b9c2d1;
+    --muted: #8892a3;
+    --line: #232c3d;
+
+    --accent: #f0964a;
+    --accent-soft: #2c1c0e;
+    --accent-ink: #ffd9ac;
+
+    --teal: #3fbfa6;
+    --teal-soft: #10241f;
+
+    --navy: #05070b;
+  }
+}
+
+/* Tailwind v4 CSS-first theme: every --color-* key below becomes utilities
+   like bg-paper, text-ink, border-line, etc. */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface-alt: var(--surface-alt);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-navy: var(--navy);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-public-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* Applied explicitly on headings/wordmarks — kept out of a bare h1/h2/h3
+   selector so it never fights the Tailwind weight/tracking utilities used
+   alongside it. */
+.font-display {
+  font-family: var(--font-manrope), var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.container-page {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 2rem;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.65rem 1.35rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover {
+  border-color: var(--ink-soft);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+/* Scroll-reveal: elements start hidden and animate in once `.is-visible`
+   is added by the Reveal component's IntersectionObserver. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal.is-visible {
+  animation: fade-up 0.7s cubic-bezier(0.21, 0.8, 0.32, 1) forwards;
+}
+
+/* Slow-drifting decorative blobs used behind hero/section art. */
+@keyframes float-blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(18px, -14px) scale(1.08);
+  }
+}
+.blob {
+  animation: float-blob 9s ease-in-out infinite;
+}
+.blob-delay {
+  animation-delay: 2.5s;
+}
+
+/* Width-in animation for progress/result bars. */
+@keyframes grow-width {
+  from {
+    width: 0%;
+  }
+}
+.bar-grow {
+  animation: grow-width 1s cubic-bezier(0.21, 0.8, 0.32, 1) forwards;
+}
+
+.badge-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: var(--teal-soft);
+  color: var(--teal);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+}
+.badge-soon::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: currentColor;
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+  .blob,
+  .bar-grow,
+  .badge-soon::before {
+    animation: none !important;
+  }
+}

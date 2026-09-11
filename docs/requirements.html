@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdTech B2B2C Platform — MVP Requirements v1.0</title>
+<style>
+  :root{
+    --ink:#1e2230;
+    --ink-soft:#3d4460;
+    --muted:#6b7280;
+    --line:#e3e6ef;
+    --accent:#4f46e5;
+    --accent-dark:#3730a3;
+    --accent-soft:#eef0ff;
+    --teal:#0d9488;
+    --teal-soft:#e6f6f4;
+    --amber-soft:#fff7e6;
+    --amber-line:#e0a300;
+    --rose-soft:#fdeef0;
+    --rose-line:#c2405a;
+    --code-bg:#f4f5fa;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{font-size:10.25pt;}
+
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  @page{
+    size:A4;
+    margin:18mm 16mm 20mm 16mm;
+  }
+
+  /* running footer on every printed page */
+  .page-footer{
+    position:fixed;
+    bottom:-14mm;
+    left:0;right:0;
+    font-size:7.5pt;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+    border-top:0.5pt solid var(--line);
+    padding-top:3px;
+  }
+
+  h1,h2,h3,h4{line-height:1.25;color:var(--ink);font-weight:700;}
+
+  h2{
+    font-size:16pt;
+    margin:0 0 4px;
+    padding-bottom:6px;
+    border-bottom:2.5pt solid var(--accent);
+    color:var(--accent-dark);
+  }
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;}
+
+  h3{
+    font-size:12pt;
+    margin:22px 0 6px;
+    color:var(--ink);
+  }
+  h3 .num{color:var(--accent);font-weight:700;}
+
+  h4{
+    font-size:10.5pt;
+    margin:14px 0 4px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+
+  p{margin:6px 0;}
+
+  ul,ol{margin:6px 0 10px;padding-left:18px;}
+  li{margin:3px 0;}
+  li::marker{color:var(--accent);}
+
+  a{color:var(--accent-dark);text-decoration:none;}
+
+  .section{page-break-before:always;padding-top:2px;}
+  .section:first-of-type{page-break-before:avoid;}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:10px 0 14px;
+    font-size:9pt;
+  }
+  th,td{
+    border:0.5pt solid var(--line);
+    padding:5px 7px;
+    text-align:left;
+    vertical-align:top;
+  }
+  thead th{
+    background:var(--accent-soft);
+    color:var(--accent-dark);
+    font-weight:700;
+    border-color:#d5d9f2;
+  }
+  tbody tr:nth-child(even){background:#fafbfe;}
+
+  code,.mono{
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    font-size:8.7pt;
+  }
+  td code{background:var(--code-bg);padding:1px 4px;border-radius:3px;color:var(--accent-dark);white-space:nowrap;}
+
+  .rid{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:7.6pt;
+    font-weight:600;
+    background:var(--accent-soft);
+    color:var(--accent-dark);
+    padding:1px 5px;
+    border-radius:3px;
+    white-space:nowrap;
+  }
+
+  .callout{
+    border-left:3pt solid var(--accent);
+    background:var(--accent-soft);
+    padding:8px 12px;
+    margin:12px 0;
+    border-radius:0 4px 4px 0;
+    font-size:9.2pt;
+  }
+  .callout.note{border-color:var(--teal);background:var(--teal-soft);}
+  .callout.assume{border-color:var(--amber-line);background:var(--amber-soft);}
+  .callout.risk{border-color:var(--rose-line);background:var(--rose-soft);}
+  .callout .label{
+    display:block;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:7.6pt;
+    margin-bottom:3px;
+    color:var(--ink-soft);
+  }
+
+  .pill{
+    display:inline-block;
+    font-size:7.6pt;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:10px;
+    background:var(--teal-soft);
+    color:var(--teal);
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+  .pill.p1{background:#e7f0ff;color:#1d4ed8;}
+  .pill.p11{background:#f3e8ff;color:#7e22ce;}
+
+  .lead{font-size:10.5pt;color:var(--ink-soft);}
+
+  hr{border:none;border-top:0.5pt solid var(--line);margin:18px 0;}
+
+  /* ---------- cover ---------- */
+  .cover{
+    page-break-after:always;
+    height:250mm;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+  .cover .band{
+    background:linear-gradient(135deg,var(--accent-dark),var(--accent) 55%,var(--teal));
+    color:#fff;
+    padding:34px 34px 40px;
+    border-radius:6px;
+  }
+  .cover .kicker{
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:8.5pt;
+    font-weight:700;
+    opacity:0.85;
+  }
+  .cover h1{
+    color:#fff;
+    font-size:29pt;
+    margin:14px 0 8px;
+    letter-spacing:-0.01em;
+  }
+  .cover .sub{font-size:12.5pt;opacity:0.92;font-weight:400;max-width:70%;}
+  .cover .meta{
+    margin-top:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:0.5pt solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .cover .meta div{
+    padding:10px 14px;
+    border-bottom:0.5pt solid var(--line);
+    font-size:9pt;
+  }
+  .cover .meta div:nth-child(odd){background:#fafbfe;border-right:0.5pt solid var(--line);}
+  .cover .meta .k{color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-size:7.4pt;display:block;margin-bottom:2px;}
+
+  /* ---------- toc ---------- */
+  .toc{page-break-after:always;}
+  .toc ol{list-style:none;padding-left:0;counter-reset:toc;}
+  .toc > ol > li{
+    counter-increment:toc;
+    padding:5px 0;
+    border-bottom:0.5pt dotted var(--line);
+    font-weight:600;
+  }
+  .toc > ol > li::before{content:counter(toc) ".  ";color:var(--accent);}
+  .toc ul{list-style:none;padding-left:20px;margin:4px 0 0;}
+  .toc ul li{font-weight:400;font-size:9pt;color:var(--ink-soft);padding:1.5px 0;}
+
+  .kv{display:grid;grid-template-columns:150px 1fr;gap:2px 10px;font-size:9.2pt;margin:8px 0;}
+  .kv .k{color:var(--muted);}
+
+  .arch{
+    border:0.5pt solid var(--line);
+    border-radius:6px;
+    padding:14px;
+    margin:12px 0;
+    font-size:8.6pt;
+    background:#fafbfe;
+  }
+  .arch .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:6px 0;}
+  .arch .box{
+    border:0.75pt solid var(--accent);
+    background:#fff;
+    border-radius:5px;
+    padding:7px 10px;
+    text-align:center;
+    min-width:120px;
+  }
+  .arch .box.core{background:var(--accent);color:#fff;}
+  .arch .box.ext{border-color:var(--teal);color:var(--teal);}
+  .arch .box b{display:block;font-size:9pt;}
+  .arch .box span{font-size:7.4pt;color:var(--muted);}
+  .arch .box.core span{color:#dfe1ff;}
+  .arch .conn{text-align:center;color:var(--muted);font-size:12pt;line-height:1;}
+
+  .no-break{page-break-inside:avoid;}
+  small.hint{color:var(--muted);font-size:8pt;}
+</style>
+</head>
+<body>
+
+<div class="page-footer">
+  <span>EdTech B2B2C Platform &mdash; MVP Requirements &middot; v1.0</span>
+  <span>Confidential &mdash; prepared for external engineering (Toptal)</span>
+</div>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="band">
+    <div class="kicker">Product Requirements Document</div>
+    <h1>EdTech B2B2C Platform</h1>
+    <div class="sub">Minimum Viable Product &mdash; full-scope specification for CRM, learning delivery, assessments, payments, commission settlement, and the student &amp; parent mobile app.</div>
+  </div>
+
+  <div class="meta">
+    <div><span class="k">Document version</span>1.0 (Draft for build)</div>
+    <div><span class="k">Date</span>10 September 2026</div>
+    <div><span class="k">Status</span>Approved scope &mdash; ready for estimation</div>
+    <div><span class="k">Owner</span>Founding team</div>
+    <div><span class="k">Audience</span>External engineering partner (Toptal), architects, QA</div>
+    <div><span class="k">Business model</span>B2B2C &mdash; commission contracts with institutes</div>
+    <div><span class="k">Delivery targets</span>Web CRM, Marketing site, NestJS API, React Native app</div>
+    <div><span class="k">Content scope v1</span>Classes 9&ndash;12, all subjects (arch. supports 6&ndash;12)</div>
+  </div>
+</div>
+
+<!-- ============ TOC ============ -->
+<div class="toc">
+  <h2><span class="num">&mdash;</span> Contents</h2>
+  <ol>
+    <li>Executive Summary &amp; Business Model</li>
+    <li>Goals, Non-Goals &amp; MVP Boundary</li>
+    <li>Personas, Roles &amp; Permissions Matrix</li>
+    <li>System Architecture &amp; Deployables</li>
+    <li>Technology Stack</li>
+    <li>Functional Requirements
+      <ul>
+        <li>6.1 Identity, Authentication &amp; RBAC &nbsp;&middot;&nbsp; 6.2 Institute &amp; Partner Management</li>
+        <li>6.3 Contract Handling &amp; E-Signature &nbsp;&middot;&nbsp; 6.4 Sales CRM</li>
+        <li>6.5 Marketing, Campaigns &amp; Coupons &nbsp;&middot;&nbsp; 6.6 Student Management</li>
+        <li>6.7 Course &amp; Content Management &nbsp;&middot;&nbsp; 6.8 Video Delivery (Bunny.net)</li>
+        <li>6.9 Study Material / PDF &nbsp;&middot;&nbsp; 6.10 Assessment &amp; Test Engine</li>
+        <li>6.11 AI Analysis &amp; Adaptive Retests &nbsp;&middot;&nbsp; 6.12 Proctoring</li>
+        <li>6.13 Payments &amp; Billing (Razorpay) &nbsp;&middot;&nbsp; 6.14 Commission Split &amp; Settlement</li>
+        <li>6.15 Notifications &amp; Email (Brevo) &nbsp;&middot;&nbsp; 6.16 Student &amp; Parent Mobile App</li>
+        <li>6.17 Reporting &amp; Dashboards &nbsp;&middot;&nbsp; 6.18 Marketing Website &nbsp;&middot;&nbsp; 6.19 Platform Admin</li>
+      </ul>
+    </li>
+    <li>Data Model Overview</li>
+    <li>API Design &mdash; Representative Endpoints</li>
+    <li>Third-Party Integrations</li>
+    <li>Non-Functional Requirements</li>
+    <li>Security, Privacy &amp; Compliance</li>
+    <li>Infrastructure &amp; DevOps</li>
+    <li>Assumptions &amp; Open Questions</li>
+    <li>Out of Scope for v1</li>
+    <li>Suggested Delivery Phases</li>
+    <li>Appendix &mdash; Glossary &amp; Accounts Checklist</li>
+  </ol>
+</div>
+
+<!-- ============ 1 ============ -->
+<div class="section">
+  <h2><span class="num">1.</span> Executive Summary &amp; Business Model</h2>
+
+  <p class="lead">The platform is an online learning business for secondary and senior-secondary students (Classes 9&ndash;12 at launch), sold through a <b>B2B2C</b> channel: the company signs commission contracts with schools and colleges (&ldquo;Institutes&rdquo;), and those Institutes enroll their students onto the platform.</p>
+
+  <h3><span class="num">1.1</span> How the business works</h3>
+  <ul>
+    <li>The company produces and curates <b>video lessons, PDF study material, and test series</b> for every subject of Classes 9, 10, 11 and 12.</li>
+    <li>Teaching and grading are delivered by the company&rsquo;s <b>own central pool of teachers</b>, serving every Institute. Institutes do not supply teaching staff.</li>
+    <li>Each Institute signs a <b>written, e-signed contract</b> committing to a <b>minimum number of students</b> over a defined period, in exchange for a <b>commission</b> that is either a <b>percentage of student fees</b> or a <b>fixed amount per student</b>.</li>
+    <li>When a student pays, the platform automatically <b>splits and settles the Institute&rsquo;s commission</b> through Razorpay Route, and tracks the Institute&rsquo;s progress against its committed student count.</li>
+    <li>Students can also arrive <b>directly from the marketing website</b>; these are attributed to a system &ldquo;Direct&rdquo; tenant so a single commission code-path applies everywhere.</li>
+  </ul>
+
+  <h3><span class="num">1.2</span> What we are building (four deployables)</h3>
+  <table class="no-break">
+    <thead><tr><th style="width:38px">#</th><th>Deployable</th><th>Stack</th><th>Primary users</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><b>Marketing Website</b></td><td>Next.js, <b>server-side rendered</b>, separate codebase &amp; deploy</td><td>Public visitors, institute &amp; student lead capture, SEO</td></tr>
+      <tr><td>2</td><td><b>CRM + Admin Web App</b></td><td>React / Next.js, hosted on a subdomain (e.g. <code>app.domain.com</code>)</td><td>Super Admin, Ops, Sales, Marketing, Teachers, Institute Admins &mdash; <b>and Students &amp; Parents</b> (full learning experience, web)</td></tr>
+      <tr><td>3</td><td><b>Backend API</b></td><td>Node.js + <b>NestJS</b> + <b>MongoDB</b>, REST, API-first</td><td>All clients</td></tr>
+      <tr><td>4</td><td><b>Student &amp; Parent Mobile App</b></td><td><b>React Native</b> (iOS + Android)</td><td>Students, Parents &mdash; same feature set as the web learning experience</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout note">
+    <span class="label">Key decision</span>
+    Students and Parents use <b>both</b> the web CRM app and the React Native app, with <b>feature parity</b>: dashboard, videos, study material, test series, proctored subjective tests, and AI test analysis are available on both. The backend is a single API serving every client.
+  </div>
+
+  <h3><span class="num">1.3</span> MVP success criteria</h3>
+  <ul>
+    <li>An Institute can be onboarded, sign a contract, and have its students enrolled and paying within one working day.</li>
+    <li>A student can watch lessons, download material, take an MCQ test, receive AI-generated weak-topic analysis, and be served an adaptive retest &mdash; end to end &mdash; on web and mobile.</li>
+    <li>A subjective test can be taken under proctoring, graded by a teacher, and returned with analysis.</li>
+    <li>Every rupee collected is reconciled: platform revenue, tax, coupon cost, and Institute commission settled and reportable.</li>
+    <li>Super Admin can impersonate any user for support, with a full audit trail.</li>
+  </ul>
+</div>
+
+<!-- ============ 2 ============ -->
+<div class="section">
+  <h2><span class="num">2.</span> Goals, Non-Goals &amp; MVP Boundary</h2>
+
+  <h3><span class="num">2.1</span> Goals</h3>
+  <ul>
+    <li>One backend, four clients, clean REST API, multi-tenant by Institute.</li>
+    <li>Complete contract-to-commission lifecycle with automated settlement.</li>
+    <li>Complete learn-to-assess-to-improve loop with AI analysis and adaptive retests.</li>
+    <li>Anti-piracy content delivery (signed URLs, per-user watermarking, screen-capture protection on mobile).</li>
+    <li>Role-based access with impersonation and full audit logging.</li>
+    <li>Compliant handling of minors&rsquo; data and proctoring recordings (India DPDP Act).</li>
+  </ul>
+
+  <h3><span class="num">2.2</span> Non-Goals for v1</h3>
+  <ul>
+    <li>Live / synchronous online classes (Zoom / Meet integration) &mdash; planned v2.</li>
+    <li>Regional-language content and UI &mdash; English only at launch, i18n-ready structure.</li>
+    <li>SMS / WhatsApp notifications &mdash; abstraction in place, provider added later.</li>
+    <li>Public marketplace / self-serve Institute signup without a signed contract.</li>
+    <li>Advanced gamification, social feed, peer messaging.</li>
+    <li>Offline-first web app; only the mobile app supports offline content.</li>
+  </ul>
+
+  <h3><span class="num">2.3</span> Phase tags used in this document</h3>
+  <p><span class="pill p1">P1 &mdash; MVP</span> must ship at launch &nbsp;&nbsp; <span class="pill p11">P1.1 &mdash; fast follow</span> within ~6&ndash;8 weeks of launch &nbsp;&nbsp; <span class="pill">P2</span> later</p>
+</div>
+
+<!-- ============ 3 ============ -->
+<div class="section">
+  <h2><span class="num">3.</span> Personas, Roles &amp; Permissions Matrix</h2>
+
+  <h3><span class="num">3.1</span> Roles</h3>
+  <table>
+    <thead><tr><th>Role</th><th>Platform</th><th>Scope</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><b>Super Admin</b></td><td>Web</td><td>Global</td><td>Full access, platform configuration, billing, <b>impersonate any user</b>, view audit log.</td></tr>
+      <tr><td><b>Sub-Admin / Ops</b></td><td>Web</td><td>Global (restricted)</td><td>Day-to-day operations; no destructive config, no payout release, no role management.</td></tr>
+      <tr><td><b>Sales</b> (internal)</td><td>Web</td><td>Assigned institutes / leads</td><td>Lead pipeline, institute onboarding, contract drafting, follow-ups.</td></tr>
+      <tr><td><b>Marketing</b> (internal)</td><td>Web</td><td>Global marketing objects</td><td>Campaigns, UTM, <b>coupons</b>, Brevo broadcasts, website leads, acquisition analytics. Separate role from Sales.</td></tr>
+      <tr><td><b>Teacher / Content Manager</b> (internal)</td><td>Web</td><td><b>Platform-wide central pool</b></td><td>Upload &amp; publish content, build question bank, grade subjective tests, review proctoring flags.</td></tr>
+      <tr><td><b>Institute Admin</b></td><td>Web</td><td>Own Institute (tenant)</td><td>Bulk-import &amp; manage own students, view own dashboard, commitment progress, commission earned/pending, own referral code, own coupons if enabled.</td></tr>
+      <tr><td><b>Student</b></td><td><b>Web + Mobile</b></td><td>Own account</td><td>Full learning experience: dashboard, videos, material, tests, proctored tests, analysis.</td></tr>
+      <tr><td><b>Parent</b></td><td><b>Web + Mobile</b></td><td>Linked student(s)</td><td>Read-only progress &amp; results view; consent / approval for minor signup and proctoring.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout note"><span class="label">Removed from earlier drafts</span> The &ldquo;Institute Staff / Coordinator&rdquo; role is removed. Student onboarding and bulk import sit with <b>Institute Admin</b> only, because teaching is delivered centrally.</div>
+
+  <h3><span class="num">3.2</span> Permissions matrix (excerpt)</h3>
+  <p><small class="hint">&#10003; = allowed &nbsp; &middot; = not allowed &nbsp; R = read-only &nbsp; O = own records only</small></p>
+  <table>
+    <thead><tr>
+      <th>Capability</th><th>Super&nbsp;Admin</th><th>Ops</th><th>Sales</th><th>Mktg</th><th>Teacher</th><th>Inst.&nbsp;Admin</th><th>Student</th><th>Parent</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Impersonate user</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Manage roles &amp; permissions</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Create / edit Institute &amp; contract</td><td>&#10003;</td><td>&#10003;</td><td>&#10003; draft</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Approve contract / release payout</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Manage coupons &amp; campaigns</td><td>&#10003;</td><td>&#10003;</td><td>&middot;</td><td>&#10003;</td><td>&middot;</td><td>R own</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Upload / publish content</td><td>&#10003;</td><td>R</td><td>&middot;</td><td>&middot;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Build question bank / tests</td><td>&#10003;</td><td>R</td><td>&middot;</td><td>&middot;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Grade subjective tests</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Review proctoring flags</td><td>&#10003;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Bulk-import students</td><td>&#10003;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&#10003; O</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>View Institute dashboard</td><td>&#10003; all</td><td>&#10003; all</td><td>R assigned</td><td>&middot;</td><td>&middot;</td><td>&#10003; O</td><td>&middot;</td><td>&middot;</td></tr>
+      <tr><td>Take tests / watch content</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&#10003; O</td><td>&middot;</td></tr>
+      <tr><td>View student results &amp; analysis</td><td>&#10003;</td><td>&#10003;</td><td>&middot;</td><td>&middot;</td><td>&#10003;</td><td>R O</td><td>&#10003; O</td><td>R linked</td></tr>
+      <tr><td>Give proctoring / signup consent</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&middot;</td><td>&#10003; linked</td></tr>
+    </tbody>
+  </table>
+  <p><span class="rid">FR-RBAC-01</span> All authorization is enforced server-side per request; the client role only shapes navigation. <span class="rid">FR-RBAC-02</span> Every privileged or financial action writes an immutable audit entry (actor, real actor if impersonating, target, before/after, IP, timestamp).</p>
+</div>
+
+<!-- ============ 4 ============ -->
+<div class="section">
+  <h2><span class="num">4.</span> System Architecture &amp; Deployables</h2>
+
+  <div class="arch">
+    <div class="row">
+      <div class="box">Marketing Website<span>Next.js SSR</span></div>
+      <div class="box">CRM + Admin + Learning<span>React / Next.js &mdash; subdomain</span></div>
+      <div class="box">Student &amp; Parent App<span>React Native (iOS/Android)</span></div>
+    </div>
+    <div class="conn">&#8595;&nbsp;&nbsp;HTTPS / REST + JWT&nbsp;&nbsp;&#8595;</div>
+    <div class="row">
+      <div class="box core">NestJS API<span>modular monolith, REST /api/v1</span></div>
+    </div>
+    <div class="row">
+      <div class="box core">BullMQ Workers<span>email, AI, grading, webhooks, imports, reports</span></div>
+    </div>
+    <div class="conn">&#8595;</div>
+    <div class="row">
+      <div class="box">MongoDB (Atlas)<span>primary datastore</span></div>
+      <div class="box">Redis<span>queues, cache, rate-limit, sessions</span></div>
+      <div class="box">Object Storage<span>S3 / Spaces &mdash; PDFs, exports, snapshots</span></div>
+    </div>
+    <div class="conn">&#8595;&nbsp;&nbsp;outbound integrations&nbsp;&nbsp;&#8595;</div>
+    <div class="row">
+      <div class="box ext">Bunny.net<span>video hosting + CDN</span></div>
+      <div class="box ext">Razorpay + Route<span>payments, split, payouts</span></div>
+      <div class="box ext">Brevo<span>transactional + marketing email</span></div>
+      <div class="box ext">E-sign vendor<span>Leegality / Zoho Sign / Digio</span></div>
+      <div class="box ext">Proctoring<span>in-house events + optional AI SDK</span></div>
+      <div class="box ext">LLM API<span>test analysis &amp; study plans</span></div>
+    </div>
+  </div>
+
+  <h3><span class="num">4.1</span> Architectural principles</h3>
+  <ul>
+    <li><b>Modular monolith</b> NestJS API (modules: auth, tenants, institutes, contracts, crm, marketing, students, catalog, media, assessments, ai, proctoring, payments, commission, notifications, reporting, admin). Split to services only if load demands it.</li>
+    <li><b>API-first &amp; versioned</b> (<code>/api/v1</code>). All four clients consume the same contract; the mobile app must never require a bespoke endpoint shape.</li>
+    <li><b>Multi-tenant</b> by <code>instituteId</code> (with a reserved <code>DIRECT</code> tenant). Tenant scoping applied in a global query guard; cross-tenant access is a test-covered invariant.</li>
+    <li><b>Async by default</b> for anything slow or external &mdash; queued via BullMQ with retry/backoff and dead-letter handling.</li>
+    <li><b>Stateless API nodes</b>; sessions/refresh tokens and rate-limit counters in Redis; horizontal scale behind a load balancer.</li>
+    <li><b>Signed, expiring URLs</b> for every piece of protected media (video playback tokens, PDF links, proctoring uploads).</li>
+    <li><b>Idempotent webhooks</b> (Razorpay, Bunny, e-sign) keyed by event id; all webhook signatures verified.</li>
+  </ul>
+
+  <h3><span class="num">4.2</span> Environments</h3>
+  <div class="kv">
+    <span class="k">Local</span><span>Docker Compose: API, Mongo, Redis, MinIO (S3-compatible), Mailhog.</span>
+    <span class="k">Staging</span><span>Full parity, sandbox keys for all integrations, seed data, open to the client for UAT.</span>
+    <span class="k">Production</span><span>Isolated project/VPC, managed Mongo + Redis, WAF, backups, monitoring.</span>
+  </div>
+</div>
+
+<!-- ============ 5 ============ -->
+<div class="section">
+  <h2><span class="num">5.</span> Technology Stack</h2>
+  <table>
+    <thead><tr><th>Layer</th><th>Choice</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Marketing website</td><td>Next.js (App Router), SSR/SSG, TypeScript</td><td>Rendered server-side, not client-side. Deployed as a Node server (not static export) so pages are server-rendered on request.</td></tr>
+      <tr><td>CRM / Admin / Learning web</td><td>React 18 + Next.js or Vite SPA, TypeScript, component library (MUI / shadcn), TanStack Query</td><td>Runs on a subdomain. Client-rendered app behind auth.</td></tr>
+      <tr><td>Mobile app</td><td>React Native (bare or Expo with dev-client), TypeScript</td><td>iOS + Android. Native modules for screen-capture protection, secure storage, background/app-state detection, video DRM playback.</td></tr>
+      <tr><td>API</td><td>Node.js LTS, NestJS, TypeScript</td><td>REST, OpenAPI/Swagger generated, class-validator DTOs, Passport JWT.</td></tr>
+      <tr><td>Database</td><td>MongoDB (Atlas), Mongoose ODM</td><td>Replica set, daily backups, PITR on production.</td></tr>
+      <tr><td>Cache / queue</td><td>Redis + BullMQ</td><td>Job queues, caching, rate limiting, refresh-token store.</td></tr>
+      <tr><td>Object storage</td><td>AWS S3 or DigitalOcean Spaces</td><td>PDFs, generated reports/invoices, proctoring snapshots, CSV import artifacts.</td></tr>
+      <tr><td>Video</td><td>Bunny.net Stream + CDN</td><td>Signed playback, watermarking, HLS.</td></tr>
+      <tr><td>Payments</td><td>Razorpay + Razorpay Route</td><td>Orders, subscriptions, refunds, linked accounts, transfers/settlements.</td></tr>
+      <tr><td>Email</td><td>Brevo (transactional API + marketing)</td><td>Templates, lists, automation.</td></tr>
+      <tr><td>E-signature</td><td>Leegality (recommended) / Zoho Sign / Digio</td><td>Aadhaar / OTP e-sign, India-compliant audit trail.</td></tr>
+      <tr><td>AI analysis</td><td>Managed LLM API + deterministic scoring layer</td><td>Rules compute weak topics; LLM writes the narrative feedback &amp; study plan.</td></tr>
+      <tr><td>Push notifications</td><td>Firebase Cloud Messaging (Android + iOS via APNs)</td><td>Mobile only.</td></tr>
+      <tr><td>Observability</td><td>Sentry, structured logs, uptime monitor, health checks</td><td>Error + performance monitoring across API, web, mobile.</td></tr>
+      <tr><td>CI/CD</td><td>GitHub Actions</td><td>Lint, test, build, deploy; EAS build/submit for mobile.</td></tr>
+      <tr><td>IaC</td><td>Terraform</td><td>Reproducible infra for staging + production.</td></tr>
+      <tr><td>Hosting</td><td><b>AWS</b> recommended (ECS Fargate + ALB); <b>DigitalOcean</b> App Platform acceptable for lower ops</td><td>See &sect;12. Mongo &amp; Redis managed in both.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 6 FUNCTIONAL ============ -->
+<div class="section">
+  <h2><span class="num">6.</span> Functional Requirements</h2>
+  <p class="lead">Each sub-section lists requirements with stable IDs and, for flagship features, acceptance criteria. Unless tagged otherwise every requirement is <span class="pill p1">P1 &mdash; MVP</span>.</p>
+
+  <!-- 6.1 -->
+  <h3><span class="num">6.1</span> Identity, Authentication &amp; RBAC</h3>
+  <ul>
+    <li><span class="rid">FR-AUTH-01</span> Email + password registration and login; passwords hashed with bcrypt/argon2; email verification required before first paid action.</li>
+    <li><span class="rid">FR-AUTH-02</span> OTP login (email) for students/parents; optional biometric unlock on mobile after first login.</li>
+    <li><span class="rid">FR-AUTH-03</span> JWT access token (short-lived) + rotating refresh token stored server-side (Redis); refresh revocation on logout / password change.</li>
+    <li><span class="rid">FR-AUTH-04</span> Forgot-password with time-boxed single-use token.</li>
+    <li><span class="rid">FR-AUTH-05</span> TOTP 2FA: <b>mandatory</b> for Super Admin, Ops, Sales, Marketing, Teacher; optional for Institute Admin.</li>
+    <li><span class="rid">FR-AUTH-06</span> <b>Device / session limit</b> for Student accounts (default 2 active devices); registering a 3rd forces logout of the oldest; visible session list.</li>
+    <li><span class="rid">FR-AUTH-07</span> <b>Impersonation</b>: Super Admin starts &ldquo;View as &lt;user&gt;&rdquo;; a persistent banner shows on every screen with an <b>Exit impersonation</b> action; impersonated session cannot change passwords, 2FA, or payout settings.</li>
+    <li><span class="rid">FR-AUTH-08</span> Parent&ndash;student linking via invite code or Institute-provided mapping; a Parent may link multiple students; a student may have one primary Parent.</li>
+    <li><span class="rid">FR-AUTH-09</span> Global <b>audit log</b> with filter/search/export; entries immutable; retained per &sect;11 retention policy.</li>
+    <li><span class="rid">FR-AUTH-10</span> Account lockout / exponential backoff after repeated failed logins; suspicious-login email.</li>
+  </ul>
+  <div class="callout"><span class="label">Acceptance &mdash; Impersonation</span> Given a Super Admin impersonating a Student, when they open any page or call any API, then responses reflect the Student&rsquo;s permissions and data, the audit log records both the real admin id and the target id, and ending impersonation returns the admin to their own session without re-login.</div>
+
+  <!-- 6.2 -->
+  <h3><span class="num">6.2</span> Institute &amp; Partner Management</h3>
+  <ul>
+    <li><span class="rid">FR-INST-01</span> Create Institute: legal name, display name, type (school/college/coaching), address, city/state, GSTIN, PAN, primary + billing contacts, logo.</li>
+    <li><span class="rid">FR-INST-02</span> KYC document upload (registration certificate, PAN, GST, cancelled cheque / bank proof) with per-document verification status.</li>
+    <li><span class="rid">FR-INST-03</span> Institute lifecycle: <code>PROSPECT &rarr; ONBOARDING &rarr; ACTIVE &rarr; SUSPENDED &rarr; CHURNED</code>; state changes are audited and can gate student enrollment.</li>
+    <li><span class="rid">FR-INST-04</span> Unique <b>Institute referral code</b> auto-generated; used at student signup for commission attribution; regeneratable with history.</li>
+    <li><span class="rid">FR-INST-05</span> Razorpay Route <b>Linked Account</b> creation &amp; KYC status tracking per Institute; commission settlement blocked until active.</li>
+    <li><span class="rid">FR-INST-06</span> <b>Commitment tracking</b>: committed student count vs enrolled vs paid; progress %, projected shortfall, and alerts at configurable thresholds (e.g. 60 days to term-end and &lt;70% of commitment).</li>
+    <li><span class="rid">FR-INST-07</span> Commission ledger per Institute: accrued, pending settlement, settled, adjustments, disputes, running balance.</li>
+    <li><span class="rid">FR-INST-08</span> Institute data export (own students + performance) as CSV/Excel.</li>
+    <li><span class="rid">FR-INST-09</span> Notes, tasks, and file attachments on the Institute record (shared with Sales CRM &sect;6.4).</li>
+  </ul>
+
+  <!-- 6.3 -->
+  <h3><span class="num">6.3</span> Contract Handling &amp; E-Signature</h3>
+  <ul>
+    <li><span class="rid">FR-CTR-01</span> Contract created from a versioned template or by uploading a prepared PDF.</li>
+    <li><span class="rid">FR-CTR-02</span> Structured terms captured alongside the document:
+      <ul>
+        <li>Commission model: <code>PERCENTAGE</code> (of net student fee) or <code>FIXED</code> (&#8377; per enrolled/paid student).</li>
+        <li>Commission rate / amount; optional <b>slabs</b> (e.g. 10% up to 200 students, 12% beyond).</li>
+        <li><b>Minimum student commitment</b> (count) and commitment period (start &amp; end dates).</li>
+        <li>Settlement cycle: <code>PER_TRANSACTION</code> or <code>WEEKLY</code> or <code>MONTHLY</code>.</li>
+        <li>Commission basis: gross vs <b>net of coupon</b> (default net); refund clawback rule.</li>
+        <li>Renewal terms, notice period, termination clause.</li>
+      </ul>
+    </li>
+    <li><span class="rid">FR-CTR-03</span> E-signature via integrated vendor: send for signature, track signer status, receive signed PDF + tamper-proof audit trail via webhook.</li>
+    <li><span class="rid">FR-CTR-04</span> Contract states: <code>DRAFT &rarr; SENT &rarr; SIGNED &rarr; ACTIVE &rarr; EXPIRING &rarr; EXPIRED / RENEWED / TERMINATED</code>.</li>
+    <li><span class="rid">FR-CTR-05</span> Only an <b>ACTIVE</b> contract enables commission calculation; term changes require a new version or addendum (old versions retained &amp; viewable).</li>
+    <li><span class="rid">FR-CTR-06</span> Automatic <b>expiry reminders</b> to Sales + Super Admin at 60/30/7 days.</li>
+    <li><span class="rid">FR-CTR-07</span> Contract approval gate: Super Admin countersign / approve before <b>ACTIVE</b>.</li>
+  </ul>
+  <div class="callout"><span class="label">Acceptance &mdash; Contract to commission</span> Given an ACTIVE percentage contract at 12% net, when a mapped student pays &#8377;10,000 with a &#8377;1,000 coupon, then commission accrued = 12% &times; &#8377;9,000 = &#8377;1,080, a Route transfer of &#8377;1,080 is scheduled per the settlement cycle, the Institute ledger updates, and the student counts toward commitment on successful payment capture.</div>
+
+  <!-- 6.4 -->
+  <h3><span class="num">6.4</span> Sales CRM</h3>
+  <ul>
+    <li><span class="rid">FR-CRM-01</span> Lead entity (Institute prospect): source, owner, stage, region, expected student count, expected annualised value, next action date.</li>
+    <li><span class="rid">FR-CRM-02</span> Configurable <b>pipeline / kanban</b>; drag between stages; win/loss reasons on close.</li>
+    <li><span class="rid">FR-CRM-03</span> Activities: tasks, reminders, call logs, meeting notes, attachments; activity timeline per lead/Institute.</li>
+    <li><span class="rid">FR-CRM-04</span> Assignment &amp; ownership transfer; &ldquo;my leads&rdquo; vs team view; territory/region tag.</li>
+    <li><span class="rid">FR-CRM-05</span> Send email from CRM via Brevo using templates; log opens/clicks on the timeline.</li>
+    <li><span class="rid">FR-CRM-06</span> Website &ldquo;Partner with us&rdquo; form creates a Lead automatically with source = website.</li>
+    <li><span class="rid">FR-CRM-07</span> Convert Lead &rarr; Institute (carries over contacts, notes, owner).</li>
+    <li><span class="rid">FR-CRM-08</span> Reports: pipeline value by stage, stage conversion, rep activity, win rate, forecast (&sum; expected students &times; price &times; commission).</li>
+  </ul>
+
+  <!-- 6.5 -->
+  <h3><span class="num">6.5</span> Marketing, Campaigns &amp; Coupons</h3>
+  <ul>
+    <li><span class="rid">FR-MKT-01</span> <b>Coupon engine</b>: code, discount type (<code>PERCENT</code> / <code>FLAT</code>), value, currency.</li>
+    <li><span class="rid">FR-MKT-02</span> Constraints: valid-from/valid-to, total usage cap, per-user cap, minimum order value, first-purchase-only, applicable classes / subjects / plans.</li>
+    <li><span class="rid">FR-MKT-03</span> Scope: <code>GLOBAL</code>, <code>INSTITUTE</code> (auto-attributes enrollment to that Institute), <code>CAMPAIGN</code>.</li>
+    <li><span class="rid">FR-MKT-04</span> Stacking rule per coupon (allow / disallow combining with other offers); server is the single source of truth for final price.</li>
+    <li><span class="rid">FR-MKT-05</span> Campaign object with UTM capture; UTM + referral code persisted on the Student record at signup.</li>
+    <li><span class="rid">FR-MKT-06</span> Brevo broadcasts: contact lists &amp; segments, scheduled sends, unsubscribe sync, marketing vs transactional separation.</li>
+    <li><span class="rid">FR-MKT-07</span> Acquisition dashboard: signups by source, coupon redemptions &amp; discount cost, campaign ROI, funnel (visit &rarr; signup &rarr; paid).</li>
+    <li><span class="rid">FR-MKT-08</span> <span class="pill p11">P1.1</span> Referral rewards for students; A/B pricing blocks on the website.</li>
+  </ul>
+
+  <!-- 6.6 -->
+  <h3><span class="num">6.6</span> Student Management</h3>
+  <ul>
+    <li><span class="rid">FR-STU-01</span> Enrollment paths: (a) Institute bulk import, (b) Institute/campaign referral link, (c) direct website signup (&rarr; DIRECT tenant).</li>
+    <li><span class="rid">FR-STU-02</span> Student profile: name, DOB, contact, <b>board, class (6&ndash;12), stream, subjects, batch</b>, Institute mapping, parent link, status, acquisition metadata.</li>
+    <li><span class="rid">FR-STU-03</span> <b>Bulk CSV import</b> by Institute Admin: template download, row validation, dedupe, dry-run preview, error report, auto credential generation, welcome email with app links.</li>
+    <li><span class="rid">FR-STU-04</span> Status: <code>INVITED &rarr; ACTIVE &rarr; SUSPENDED &rarr; EXPIRED &rarr; REFUNDED</code>; access derived from status + purchased plan + class.</li>
+    <li><span class="rid">FR-STU-05</span> Content/test access is computed: a student sees only their class &amp; subjects, plus free/sample items, plus anything their plan grants.</li>
+    <li><span class="rid">FR-STU-06</span> <b>Attribution &amp; re-attribution policy</b>: first valid Institute code wins for the current term; later code changes are logged and take effect from the next billing cycle; disputes flagged for Ops.</li>
+    <li><span class="rid">FR-STU-07</span> Parent consent gate for students under 18: signup incomplete until Parent approves (see &sect;11).</li>
+  </ul>
+
+  <!-- 6.7 -->
+  <h3><span class="num">6.7</span> Course &amp; Content Management (LMS admin)</h3>
+  <ul>
+    <li><span class="rid">FR-CNT-01</span> Taxonomy: <code>Board &rarr; Class &rarr; Subject &rarr; Chapter &rarr; Topic &rarr; Lesson</code>. Every content item and question is tagged to a <b>Topic</b> (drives AI analysis &amp; test blueprints).</li>
+    <li><span class="rid">FR-CNT-02</span> Content types: video (Bunny), PDF/notes/resource (S3), external link. Each item: title, description, topic tags, difficulty, free/paid flag, order, status.</li>
+    <li><span class="rid">FR-CNT-03</span> Workflow: <code>DRAFT &rarr; IN_REVIEW &rarr; PUBLISHED</code>; schedule publish/unpublish; content versioning with rollback.</li>
+    <li><span class="rid">FR-CNT-04</span> <b>Bulk content tooling</b>: batch upload of videos (with metadata CSV), batch PDF upload, batch topic re-tagging. Treated as a first-class workstream given catalogue volume (all subjects &times; 4 classes).</li>
+    <li><span class="rid">FR-CNT-05</span> Content search &amp; filters for admins; broken-link / missing-media report.</li>
+    <li><span class="rid">FR-CNT-06</span> Per-student <b>progress capture</b> API: video position &amp; % watched, lesson complete, chapter complete, time-on-content; powers dashboards &amp; AI.</li>
+    <li><span class="rid">FR-CNT-07</span> Student-side content features (web + mobile): resume playback, bookmarks, personal notes, rate/report a lesson.</li>
+  </ul>
+
+  <!-- 6.8 -->
+  <h3><span class="num">6.8</span> Video Delivery (Bunny.net)</h3>
+  <ul>
+    <li><span class="rid">FR-VID-01</span> Server-side upload / TUS pipeline to Bunny; transcode to adaptive HLS renditions; poster/thumbnail generation.</li>
+    <li><span class="rid">FR-VID-02</span> Playback only via <b>token-signed, short-expiry URLs</b> issued per student per session; referrer / allowed-origin lock; no raw CDN URL exposed to the client.</li>
+    <li><span class="rid">FR-VID-03</span> <b>Dynamic watermark</b> overlaying student id / email / phone, position rotating periodically (anti screen-record).</li>
+    <li><span class="rid">FR-VID-04</span> Player features: speed control, quality selector, resume, chapters, captions/subtitles upload, keyboard shortcuts (web).</li>
+    <li><span class="rid">FR-VID-05</span> Mobile: DRM-capable player, <b>screenshot / screen-record blocking</b> (Android <code>FLAG_SECURE</code>, iOS capture detection), screen-mirroring / external-display block during playback.</li>
+    <li><span class="rid">FR-VID-06</span> <span class="pill p1">P1</span> <b>Offline download</b> (mobile): encrypted local store, per-title download, device-bound, expiry (e.g. 30 days / re-validate every 7), max concurrent downloads, admin toggle per content item to allow/deny offline.</li>
+    <li><span class="rid">FR-VID-07</span> Bunny webhook handling for encode-complete / failure; ret/alert on failure.</li>
+    <li><span class="rid">FR-VID-08</span> Playback analytics event stream (start, progress pings, complete, errors) stored for reporting &amp; AI.</li>
+  </ul>
+
+  <!-- 6.9 -->
+  <h3><span class="num">6.9</span> Study Material / PDF</h3>
+  <ul>
+    <li><span class="rid">FR-PDF-01</span> Upload PDFs/resources to object storage; served only via <b>signed expiring links</b>.</li>
+    <li><span class="rid">FR-PDF-02</span> In-app / in-browser PDF viewer with <b>per-student watermark</b> (name, id, timestamp) stamped on view.</li>
+    <li><span class="rid">FR-PDF-03</span> Per-item flags: allow/deny download, allow/deny print.</li>
+    <li><span class="rid">FR-PDF-04</span> Mobile offline access for permitted PDFs uses the same encrypted store &amp; expiry as video (FR-VID-06).</li>
+    <li><span class="rid">FR-PDF-05</span> Bookmarks &amp; personal notes per document (student).</li>
+  </ul>
+
+  <!-- 6.10 -->
+  <h3><span class="num">6.10</span> Assessment &amp; Test Engine</h3>
+  <ul>
+    <li><span class="rid">FR-ASM-01</span> <b>Question bank</b> item types: MCQ single-correct, MCQ multiple-correct, numerical/integer, subjective/descriptive. Fields: stem (rich text + images + LaTeX), options, correct answer(s), marks, negative marks, expected time, difficulty, solution/explanation, board/class/subject/chapter/<b>topic</b> tags, status.</li>
+    <li><span class="rid">FR-ASM-02</span> Bulk question import (Excel/CSV/Word template) with image handling &amp; validation report.</li>
+    <li><span class="rid">FR-ASM-03</span> <b>Test types</b>: topic-wise, chapter-wise, mock / full-length, <b>half-yearly</b>, <b>full-yearly</b>, and <b>adaptive weak-area retest</b> (&sect;6.11).</li>
+    <li><span class="rid">FR-ASM-04</span> Test builder: fixed question list <i>or</i> <b>blueprint</b> (pick N of M from a pool per chapter/difficulty), section definitions, per-section timing, marking scheme, negative marking, attempts allowed, availability window, pause/resume policy.</li>
+    <li><span class="rid">FR-ASM-05</span> <b>Randomisation</b>: shuffle question order and option order per attempt; per-student question set from pools; anti-collusion seed per attempt.</li>
+    <li><span class="rid">FR-ASM-06</span> Test-taking runtime (web + mobile): countdown timer, autosave every N seconds, resume after crash/network loss, submit-on-timeout, question palette (answered / marked-for-review / unseen), section lock.</li>
+    <li><span class="rid">FR-ASM-07</span> Subjective answer input: rich text, LaTeX/equation, and <b>image upload of handwritten answer</b> (multi-page).</li>
+    <li><span class="rid">FR-ASM-08</span> <b>Auto-grading</b> for MCQ/numerical on submit. <b>Manual grading</b> for subjective: teacher queue, per-criterion rubric, partial marks, inline annotation, optional second-review/moderation, publish results.</li>
+    <li><span class="rid">FR-ASM-09</span> Result object: raw &amp; percentage score, section scores, percentile, rank (cohort-scoped), accuracy, attempted/correct/incorrect/skipped, time per question, time vs cohort.</li>
+    <li><span class="rid">FR-ASM-10</span> <b>Topic-wise &amp; chapter-wise strength/weakness heatmap</b>; comparison vs previous attempts; full solution review mode.</li>
+    <li><span class="rid">FR-ASM-11</span> Basic anti-cheating on MCQ: response-time anomaly detection, impossible-speed flags, duplicate-attempt prevention.</li>
+    <li><span class="rid">FR-ASM-12</span> <span class="pill p11">P1.1</span> Institute-scoped leaderboards (toggleable), scheduled test series calendars.</li>
+  </ul>
+
+  <!-- 6.11 -->
+  <h3><span class="num">6.11</span> AI Analysis &amp; Adaptive Retests</h3>
+  <ul>
+    <li><span class="rid">FR-AI-01</span> After every graded test, a deterministic layer computes per-topic mastery from accuracy, difficulty, time, and trend across attempts, and classifies each topic as <b>strong / borderline / weak</b>.</li>
+    <li><span class="rid">FR-AI-02</span> An LLM generates a <b>student-facing narrative</b>: what went well, top 3 weak concepts, likely misconceptions, and a prioritised <b>study plan</b> with deep links to the exact lessons/PDFs for those topics.</li>
+    <li><span class="rid">FR-AI-03</span> <b>Adaptive weak-area retest</b>: on demand or auto-scheduled, the engine builds a new test drawn from the student&rsquo;s weak topics using the blueprint sampler; difficulty adjusts based on the last attempt.</li>
+    <li><span class="rid">FR-AI-04</span> Progress view shows weak-topic list shrinking over time; &ldquo;next best action&rdquo; on the dashboard.</li>
+    <li><span class="rid">FR-AI-05</span> Optional diagnostic test per subject at onboarding to seed the initial mastery baseline.</li>
+    <li><span class="rid">FR-AI-06</span> All AI output is advisory, logged, and regenerable; prompts &amp; model version stored with each analysis for reproducibility. No student PII beyond first name sent to the model unless configured otherwise.</li>
+  </ul>
+  <div class="callout"><span class="label">Acceptance &mdash; Adaptive loop</span> Given a completed chapter test where topics A and C are classified weak, when the student opens &ldquo;Practice weak areas&rdquo;, then a new test is generated containing only A/C-tagged questions not seen in the last attempt, and on completion the analysis shows updated mastery for A and C and an updated study plan.</div>
+
+  <!-- 6.12 -->
+  <h3><span class="num">6.12</span> Proctoring (subjective tests only)</h3>
+  <ul>
+    <li><span class="rid">FR-PRO-01</span> Proctoring is enabled <b>only for subjective test types</b> by default; a per-test flag can enable it for any test.</li>
+    <li><span class="rid">FR-PRO-02</span> Pre-test: identity selfie capture + stored reference photo match prompt, camera/mic permission, environment/system check, consent acknowledgement (student + Parent consent on file for minors).</li>
+    <li><span class="rid">FR-PRO-03</span> During test &mdash; <b>web</b>: enforced full-screen, tab-switch / window-blur detection, copy-paste &amp; right-click block, periodic webcam snapshots (configurable interval), optional continuous webcam recording, disconnect handling with grace period.</li>
+    <li><span class="rid">FR-PRO-04</span> During test &mdash; <b>mobile</b>: app-backgrounding / app-switch detection with forced return, screenshot &amp; screen-record block, no split-screen / picture-in-picture, incoming-call interruption logging, periodic front-camera snapshots.</li>
+    <li><span class="rid">FR-PRO-05</span> AI flags (in-house heuristics for MVP, optional vendor SDK): no face, multiple faces, face-not-matching-reference, phone/object detected, prolonged absence, background voices.</li>
+    <li><span class="rid">FR-PRO-06</span> Events &amp; media stream to a <b>Proctor Review dashboard</b> (web, Teacher/Ops): per-attempt timeline, snapshot gallery, recording playback, severity score, decision = <code>ACCEPT</code> / <code>FLAG</code> / <code>INVALIDATE + allow retake</code>, reviewer notes.</li>
+    <li><span class="rid">FR-PRO-07</span> Proctoring media stored encrypted with a defined <b>retention window</b> (default 90 days) then auto-purged; access is role-limited and audited.</li>
+  </ul>
+
+  <!-- 6.13 -->
+  <h3><span class="num">6.13</span> Payments &amp; Billing (Razorpay)</h3>
+  <ul>
+    <li><span class="rid">FR-PAY-01</span> Catalogue of plans: per-subject, per-class bundle, full-year package, multi-year; <b>one-time</b> and <b>subscription</b> (monthly/annual) both supported; Institute-negotiated price overrides.</li>
+    <li><span class="rid">FR-PAY-02</span> Checkout: server computes final price (base &minus; coupon + tax); creates Razorpay Order / Subscription; client uses Razorpay Checkout.</li>
+    <li><span class="rid">FR-PAY-03</span> <b>Webhooks</b> (signed, idempotent): <code>payment.captured</code>, <code>payment.failed</code>, <code>order.paid</code>, <code>subscription.*</code>, <code>refund.processed</code>, <code>transfer.*</code>, <code>settlement.*</code>.</li>
+    <li><span class="rid">FR-PAY-04</span> On successful capture: activate student access, record acquisition/attribution, accrue Institute commission, trigger invoice + confirmation email, count toward Institute commitment.</li>
+    <li><span class="rid">FR-PAY-05</span> <b>Refunds</b>: full/partial, reason codes, Ops approval workflow, GST credit note, access revocation policy, <b>commission clawback</b> from the Institute ledger.</li>
+    <li><span class="rid">FR-PAY-06</span> <b>GST-compliant invoices</b>: sequential numbering, company + customer details, HSN/SAC, tax breakup, downloadable PDF; stored in object storage.</li>
+    <li><span class="rid">FR-PAY-07</span> Failed-payment dunning: retry schedule + Brevo emails; subscription grace period &amp; auto-suspend.</li>
+    <li><span class="rid">FR-PAY-08</span> Payment &amp; reconciliation report: gross, discount, tax, net, fees, refunds, commission, platform revenue &mdash; per day / Institute / plan.</li>
+  </ul>
+
+  <!-- 6.14 -->
+  <h3><span class="num">6.14</span> Commission Split &amp; Settlement (Razorpay Route)</h3>
+  <ul>
+    <li><span class="rid">FR-COM-01</span> Each Institute maps to a Razorpay <b>Linked Account</b>; settlement is blocked until its KYC is active.</li>
+    <li><span class="rid">FR-COM-02</span> At payment time the engine reads the Institute&rsquo;s ACTIVE contract and computes commission (percentage-of-net or fixed-per-student, honouring slabs).</li>
+    <li><span class="rid">FR-COM-03</span> Settlement mode per contract:
+      <ul>
+        <li><code>PER_TRANSACTION</code> &mdash; create a Route <b>transfer</b> on the payment (immediate or on-hold).</li>
+        <li><code>WEEKLY</code> / <code>MONTHLY</code> &mdash; accrue in the ledger, then a scheduled job creates a consolidated transfer/payout for the period.</li>
+      </ul>
+    </li>
+    <li><span class="rid">FR-COM-04</span> Commission basis default = <b>net of coupon</b>; refunds create negative ledger entries and reduce the next settlement (or raise a recovery task if the balance is negative).</li>
+    <li><span class="rid">FR-COM-05</span> Per-Institute <b>settlement statement</b> (PDF/CSV): opening balance, accruals, adjustments, transfers, TDS note, closing balance; visible on the Institute dashboard.</li>
+    <li><span class="rid">FR-COM-06</span> Payout release requires Super Admin approval for consolidated cycles; all transfers reconciled against Razorpay <code>transfer.*</code> / <code>settlement.*</code> webhooks.</li>
+    <li><span class="rid">FR-COM-07</span> Dispute flag on a ledger line freezes that amount pending Ops resolution.</li>
+  </ul>
+
+  <!-- 6.15 -->
+  <h3><span class="num">6.15</span> Notifications &amp; Email (Brevo) + Push</h3>
+  <ul>
+    <li><span class="rid">FR-NOT-01</span> Transactional email via Brevo for: welcome/credentials, email verification, OTP, payment success/failure, refund processed, enrollment confirmed, test scheduled / starting soon, result published, subjective grading complete, contract sent/signed/expiring, commission settled, commitment-shortfall alert, suspicious login.</li>
+    <li><span class="rid">FR-NOT-02</span> Automated sequences: student onboarding drip, inactivity re-engagement, trial-to-paid nudges.</li>
+    <li><span class="rid">FR-NOT-03</span> In-app notification centre (web + mobile) with read/unread &amp; deep links.</li>
+    <li><span class="rid">FR-NOT-04</span> <b>Push notifications</b> (mobile, FCM/APNs): test reminders, results, new content in the student&rsquo;s subjects, payment/subscription alerts. Per-category opt-out.</li>
+    <li><span class="rid">FR-NOT-05</span> Admin-editable templates, per-event enable/disable, and a notification log.</li>
+    <li><span class="rid">FR-NOT-06</span> SMS/WhatsApp behind a provider interface, <b>not implemented in v1</b>.</li>
+  </ul>
+
+  <!-- 6.16 -->
+  <h3><span class="num">6.16</span> Student &amp; Parent Mobile App (React Native)</h3>
+  <p><b>Feature parity with the web learning experience</b>, plus mobile-native protections. iOS + Android, phone-first with responsive tablet layout.</p>
+  <h4>Student</h4>
+  <ul>
+    <li><span class="rid">FR-APP-01</span> Auth: credential/OTP login, biometric unlock, device-limit enforcement (FR-AUTH-06), secure token storage (Keychain / Keystore).</li>
+    <li><span class="rid">FR-APP-02</span> <b>Dashboard</b>: continue watching, upcoming/available tests, pending analysis, study streak, overall &amp; subject progress, weak-topic highlights, announcements, notifications.</li>
+    <li><span class="rid">FR-APP-03</span> <b>Videos</b>: signed playback, dynamic watermark, speed/quality, resume, chapters, captions; screenshot/screen-record &amp; mirroring block; <b>encrypted offline downloads</b> with expiry.</li>
+    <li><span class="rid">FR-APP-04</span> <b>Study material</b>: watermarked PDF viewer, allow/deny download &amp; print, offline for permitted items, bookmarks &amp; notes.</li>
+    <li><span class="rid">FR-APP-05</span> <b>Test series</b>: all test types, timer, autosave, crash/network resume, question palette, subjective input incl. handwritten-answer photo upload.</li>
+    <li><span class="rid">FR-APP-06</span> <b>Proctoring</b> for subjective tests: pre-test identity + consent, app-switch/background detection, snapshot capture, screen-capture block (per FR-PRO-04).</li>
+    <li><span class="rid">FR-APP-07</span> <b>Test analysis</b>: score/percentile/rank, topic &amp; chapter heatmap, attempt comparison, full solutions, AI narrative + study plan with deep links into content, one-tap &ldquo;practice weak areas&rdquo;.</li>
+    <li><span class="rid">FR-APP-08</span> Payments: view plans, apply coupon, pay via Razorpay (in-app), view invoices, manage subscription. <small class="hint">(Store-billing implications to be confirmed &mdash; see &sect;13 Q.)</small></li>
+    <li><span class="rid">FR-APP-09</span> Offline behaviour: cached content + last-synced dashboard/results readable offline; test submission &amp; proctoring require connectivity; graceful queue-and-sync for progress events.</li>
+    <li><span class="rid">FR-APP-10</span> Push notification handling &amp; deep links; in-app notification centre.</li>
+    <li><span class="rid">FR-APP-11</span> Accessibility (dynamic type, screen-reader labels), crash/error reporting, forced-update mechanism, staged rollout.</li>
+  </ul>
+  <h4>Parent</h4>
+  <ul>
+    <li><span class="rid">FR-APP-20</span> Link to one or more students via invite code; switch between linked students.</li>
+    <li><span class="rid">FR-APP-21</span> Read-only dashboard: attendance/engagement, content progress, test results &amp; analysis summaries, upcoming tests.</li>
+    <li><span class="rid">FR-APP-22</span> <b>Consent actions</b>: approve minor signup, approve proctoring &amp; recording, approve data-processing terms; consent events logged with version/timestamp.</li>
+    <li><span class="rid">FR-APP-23</span> Notifications: result published, low activity, payment/subscription events, teacher remarks.</li>
+    <li><span class="rid">FR-APP-24</span> No access to test-taking, content playback controls, or financial actions beyond viewing invoices for linked students.</li>
+  </ul>
+
+  <!-- 6.17 -->
+  <h3><span class="num">6.17</span> Reporting &amp; Dashboards</h3>
+  <table>
+    <thead><tr><th>Audience</th><th>Key views</th></tr></thead>
+    <tbody>
+      <tr><td><b>Super Admin</b></td><td>Revenue (gross/net/platform), active students, new enrollments, MRR &amp; churn, commission payable/settled, Institute performance vs commitment, content consumption, test participation &amp; average scores, refund rate, coupon cost, proctoring flag volume.</td></tr>
+      <tr><td><b>Institute Admin</b></td><td>Own students, enrollments over time, commitment progress &amp; projected shortfall, commission earned/pending, settlement statements, student performance summary, top &amp; at-risk students.</td></tr>
+      <tr><td><b>Sales</b></td><td>Pipeline value &amp; stage conversion, activity, win rate, forecast.</td></tr>
+      <tr><td><b>Marketing</b></td><td>Acquisition by channel, coupon/campaign performance, funnel.</td></tr>
+      <tr><td><b>Teacher</b></td><td>Grading queue &amp; SLA, class/cohort performance, item analysis (most-missed questions), proctoring review queue.</td></tr>
+      <tr><td><b>Student / Parent</b></td><td>Progress, streak, weak topics, results &amp; analysis (see &sect;6.16).</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><span class="rid">FR-RPT-01</span> All list/report views exportable to CSV/Excel; key financial reports exportable to PDF.</li>
+    <li><span class="rid">FR-RPT-02</span> Date-range &amp; entity filters; tenant-scoped automatically for Institute Admins.</li>
+    <li><span class="rid">FR-RPT-03</span> <span class="pill p11">P1.1</span> Scheduled email reports.</li>
+  </ul>
+
+  <!-- 6.18 -->
+  <h3><span class="num">6.18</span> Marketing Website (Next.js, SSR)</h3>
+  <ul>
+    <li><span class="rid">FR-WEB-01</span> Pages: Home, About, Courses/Classes, Pricing, <b>For Institutes / Partner Program</b>, Blog, Contact, FAQ, Legal (Terms, Privacy, Refund &amp; Cancellation, Proctoring &amp; Consent).</li>
+    <li><span class="rid">FR-WEB-02</span> <b>Server-side rendered</b> pages (SSR/SSG), semantic HTML, meta/OG/Twitter tags, <code>sitemap.xml</code>, <code>robots.txt</code>, schema.org (Organization, Course, FAQ), image optimisation, Core Web Vitals budget (LCP &lt; 2.5s).</li>
+    <li><span class="rid">FR-WEB-03</span> Lead capture: Institute partnership form &rarr; CRM Lead; student signup / free-trial &rarr; backend.</li>
+    <li><span class="rid">FR-WEB-04</span> Coupon-aware pricing display; sample/free content CTA; app-store badges.</li>
+    <li><span class="rid">FR-WEB-05</span> Blog via lightweight headless CMS (recommend Sanity) or MDX; static pages acceptable at launch.</li>
+    <li><span class="rid">FR-WEB-06</span> Analytics (GA4 or Plausible), cookie consent, WhatsApp/contact widget, responsive, WCAG 2.1 AA target.</li>
+  </ul>
+
+  <!-- 6.19 -->
+  <h3><span class="num">6.19</span> Platform Administration &amp; Configuration</h3>
+  <ul>
+    <li><span class="rid">FR-ADM-01</span> Manage taxonomy (boards, classes, subjects, chapters, topics).</li>
+    <li><span class="rid">FR-ADM-02</span> Manage plans, pricing, tax rates, coupons, campaigns.</li>
+    <li><span class="rid">FR-ADM-03</span> Feature flags &amp; environment config; maintenance mode.</li>
+    <li><span class="rid">FR-ADM-04</span> Content &amp; question review/moderation queues.</li>
+    <li><span class="rid">FR-ADM-05</span> Lightweight support inbox / query ticketing (email-backed) &mdash; basic in v1.</li>
+    <li><span class="rid">FR-ADM-06</span> Manage notification templates &amp; rules; view notification &amp; webhook logs.</li>
+    <li><span class="rid">FR-ADM-07</span> Audit-log viewer with filters &amp; export.</li>
+  </ul>
+</div>
+
+<!-- ============ 7 DATA MODEL ============ -->
+<div class="section">
+  <h2><span class="num">7.</span> Data Model Overview</h2>
+  <p class="lead">Core collections and their principal relationships. All tenant-owned documents carry <code>instituteId</code> (or <code>DIRECT</code>). All documents carry <code>createdAt</code>, <code>updatedAt</code>, and soft-delete where relevant.</p>
+  <table>
+    <thead><tr><th>Collection</th><th>Key fields</th><th>Relationships</th></tr></thead>
+    <tbody>
+      <tr><td><b>User</b></td><td>name, email, phone, passwordHash, roles[], status, twoFactor, deviceSessions[]</td><td>&rarr; Institute (staff/admin), &rarr; StudentProfile, &rarr; ParentLink</td></tr>
+      <tr><td><b>Institute</b></td><td>legalName, type, gstin, pan, status, referralCode, linkedAccountId, commitmentSummary</td><td>&larr; Users, &larr; Contracts, &larr; Students, &larr; CommissionLedger</td></tr>
+      <tr><td><b>Contract</b></td><td>version, status, commissionModel, rate, slabs[], minStudents, periodStart/End, settlementCycle, basis, documentUrl, esignRef</td><td>&rarr; Institute</td></tr>
+      <tr><td><b>Lead</b></td><td>source, stage, owner, region, expectedStudents, expectedValue, activities[]</td><td>&rarr; Institute (on conversion), &rarr; User (owner)</td></tr>
+      <tr><td><b>StudentProfile</b></td><td>userId, board, class, stream, subjects[], batch, status, attribution{instituteId, coupon, utm}, parentId</td><td>&rarr; User, &rarr; Institute, &rarr; Enrollment, &rarr; Attempt</td></tr>
+      <tr><td><b>ParentLink</b></td><td>parentUserId, studentIds[], consents[]</td><td>&rarr; User</td></tr>
+      <tr><td><b>Taxonomy</b> (Board/Class/Subject/Chapter/Topic)</td><td>name, parentId, order, code</td><td>self-referential tree</td></tr>
+      <tr><td><b>ContentItem</b></td><td>type(video/pdf/link), title, topicIds[], difficulty, isFree, status, bunnyVideoId / storageKey, allowDownload, allowOffline</td><td>&rarr; Topic(s)</td></tr>
+      <tr><td><b>ContentProgress</b></td><td>studentId, contentItemId, position, percent, completedAt, timeSpent</td><td>&rarr; Student, &rarr; ContentItem</td></tr>
+      <tr><td><b>Question</b></td><td>type, stem, options[], answerKey, marks, negMarks, difficulty, topicIds[], solution, status</td><td>&rarr; Topic(s)</td></tr>
+      <tr><td><b>Test</b></td><td>type, blueprint / questionIds[], sections[], timing, markingScheme, proctored, window, attemptsAllowed</td><td>&rarr; Questions / Topics</td></tr>
+      <tr><td><b>Attempt</b></td><td>testId, studentId, servedQuestions[], responses[], startedAt, submittedAt, autoScore, status</td><td>&rarr; Test, &rarr; Student, &rarr; ProctorSession, &rarr; Result</td></tr>
+      <tr><td><b>Result</b></td><td>score, percent, sectionScores, percentile, rank, topicMastery[], timeAnalysis</td><td>&rarr; Attempt</td></tr>
+      <tr><td><b>AiAnalysis</b></td><td>attemptId, weakTopics[], narrative, studyPlan[], modelVersion, prompt</td><td>&rarr; Attempt, &rarr; Result</td></tr>
+      <tr><td><b>ProctorSession</b></td><td>attemptId, events[], snapshots[], recordingKey, aiFlags[], reviewDecision, reviewerId</td><td>&rarr; Attempt</td></tr>
+      <tr><td><b>Plan</b> / <b>Coupon</b> / <b>Campaign</b></td><td>pricing, interval; code, type, value, constraints, scope; utm, dates</td><td>&rarr; Taxonomy scope; Coupon &rarr; Institute (optional)</td></tr>
+      <tr><td><b>Order</b> / <b>Payment</b> / <b>Subscription</b> / <b>Refund</b> / <b>Invoice</b></td><td>amounts, tax, coupon, razorpayIds, status</td><td>&rarr; Student, &rarr; Plan, &rarr; Institute</td></tr>
+      <tr><td><b>CommissionLedgerEntry</b></td><td>instituteId, sourcePaymentId, type(accrual/adjustment/transfer), amount, status, settlementId</td><td>&rarr; Institute, &rarr; Payment, &rarr; Contract</td></tr>
+      <tr><td><b>Notification</b> / <b>AuditLog</b> / <b>WebhookEvent</b></td><td>type, payload, actor, targetRef, readAt / hash / dedupeKey</td><td>polymorphic refs</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 8 API ============ -->
+<div class="section">
+  <h2><span class="num">8.</span> API Design &mdash; Representative Endpoints</h2>
+  <p class="lead">REST, base path <code>/api/v1</code>. JSON only. Auth via <code>Authorization: Bearer &lt;jwt&gt;</code> unless noted <span class="rid">public</span>. List endpoints support <code>?page</code>, <code>?limit</code>, <code>?sort</code>, <code>?q</code> and resource-specific filters. Tenant scope is enforced from the token; <code>X-Impersonate-User</code> is honoured only for Super Admin. This is an <b>indicative</b> surface &mdash; roughly the average level of detail expected &mdash; not the exhaustive contract; the final OpenAPI spec is a build deliverable.</p>
+
+  <h3><span class="num">8.1</span> Auth &amp; Users</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>POST</td><td><code>/auth/register</code></td><td>Create account (student/parent self-serve) <span class="rid">public</span></td></tr>
+      <tr><td>POST</td><td><code>/auth/login</code></td><td>Password login &rarr; access + refresh tokens <span class="rid">public</span></td></tr>
+      <tr><td>POST</td><td><code>/auth/otp/request</code> &middot; <code>/auth/otp/verify</code></td><td>OTP login flow <span class="rid">public</span></td></tr>
+      <tr><td>POST</td><td><code>/auth/refresh</code> &middot; <code>/auth/logout</code></td><td>Rotate / revoke tokens</td></tr>
+      <tr><td>POST</td><td><code>/auth/password/forgot</code> &middot; <code>/auth/password/reset</code></td><td>Password recovery <span class="rid">public</span></td></tr>
+      <tr><td>POST</td><td><code>/auth/2fa/setup</code> &middot; <code>/auth/2fa/verify</code></td><td>Enrol / confirm TOTP</td></tr>
+      <tr><td>GET</td><td><code>/auth/sessions</code> &middot; DELETE <code>/auth/sessions/:id</code></td><td>List / revoke device sessions</td></tr>
+      <tr><td>POST</td><td><code>/admin/impersonation/:userId</code> &middot; DELETE <code>/admin/impersonation</code></td><td>Start / end impersonation (Super Admin)</td></tr>
+      <tr><td>GET</td><td><code>/users/me</code> &middot; PATCH <code>/users/me</code></td><td>Current profile</td></tr>
+      <tr><td>GET / POST</td><td><code>/users</code></td><td>List / create internal users (Admin)</td></tr>
+      <tr><td>PATCH</td><td><code>/users/:id/roles</code> &middot; <code>/users/:id/status</code></td><td>Role &amp; status management (Super Admin)</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.2</span> Institutes, Contracts &amp; Commission</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET / POST</td><td><code>/institutes</code></td><td>List / create Institute</td></tr>
+      <tr><td>GET / PATCH</td><td><code>/institutes/:id</code></td><td>Read / update Institute</td></tr>
+      <tr><td>POST</td><td><code>/institutes/:id/kyc-documents</code></td><td>Upload KYC doc (signed-URL flow)</td></tr>
+      <tr><td>POST</td><td><code>/institutes/:id/linked-account</code></td><td>Create / sync Razorpay Route linked account</td></tr>
+      <tr><td>GET</td><td><code>/institutes/:id/commitment</code></td><td>Committed vs enrolled vs paid, shortfall projection</td></tr>
+      <tr><td>GET</td><td><code>/institutes/:id/commission-ledger</code></td><td>Ledger entries + running balance</td></tr>
+      <tr><td>GET</td><td><code>/institutes/:id/settlements</code> &middot; <code>/settlements/:id/statement.pdf</code></td><td>Settlement history &amp; statement</td></tr>
+      <tr><td>GET / POST</td><td><code>/institutes/:id/contracts</code></td><td>List / create contract (with structured terms)</td></tr>
+      <tr><td>POST</td><td><code>/contracts/:id/send-for-signature</code></td><td>Dispatch to e-sign vendor</td></tr>
+      <tr><td>POST</td><td><code>/contracts/:id/approve</code> &middot; <code>/contracts/:id/terminate</code></td><td>Activate / terminate (Super Admin)</td></tr>
+      <tr><td>GET</td><td><code>/contracts/:id/versions</code></td><td>Version &amp; addendum history</td></tr>
+      <tr><td>POST</td><td><code>/settlements/run</code></td><td>Trigger consolidated settlement cycle (Super Admin)</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.3</span> Sales CRM, Marketing &amp; Coupons</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET / POST</td><td><code>/leads</code></td><td>List / create lead (website form posts here <span class="rid">public</span> via captcha)</td></tr>
+      <tr><td>PATCH</td><td><code>/leads/:id</code> &middot; <code>/leads/:id/stage</code></td><td>Update lead / move pipeline stage</td></tr>
+      <tr><td>POST</td><td><code>/leads/:id/activities</code></td><td>Log call/note/task/meeting</td></tr>
+      <tr><td>POST</td><td><code>/leads/:id/convert</code></td><td>Convert to Institute</td></tr>
+      <tr><td>POST</td><td><code>/leads/:id/emails</code></td><td>Send templated email via Brevo</td></tr>
+      <tr><td>GET</td><td><code>/crm/reports/pipeline</code> &middot; <code>/crm/reports/forecast</code></td><td>Pipeline &amp; forecast analytics</td></tr>
+      <tr><td>GET / POST</td><td><code>/coupons</code></td><td>List / create coupon</td></tr>
+      <tr><td>PATCH / DELETE</td><td><code>/coupons/:id</code></td><td>Update / deactivate coupon</td></tr>
+      <tr><td>POST</td><td><code>/coupons/validate</code></td><td>Validate code against cart context (used at checkout)</td></tr>
+      <tr><td>GET / POST</td><td><code>/campaigns</code></td><td>List / create campaign (UTM)</td></tr>
+      <tr><td>POST</td><td><code>/marketing/broadcasts</code></td><td>Create Brevo broadcast to a segment</td></tr>
+      <tr><td>GET</td><td><code>/marketing/reports/acquisition</code></td><td>Signups by source, coupon cost, funnel</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.4</span> Students &amp; Enrollment</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET / POST</td><td><code>/students</code></td><td>List (tenant-scoped) / create student</td></tr>
+      <tr><td>GET / PATCH</td><td><code>/students/:id</code></td><td>Read / update profile</td></tr>
+      <tr><td>POST</td><td><code>/students/import</code> &middot; <code>/students/import/:jobId/status</code></td><td>Bulk CSV import (dry-run + commit) &amp; progress</td></tr>
+      <tr><td>GET</td><td><code>/students/import/template.csv</code></td><td>Download import template</td></tr>
+      <tr><td>PATCH</td><td><code>/students/:id/status</code></td><td>Suspend / expire / reactivate</td></tr>
+      <tr><td>POST</td><td><code>/students/:id/parent-invite</code></td><td>Generate parent link code</td></tr>
+      <tr><td>POST</td><td><code>/parent/link</code> &middot; GET <code>/parent/students</code></td><td>Parent links a student / lists linked students</td></tr>
+      <tr><td>POST</td><td><code>/consents</code> &middot; GET <code>/consents?studentId=</code></td><td>Record / list consent events (signup, proctoring, data)</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.5</span> Catalog, Content &amp; Media</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET</td><td><code>/taxonomy?board=&amp;class=&amp;subject=</code></td><td>Fetch taxonomy tree / subtree</td></tr>
+      <tr><td>POST / PATCH</td><td><code>/taxonomy/nodes</code> &middot; <code>/taxonomy/nodes/:id</code></td><td>Manage boards/classes/subjects/chapters/topics (Admin)</td></tr>
+      <tr><td>GET / POST</td><td><code>/content-items</code></td><td>List (filtered by topic/type/status) / create metadata</td></tr>
+      <tr><td>POST</td><td><code>/content-items/:id/video-upload-url</code></td><td>Get Bunny TUS/upload credentials</td></tr>
+      <tr><td>POST</td><td><code>/content-items/:id/asset-upload-url</code></td><td>Get S3 signed PUT for PDF/resource</td></tr>
+      <tr><td>POST</td><td><code>/content-items/:id/publish</code> &middot; <code>/unpublish</code></td><td>Workflow transitions</td></tr>
+      <tr><td>POST</td><td><code>/content-items/bulk</code></td><td>Batch create/update from metadata file</td></tr>
+      <tr><td>GET</td><td><code>/learn/home</code></td><td>Student dashboard payload (continue watching, due tests, streak, weak topics)</td></tr>
+      <tr><td>GET</td><td><code>/learn/content?subjectId=&amp;chapterId=</code></td><td>Student-visible content list (access-filtered)</td></tr>
+      <tr><td>POST</td><td><code>/content-items/:id/playback-token</code></td><td>Issue signed, watermarked, short-expiry playback URL</td></tr>
+      <tr><td>GET</td><td><code>/content-items/:id/asset-link</code></td><td>Issue signed PDF link (with watermark params)</td></tr>
+      <tr><td>POST</td><td><code>/content-progress</code> (batch)</td><td>Upsert progress events (position, %, completion, timeSpent)</td></tr>
+      <tr><td>POST / DELETE</td><td><code>/content-items/:id/bookmark</code> &middot; POST <code>/content-items/:id/notes</code></td><td>Bookmarks &amp; personal notes</td></tr>
+      <tr><td>POST</td><td><code>/downloads/:contentItemId/license</code></td><td>Issue device-bound offline license (mobile, if allowed)</td></tr>
+      <tr><td>POST</td><td><code>/webhooks/bunny</code></td><td>Encode-complete / failure <span class="rid">public + signed</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.6</span> Assessments, AI &amp; Proctoring</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET / POST</td><td><code>/questions</code> &middot; <code>/questions/import</code></td><td>Question bank CRUD &amp; bulk import</td></tr>
+      <tr><td>GET / POST</td><td><code>/tests</code></td><td>List / create test (fixed list or blueprint)</td></tr>
+      <tr><td>GET</td><td><code>/tests/:id</code> &middot; PATCH <code>/tests/:id</code></td><td>Read / update test config</td></tr>
+      <tr><td>GET</td><td><code>/learn/tests?type=topic|chapter|mock|halfyearly|fullyearly</code></td><td>Student-available tests</td></tr>
+      <tr><td>POST</td><td><code>/tests/:id/attempts</code></td><td>Start attempt &rarr; returns shuffled, per-student served questions</td></tr>
+      <tr><td>PATCH</td><td><code>/attempts/:id/responses</code></td><td>Autosave responses (idempotent, batched)</td></tr>
+      <tr><td>POST</td><td><code>/attempts/:id/submit</code></td><td>Submit &rarr; auto-grade MCQ, queue subjective for grading &amp; AI</td></tr>
+      <tr><td>GET</td><td><code>/attempts/:id/result</code></td><td>Score, percentile, rank, topic/chapter heatmap, time analysis</td></tr>
+      <tr><td>GET</td><td><code>/attempts/:id/review</code></td><td>Full solution review</td></tr>
+      <tr><td>GET</td><td><code>/attempts/:id/analysis</code></td><td>AI narrative + prioritised study plan with content deep links</td></tr>
+      <tr><td>POST</td><td><code>/learn/adaptive-tests</code></td><td>Generate adaptive weak-area retest for the student</td></tr>
+      <tr><td>GET</td><td><code>/grading/queue</code> &middot; POST <code>/attempts/:id/grade</code></td><td>Teacher grading queue &amp; rubric submission</td></tr>
+      <tr><td>POST</td><td><code>/attempts/:id/proctor/session</code></td><td>Init proctor session (identity selfie, consent, config)</td></tr>
+      <tr><td>POST</td><td><code>/proctor/sessions/:id/events</code> &middot; <code>/snapshots</code></td><td>Stream events &amp; upload snapshots/recording chunks</td></tr>
+      <tr><td>GET</td><td><code>/proctor/review-queue</code> &middot; POST <code>/proctor/sessions/:id/decision</code></td><td>Reviewer dashboard &amp; accept/flag/invalidate decision</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.7</span> Payments, Billing &amp; Notifications</h3>
+  <table>
+    <thead><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>GET</td><td><code>/plans</code></td><td>List purchasable plans (price + coupon-aware preview) <span class="rid">public</span></td></tr>
+      <tr><td>POST</td><td><code>/checkout/quote</code></td><td>Server-computed price: base &minus; coupon + tax</td></tr>
+      <tr><td>POST</td><td><code>/checkout/orders</code></td><td>Create Razorpay order (one-time)</td></tr>
+      <tr><td>POST</td><td><code>/checkout/subscriptions</code></td><td>Create Razorpay subscription</td></tr>
+      <tr><td>POST</td><td><code>/checkout/verify</code></td><td>Verify Razorpay signature &amp; finalise (fallback to webhook)</td></tr>
+      <tr><td>GET</td><td><code>/billing/invoices</code> &middot; <code>/billing/invoices/:id.pdf</code></td><td>Student/parent invoice list &amp; PDF</td></tr>
+      <tr><td>POST</td><td><code>/refunds</code> &middot; POST <code>/refunds/:id/approve</code></td><td>Request &amp; approve refund (with commission clawback)</td></tr>
+      <tr><td>GET</td><td><code>/finance/reconciliation?from=&amp;to=</code></td><td>Gross/discount/tax/net/fees/refunds/commission/revenue</td></tr>
+      <tr><td>POST</td><td><code>/webhooks/razorpay</code></td><td>payment/order/subscription/refund/transfer/settlement events <span class="rid">public + signed</span></td></tr>
+      <tr><td>POST</td><td><code>/webhooks/esign</code></td><td>Signature status &amp; signed document <span class="rid">public + signed</span></td></tr>
+      <tr><td>POST</td><td><code>/webhooks/brevo</code></td><td>Delivery / open / click / unsubscribe <span class="rid">public + signed</span></td></tr>
+      <tr><td>GET</td><td><code>/notifications</code> &middot; PATCH <code>/notifications/:id/read</code></td><td>In-app notification centre</td></tr>
+      <tr><td>POST</td><td><code>/devices</code> &middot; DELETE <code>/devices/:id</code></td><td>Register / remove push token (mobile)</td></tr>
+      <tr><td>GET / PUT</td><td><code>/notifications/preferences</code></td><td>Per-category opt-in/out</td></tr>
+      <tr><td>GET / POST</td><td><code>/admin/notification-templates</code></td><td>Manage templates &amp; per-event rules</td></tr>
+      <tr><td>GET</td><td><code>/admin/audit-log</code> &middot; <code>/admin/webhook-events</code></td><td>Audit &amp; webhook inspection</td></tr>
+      <tr><td>GET</td><td><code>/admin/feature-flags</code> &middot; PATCH <code>/admin/feature-flags/:key</code></td><td>Runtime configuration</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 9 ============ -->
+<div class="section">
+  <h2><span class="num">9.</span> Third-Party Integrations</h2>
+  <table>
+    <thead><tr><th>Service</th><th>Used for</th><th>Integration notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Razorpay</b></td><td>Orders, subscriptions, checkout, refunds, GST invoicing inputs</td><td>Signed webhooks, idempotency keys, sandbox + live keys, PCI handled by Razorpay Checkout (no card data on our servers).</td></tr>
+      <tr><td><b>Razorpay Route</b></td><td>Commission split &amp; settlement to Institutes</td><td>Linked accounts + KYC, transfers on payment or scheduled payouts, on-hold transfers, reversal on refund, reconciliation via <code>transfer.*</code>/<code>settlement.*</code>.</td></tr>
+      <tr><td><b>Bunny.net</b></td><td>Video hosting, transcoding, CDN, DRM/token auth, watermarking</td><td>Server-issued signed playback URLs, allowed-referrer lock, TUS upload, encode webhooks, per-view watermark params.</td></tr>
+      <tr><td><b>Brevo</b></td><td>Transactional + marketing email, contact lists, automations</td><td>API for transactional sends with templates; list/segment sync; unsubscribe + event webhooks; separate sending domains/streams.</td></tr>
+      <tr><td><b>E-signature</b> (Leegality / Zoho Sign / Digio)</td><td>Contract signing with legal audit trail</td><td>Create envelope from template/PDF, signer routing, OTP/Aadhaar e-sign, completion webhook returns signed PDF + evidence.</td></tr>
+      <tr><td><b>Proctoring</b></td><td>Integrity for subjective tests</td><td>In-house browser/app event capture + periodic snapshots for MVP; pluggable AI SDK (face/object/voice) behind an interface for later upgrade.</td></tr>
+      <tr><td><b>LLM API</b></td><td>Test analysis narrative &amp; study plans</td><td>Deterministic scoring first; LLM formats guidance. Model + prompt versioned per analysis; minimal PII; server-side only with rate limits &amp; cost caps.</td></tr>
+      <tr><td><b>FCM / APNs</b></td><td>Mobile push</td><td>Token registration endpoint, topic/category targeting, delivery receipts.</td></tr>
+      <tr><td><b>GA4 / Plausible</b>, <b>Sentry</b></td><td>Web analytics; error &amp; performance monitoring</td><td>Consent-gated analytics; Sentry across API, web, and mobile with release tracking.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 10 ============ -->
+<div class="section">
+  <h2><span class="num">10.</span> Non-Functional Requirements</h2>
+  <table>
+    <thead><tr><th>Area</th><th>Requirement</th></tr></thead>
+    <tbody>
+      <tr><td>Performance</td><td>API p95 &lt; 400&nbsp;ms for read endpoints, &lt; 800&nbsp;ms for writes (excl. external calls). Video start &lt; 3&nbsp;s on 4G. Dashboard payloads &lt; 1.5&nbsp;s.</td></tr>
+      <tr><td>Scalability</td><td>Support peak concurrent test-taking (target: 5,000 concurrent attempts at launch, horizontally scalable). Queues absorb email/AI/grading/report spikes without blocking request path.</td></tr>
+      <tr><td>Availability</td><td>99.9% monthly for API &amp; web. Graceful degradation: content &amp; results readable if AI or email is down.</td></tr>
+      <tr><td>Data durability</td><td>MongoDB replica set, automated daily backups + point-in-time recovery on production, tested restore runbook.</td></tr>
+      <tr><td>Security</td><td>OWASP ASVS L2 target, TLS 1.2+ everywhere, secrets in a managed store, per-tenant isolation tests, rate limiting, input validation on every DTO, signed media URLs, dependency &amp; container scanning in CI.</td></tr>
+      <tr><td>Privacy</td><td>India DPDP Act alignment: purpose-limited collection, consent records, data-subject export &amp; deletion, special handling for minors (see &sect;11).</td></tr>
+      <tr><td>Observability</td><td>Structured JSON logs with correlation ids, Sentry error tracking, uptime + synthetic checks, dashboards for queue depth, webhook failures, payment failures.</td></tr>
+      <tr><td>Accessibility</td><td>Web &amp; mobile target WCAG 2.1 AA: keyboard nav, focus states, contrast, screen-reader labels, dynamic type on mobile.</td></tr>
+      <tr><td>Localisation</td><td>English only for v1; all user-facing strings externalised (i18n-ready) for later regional languages.</td></tr>
+      <tr><td>Browser / OS support</td><td>Web: last 2 versions of Chrome, Edge, Safari, Firefox. Mobile: iOS 15+, Android 9+.</td></tr>
+      <tr><td>Maintainability</td><td>TypeScript throughout, shared types package, &gt;70% unit coverage on domain logic, e2e suite for critical flows (auth, checkout, attempt, settlement), generated OpenAPI kept in sync.</td></tr>
+      <tr><td>Compliance &mdash; payments</td><td>No card/PII stored server-side; GST-compliant invoicing; auditable financial ledgers.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 11 ============ -->
+<div class="section">
+  <h2><span class="num">11.</span> Security, Privacy &amp; Compliance</h2>
+  <ul>
+    <li><b>Minors:</b> most students are under 18. Signup for a minor is <b>not complete</b> until a linked Parent grants consent (account use, data processing, and &mdash; separately &mdash; proctoring &amp; recording). Consent is versioned and logged (who, what version, timestamp, IP).</li>
+    <li><b>Proctoring media:</b> webcam snapshots/recordings and identity selfies are sensitive. Stored encrypted at rest, access limited to Teacher/Ops with audit, default <b>retention 90 days</b> then auto-purge, and excluded from general exports.</li>
+    <li><b>Data-subject rights:</b> endpoints/process for data export and deletion (right to erasure), with legal-hold overrides for financial records (retained per statutory requirement, typically 8 years for invoices/tax).</li>
+    <li><b>PII minimisation to AI:</b> only first name + performance data sent to the LLM by default; configurable; prompts logged.</li>
+    <li><b>Access control:</b> server-side RBAC on every route; tenant scoping guard; impersonation restricted &amp; fully audited; 2FA mandatory for staff.</li>
+    <li><b>Secrets &amp; keys:</b> managed secret store, rotation policy, no secrets in code or client bundles; separate keys per environment.</li>
+    <li><b>Transport &amp; storage:</b> TLS in transit; encryption at rest for DB, object storage, and backups; signed, short-expiry URLs for all protected media.</li>
+    <li><b>Abuse protection:</b> rate limiting, captcha on public forms, bot protection on auth, anomaly detection on test attempts and login.</li>
+    <li><b>Legal pages:</b> Terms, Privacy Policy, Refund &amp; Cancellation Policy, and a Proctoring &amp; Consent notice published on the website and surfaced in-app at the point of consent.</li>
+    <li><b>Audit:</b> immutable audit log for auth, role changes, impersonation, content publish, financial actions, contract state, and proctoring decisions.</li>
+  </ul>
+</div>
+
+<!-- ============ 12 ============ -->
+<div class="section">
+  <h2><span class="num">12.</span> Infrastructure &amp; DevOps</h2>
+  <h3><span class="num">12.1</span> Hosting recommendation</h3>
+  <p><b>Recommended: AWS.</b> ECS Fargate (API + workers) behind an Application Load Balancer, S3 for assets, CloudFront optional for the web app, MongoDB Atlas (peered), ElastiCache or Atlas-adjacent Redis, Route 53 DNS, ACM TLS, WAF on the ALB, Secrets Manager, CloudWatch + Sentry.</p>
+  <p><b>Lower-ops alternative: DigitalOcean.</b> App Platform for API/web/workers, Spaces for assets, DO Managed MongoDB + Managed Redis, DO load balancer. Simpler and cheaper to operate for a small team; fewer knobs for fine-grained scaling.</p>
+  <div class="callout assume"><span class="label">Assumption</span> Final choice pending client confirmation. Architecture and IaC are written to keep either option open; nothing in the application layer is provider-locked (S3-compatible storage API, standard Mongo/Redis).</div>
+
+  <h3><span class="num">12.2</span> Delivery pipeline</h3>
+  <ul>
+    <li>Mono-repo (pnpm workspaces): <code>apps/api</code>, <code>apps/web</code>, <code>apps/website</code>, <code>apps/mobile</code>, <code>packages/common</code> (shared types, validation, enums).</li>
+    <li>GitHub Actions: lint &rarr; type-check &rarr; unit &rarr; build &rarr; e2e (on PR) &rarr; deploy to staging on merge &rarr; manual promote to production.</li>
+    <li>Mobile: EAS build + submit; OTA updates for JS-only changes; staged rollout &amp; forced-update gate.</li>
+    <li>Database migrations versioned &amp; run in the pipeline; seed scripts for taxonomy and demo data.</li>
+    <li>Infra via Terraform; separate state per environment; least-privilege IAM.</li>
+    <li>Runbooks: restore-from-backup, webhook replay, key rotation, incident response.</li>
+  </ul>
+
+  <h3><span class="num">12.3</span> Environments &amp; data</h3>
+  <ul>
+    <li>Local (Docker Compose), Staging (sandbox integrations, open to client UAT), Production (isolated, monitored).</li>
+    <li>No production PII in lower environments; synthetic/anonymised seed data only.</li>
+  </ul>
+</div>
+
+<!-- ============ 13 ============ -->
+<div class="section">
+  <h2><span class="num">13.</span> Assumptions &amp; Open Questions</h2>
+  <h3><span class="num">13.1</span> Working assumptions (proceeding unless corrected)</h3>
+  <ul>
+    <li>Hosting: <b>AWS</b> (DigitalOcean acceptable fallback).</li>
+    <li>E-signature vendor: <b>Leegality</b> (India-focused); swappable behind an interface.</li>
+    <li>Proctoring: <b>in-house</b> event + snapshot capture for MVP, AI SDK slot reserved.</li>
+    <li>Commission basis: <b>net of coupon</b>, with refund clawback; overridable per contract.</li>
+    <li>Settlement: <b>configurable per contract</b> (per-transaction or weekly/monthly), default monthly.</li>
+    <li>Pricing: <b>both</b> one-time and subscription plans available.</li>
+    <li>AI analysis: managed <b>LLM API</b> permitted, server-side, minimal PII.</li>
+    <li>Languages: <b>English only</b> for v1.</li>
+    <li>Institutes get their <b>own web login &amp; dashboard at launch</b>.</li>
+    <li>Blog: lightweight headless CMS (Sanity); static pages acceptable at launch.</li>
+    <li>Mobile: <b>phone-first</b>, responsive tablet layout; <b>offline video download included in v1</b>.</li>
+    <li>Parent account <b>must approve</b> minor student signup and proctoring.</li>
+  </ul>
+  <h3><span class="num">13.2</span> Questions to confirm before/at kickoff</h3>
+  <ol>
+    <li>In-app purchases: are we billing students <b>outside</b> app-store IAP (web/redirect checkout) to avoid 15&ndash;30% store fees, and is that acceptable under current store policies for this content type? (Affects mobile checkout design.)</li>
+    <li>Exact commission slab structure &amp; whether &ldquo;paid&rdquo; or &ldquo;enrolled&rdquo; students count toward commitment.</li>
+    <li>Refund windows &amp; access-revocation rules per plan.</li>
+    <li>Are half-yearly / full-yearly exams scheduled centrally (fixed dates) or per Institute?</li>
+    <li>Subjective grading SLA &amp; teacher capacity model.</li>
+    <li>Proctoring: is continuous video recording required, or are periodic snapshots sufficient for v1?</li>
+    <li>Content readiness: who supplies the initial video/PDF/question catalogue, in what format, and by when? (Drives the bulk-ingestion tooling scope.)</li>
+    <li>Do Parents need their own paid actions (e.g. pay on behalf), or view + consent only?</li>
+    <li>Tax registration details &amp; invoice format sign-off.</li>
+    <li>Brand, domains, and subdomain scheme (<code>app.</code>, <code>api.</code>, marketing apex).</li>
+  </ol>
+</div>
+
+<!-- ============ 14 ============ -->
+<div class="section">
+  <h2><span class="num">14.</span> Out of Scope for v1</h2>
+  <ul>
+    <li>Live / synchronous classes and webinars.</li>
+    <li>Regional-language content and UI.</li>
+    <li>SMS / WhatsApp notifications (interface only).</li>
+    <li>Self-serve Institute onboarding without a signed contract.</li>
+    <li>Public marketplace, affiliate network beyond Institute referral codes.</li>
+    <li>Advanced gamification, social feed, student-to-student messaging.</li>
+    <li>AI-graded subjective answers (teachers grade in v1; AI-assist is P2).</li>
+    <li>Desktop apps; offline mode on web.</li>
+    <li>Multi-currency / international payments.</li>
+    <li>Data-warehouse / BI stack beyond in-app reports &amp; CSV export.</li>
+  </ul>
+</div>
+
+<!-- ============ 15 ============ -->
+<div class="section">
+  <h2><span class="num">15.</span> Suggested Delivery Phases</h2>
+  <p class="lead">Indicative sequencing for an external team; exact estimates to be provided by the delivery partner. Everything below the P1 line is required for launch.</p>
+  <table>
+    <thead><tr><th>Milestone</th><th>Scope</th><th>Exit criteria</th></tr></thead>
+    <tbody>
+      <tr><td><b>M0 &mdash; Foundations</b></td><td>Mono-repo, CI/CD, environments, auth + RBAC + impersonation, tenancy, audit log, shared types, base design system.</td><td>Users can log in per role; staging deploys automatically; impersonation audited.</td></tr>
+      <tr><td><b>M1 &mdash; B2B core</b></td><td>Institutes, KYC, contracts + e-sign, referral codes, Sales CRM, coupons/campaigns, marketing website shell + lead capture.</td><td>An Institute can be onboarded and put under an ACTIVE signed contract; website leads land in CRM.</td></tr>
+      <tr><td><b>M2 &mdash; Learn</b></td><td>Taxonomy, content management + bulk tooling, Bunny video pipeline + signed playback + watermark, PDF delivery, student enrollment + bulk import, learning web UI, progress tracking.</td><td>A student watches a watermarked lesson and reads a watermarked PDF; progress recorded; Institute Admin bulk-imports students.</td></tr>
+      <tr><td><b>M3 &mdash; Assess</b></td><td>Question bank + import, test builder (blueprint + shuffle), attempt runtime, auto-grading, results + heatmaps, AI analysis + adaptive retests, teacher grading queue.</td><td>Topic/chapter/mock/half-yearly/full-yearly tests run end to end; AI weak-area analysis and adaptive retest verified.</td></tr>
+      <tr><td><b>M4 &mdash; Proctor</b></td><td>Proctoring for subjective tests (web + event capture), snapshot pipeline, proctor review dashboard, decisions.</td><td>A subjective test is taken under proctoring, flagged events reviewed, decision recorded.</td></tr>
+      <tr><td><b>M5 &mdash; Monetise</b></td><td>Plans, checkout, Razorpay orders/subscriptions, webhooks, invoices, refunds, Razorpay Route commission split + settlement + statements, finance reconciliation.</td><td>A paid enrollment splits commission to the Institute, reconciles, and appears on both dashboards.</td></tr>
+      <tr><td><b>M6 &mdash; Mobile</b></td><td>React Native student + parent app: auth, dashboard, video (+offline), material, tests, proctoring, analysis, payments, push. Feature parity with web learning.</td><td>App store builds pass review; parity checklist signed off; forced-update works.</td></tr>
+      <tr><td><b>M7 &mdash; Harden &amp; launch</b></td><td>Notifications complete, reporting complete, load &amp; security testing, accessibility pass, content loaded, runbooks, UAT sign-off.</td><td>NFR targets met; go-live checklist complete.</td></tr>
+      <tr><td class="mono">&mdash;&mdash;&mdash;</td><td colspan="2"><b>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash; P1 launch line &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;</b></td></tr>
+      <tr><td><b>P1.1 fast-follow</b></td><td>Leaderboards, scheduled reports, referral rewards, diagnostic-test onboarding polish, doubt/Q&amp;A threads, announcements, certificates.</td><td>&mdash;</td></tr>
+      <tr><td><b>P2</b></td><td>Live classes, regional languages, SMS/WhatsApp, AI grading-assist, BI/warehouse, multi-currency.</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ 16 ============ -->
+<div class="section">
+  <h2><span class="num">16.</span> Appendix</h2>
+  <h3><span class="num">16.1</span> Glossary</h3>
+  <div class="kv">
+    <span class="k">Institute</span><span>A school or college that signs a commission contract and enrolls its students. The B2B tenant.</span>
+    <span class="k">DIRECT tenant</span><span>Reserved pseudo-Institute for students who sign up from the website with no Institute code.</span>
+    <span class="k">Commitment</span><span>The minimum number of students an Institute contractually agrees to enroll in a period.</span>
+    <span class="k">Commission basis</span><span>Whether commission is computed on the gross fee or the fee net of coupon discount.</span>
+    <span class="k">Route</span><span>Razorpay Route &mdash; split-payment / marketplace settlement to linked accounts.</span>
+    <span class="k">Blueprint</span><span>A rule set that builds a test by sampling N of M questions per chapter/topic/difficulty.</span>
+    <span class="k">Topic mastery</span><span>A computed strong/borderline/weak classification per topic, from attempt performance.</span>
+    <span class="k">Adaptive retest</span><span>An auto-generated test drawn only from a student&rsquo;s weak topics, with adjusted difficulty.</span>
+    <span class="k">Impersonation</span><span>Super Admin viewing/acting as another user for support, fully audited, with limits.</span>
+  </div>
+
+  <h3><span class="num">16.2</span> Third-party accounts &amp; keys checklist</h3>
+  <ul>
+    <li>Razorpay account (live + test), Route enabled, webhook secret, settlement bank account.</li>
+    <li>Bunny.net Stream library, pull zone, token authentication key, webhook secret.</li>
+    <li>Brevo account, verified sending domains (transactional + marketing), API key, webhook secret.</li>
+    <li>E-signature vendor account, template(s), API credentials, webhook secret.</li>
+    <li>LLM API account, key, spend cap / budget alerts.</li>
+    <li>Firebase project (FCM) + Apple developer account (APNs key), app identifiers.</li>
+    <li>Apple Developer + Google Play Console accounts, app listings, privacy declarations.</li>
+    <li>Cloud account (AWS or DigitalOcean), DNS control for all domains, TLS.</li>
+    <li>MongoDB Atlas + Redis (managed), object storage bucket/space.</li>
+    <li>Sentry, analytics (GA4/Plausible), uptime monitor.</li>
+    <li>Company tax details (GSTIN, PAN), invoice numbering series, legal policy copy.</li>
+  </ul>
+
+  <h3><span class="num">16.3</span> Requirement ID prefixes</h3>
+  <p><span class="rid">FR-AUTH</span> auth/RBAC &nbsp; <span class="rid">FR-INST</span> institutes &nbsp; <span class="rid">FR-CTR</span> contracts &nbsp; <span class="rid">FR-CRM</span> sales &nbsp; <span class="rid">FR-MKT</span> marketing &nbsp; <span class="rid">FR-STU</span> students &nbsp; <span class="rid">FR-CNT</span> content &nbsp; <span class="rid">FR-VID</span> video &nbsp; <span class="rid">FR-PDF</span> material &nbsp; <span class="rid">FR-ASM</span> assessment &nbsp; <span class="rid">FR-AI</span> AI &nbsp; <span class="rid">FR-PRO</span> proctoring &nbsp; <span class="rid">FR-PAY</span> payments &nbsp; <span class="rid">FR-COM</span> commission &nbsp; <span class="rid">FR-NOT</span> notifications &nbsp; <span class="rid">FR-APP</span> mobile app &nbsp; <span class="rid">FR-RPT</span> reporting &nbsp; <span class="rid">FR-WEB</span> website &nbsp; <span class="rid">FR-ADM</span> admin</p>
+
+  <hr>
+  <p style="text-align:center;color:var(--muted);font-size:8.5pt;">End of document &mdash; EdTech B2B2C Platform, MVP Requirements v1.0 &middot; 10 September 2026 &middot; Confidential</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founders' Agreement Checklist &amp; Tech-Contribution Valuation</title>
+<style>
+  :root{
+    --ink:#1e2230;--ink-soft:#3d4460;--muted:#6b7280;--line:#e3e6ef;
+    --accent:#4f46e5;--accent-dark:#3730a3;--accent-soft:#eef0ff;
+    --teal:#0d9488;--teal-soft:#e6f6f4;--amber-soft:#fff7e6;--amber-line:#e0a300;
+    --rose-soft:#fdeef0;--rose-line:#c2405a;--code-bg:#f4f5fa;
+  }
+  *{box-sizing:border-box;}
+  html{font-size:10.25pt;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  @page{size:A4;margin:18mm 16mm 20mm 16mm;}
+  .page-footer{position:fixed;bottom:-14mm;left:0;right:0;font-size:7.5pt;color:var(--muted);display:flex;justify-content:space-between;border-top:0.5pt solid var(--line);padding-top:3px;}
+  h1,h2,h3,h4{line-height:1.25;color:var(--ink);font-weight:700;}
+  h2{font-size:16pt;margin:0 0 4px;padding-bottom:6px;border-bottom:2.5pt solid var(--accent);color:var(--accent-dark);}
+  h2 .num{color:var(--accent);font-variant-numeric:tabular-nums;}
+  h3{font-size:12pt;margin:20px 0 6px;color:var(--ink);}
+  h3 .num{color:var(--accent);font-weight:700;}
+  h4{font-size:10.5pt;margin:14px 0 4px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.04em;}
+  p{margin:6px 0;}
+  ul,ol{margin:6px 0 10px;padding-left:18px;}
+  li{margin:3px 0;}
+  li::marker{color:var(--accent);}
+  a{color:var(--accent-dark);text-decoration:none;}
+  .section{page-break-before:always;padding-top:2px;}
+  .section:first-of-type{page-break-before:avoid;}
+  table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:9pt;}
+  th,td{border:0.5pt solid var(--line);padding:5px 7px;text-align:left;vertical-align:top;}
+  thead th{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;border-color:#d5d9f2;}
+  tbody tr:nth-child(even){background:#fafbfe;}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:8.7pt;}
+  td code{background:var(--code-bg);padding:1px 4px;border-radius:3px;color:var(--accent-dark);}
+  .cid{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:7.6pt;font-weight:600;background:var(--accent-soft);color:var(--accent-dark);padding:1px 5px;border-radius:3px;white-space:nowrap;}
+  .callout{border-left:3pt solid var(--accent);background:var(--accent-soft);padding:8px 12px;margin:12px 0;border-radius:0 4px 4px 0;font-size:9.2pt;}
+  .callout.note{border-color:var(--teal);background:var(--teal-soft);}
+  .callout.assume{border-color:var(--amber-line);background:var(--amber-soft);}
+  .callout.risk{border-color:var(--rose-line);background:var(--rose-soft);}
+  .callout .label{display:block;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;font-size:7.6pt;margin-bottom:3px;color:var(--ink-soft);}
+  .pill{display:inline-block;font-size:7.6pt;font-weight:700;padding:1px 7px;border-radius:10px;background:var(--teal-soft);color:var(--teal);text-transform:uppercase;letter-spacing:0.03em;}
+  .pill.must{background:#fdeef0;color:#c2405a;}
+  .lead{font-size:10.5pt;color:var(--ink-soft);}
+  hr{border:none;border-top:0.5pt solid var(--line);margin:18px 0;}
+  .cover{page-break-after:always;height:250mm;display:flex;flex-direction:column;position:relative;}
+  .cover .band{background:linear-gradient(135deg,var(--accent-dark),var(--accent) 55%,var(--teal));color:#fff;padding:34px 34px 40px;border-radius:6px;}
+  .cover .kicker{text-transform:uppercase;letter-spacing:0.22em;font-size:8.5pt;font-weight:700;opacity:0.85;}
+  .cover h1{color:#fff;font-size:27pt;margin:14px 0 8px;letter-spacing:-0.01em;}
+  .cover .sub{font-size:12pt;opacity:0.92;font-weight:400;max-width:78%;}
+  .cover .meta{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;border:0.5pt solid var(--line);border-radius:6px;overflow:hidden;}
+  .cover .meta div{padding:10px 14px;border-bottom:0.5pt solid var(--line);font-size:9pt;}
+  .cover .meta div:nth-child(odd){background:#fafbfe;border-right:0.5pt solid var(--line);}
+  .cover .meta .k{color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-size:7.4pt;display:block;margin-bottom:2px;}
+  .toc{page-break-after:always;}
+  .toc ol{list-style:none;padding-left:0;counter-reset:toc;}
+  .toc > ol > li{counter-increment:toc;padding:5px 0;border-bottom:0.5pt dotted var(--line);font-weight:600;}
+  .toc > ol > li::before{content:counter(toc) ".  ";color:var(--accent);}
+  .toc ul{list-style:none;padding-left:20px;margin:4px 0 0;}
+  .toc ul li{font-weight:400;font-size:9pt;color:var(--ink-soft);padding:1.5px 0;}
+  .kv{display:grid;grid-template-columns:190px 1fr;gap:2px 10px;font-size:9.2pt;margin:8px 0;}
+  .kv .k{color:var(--muted);}
+  .no-break{page-break-inside:avoid;}
+  small.hint{color:var(--muted);font-size:8pt;}
+  .box{border:0.5pt solid var(--line);border-radius:6px;padding:12px 14px;margin:12px 0;background:#fafbfe;}
+</style>
+</head>
+<body>
+
+<div class="page-footer">
+  <span>Founders' Agreement &mdash; Drafting Checklist &amp; Tech-Contribution Valuation &middot; v1.0</span>
+  <span>Confidential &mdash; internal working document, not legal advice</span>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="band">
+    <div class="kicker">Internal Working Document</div>
+    <h1>Founders' Agreement &mdash; Drafting Checklist &amp; Tech-Contribution Valuation</h1>
+    <div class="sub">What to put in the partnership / founders' / shareholders' agreement executed on stamp paper and notarised &mdash; equity, salary &amp; drawings format, vesting, exit, IP &mdash; plus a dedicated method for valuing one founder's full technology contribution separately from cash.</div>
+  </div>
+  <div class="meta">
+    <div><span class="k">Version</span>1.0 (for lawyer / CS review)</div>
+    <div><span class="k">Date</span>10 September 2026</div>
+    <div><span class="k">Prepared for</span>Founding team, EdTech B2B2C platform</div>
+    <div><span class="k">Jurisdiction</span>India</div>
+    <div><span class="k">Companion doc</span>EdTech Platform &mdash; MVP Requirements v1.0</div>
+    <div><span class="k">Status</span>Draft checklist &mdash; to be converted into executed agreements by counsel</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2><span class="num">&mdash;</span> Contents</h2>
+  <ol>
+    <li>How to use this document &amp; disclaimer</li>
+    <li>Choosing the right instrument &amp; the documents to execute</li>
+    <li>Master clause checklist</li>
+    <li>Founder salary &amp; drawings &mdash; the withdrawal format</li>
+    <li>Valuing the technology contribution (separately from cash)</li>
+    <li>Stamp duty, notarisation &amp; registration (India)</li>
+    <li>Execution &amp; filing checklist</li>
+    <li>Annexures &mdash; schedule templates</li>
+  </ol>
+</div>
+
+<!-- 1 -->
+<div class="section">
+  <h2><span class="num">1.</span> How to Use This Document &amp; Disclaimer</h2>
+  <div class="callout risk">
+    <span class="label">Not legal or tax advice</span>
+    This is a founder-prepared checklist to brief your company secretary (CS) / startup lawyer and to make the drafting conversation efficient. Every clause below must be drafted, adapted and vetted by a qualified professional. Stamp duty, valuation rules and tax treatment vary by state and change over time &mdash; confirm current law before executing.
+  </div>
+  <ul>
+    <li>Use <b>Section 2</b> to decide the legal wrapper (Partnership Firm / LLP / Private Limited) &mdash; this changes what &ldquo;equity&rdquo; and &ldquo;salary&rdquo; even mean.</li>
+    <li>Use <b>Section 3</b> as the clause-by-clause agenda for the drafting session.</li>
+    <li>Use <b>Section 4</b> to agree the salary / drawings rules <i>before</i> money is tight, so it is not negotiated under pressure.</li>
+    <li>Use <b>Section 5</b> to structure and document the technology-founder's contribution so it is recognised fairly and survives due diligence at the first funding round.</li>
+    <li>Use <b>Sections 6&ndash;7</b> for execution mechanics.</li>
+    <li>Fill the <b>Annexures</b> in Section 8 and attach them to the signed agreement.</li>
+  </ul>
+</div>
+
+<!-- 2 -->
+<div class="section">
+  <h2><span class="num">2.</span> Choosing the Right Instrument &amp; the Documents to Execute</h2>
+  <p class="lead">&ldquo;Partners + equity + ESOP + investors&rdquo; points to a <b>Private Limited company</b>. A Partnership Firm has partners and a profit-sharing ratio, not shares. Decide this first.</p>
+
+  <table class="no-break">
+    <thead><tr><th>Structure</th><th>Core document</th><th>&ldquo;Equity&rdquo; is&hellip;</th><th>Best when</th></tr></thead>
+    <tbody>
+      <tr><td><b>Partnership Firm</b></td><td>Partnership Deed on stamp paper; register with Registrar of Firms</td><td>Profit-sharing ratio + capital / current accounts; &ldquo;drawings&rdquo;</td><td>Very early, no external investors expected, simple.</td></tr>
+      <tr><td><b>LLP</b></td><td>LLP Agreement; file MCA Form&nbsp;3 within 30 days</td><td>Contribution &amp; profit share; limited liability</td><td>Services business, no equity fundraising, want liability protection.</td></tr>
+      <tr><td><b>Private Limited</b> <span class="pill">recommended here</span></td><td>Bundle below</td><td>Shares (equity), cap table, ESOP, investor rounds</td><td>You will raise funding, issue ESOPs, and want share-based vesting. This is your case.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">2.1</span> For a Private Limited &mdash; execute this bundle (not one paper)</h3>
+  <table>
+    <thead><tr><th>Document</th><th>Purpose</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Founders' Agreement</b></td><td>Roles, equity split, vesting, IP, exit, decision-making between founders</td><td>Can be pre-incorporation; then ratified by the board.</td></tr>
+      <tr><td><b>Shareholders' Agreement (SHA)</b></td><td>Transfer restrictions, reserved matters, tag/drag, information rights, deadlock</td><td>Key clauses must ALSO be written into the Articles of Association to bind the company.</td></tr>
+      <tr><td><b>Share Subscription Agreement</b></td><td>Who subscribes to how many shares, at what price, by when</td><td>At incorporation founders usually subscribe at face value.</td></tr>
+      <tr><td><b>Founder Employment / Services Agreement</b> (one per founder)</td><td><b>Salary, role, KRAs, notice, termination for cause, post-exit covenants</b></td><td>This is where the &ldquo;withdrawal format&rdquo; in Section 4 lives.</td></tr>
+      <tr><td><b>IP Assignment &amp; Confidentiality (PIIA)</b></td><td>Assigns ALL business IP &mdash; code, content, docs, domains &mdash; incl. pre-incorporation work &mdash; to the company</td><td>Signed by every founder and every employee/contractor. Prerequisite for Section 5.</td></tr>
+      <tr><td><b>Board &amp; shareholder resolutions + updated AoA</b></td><td>Give the above legal effect; file with ROC</td><td>PAS-3 / MGT-14 / DIR-12 as applicable.</td></tr>
+      <tr><td><b>Registered valuer report</b> (only if issuing shares for non-cash consideration)</td><td>Values IP / assets contributed in kind, for share issue &amp; books</td><td>By an IBBI-registered valuer. See Section 5.4.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout note"><span class="label">Precedence</span> Add a clause stating the order of precedence if documents conflict: typically <b>AoA &rarr; SHA / Investor agreement &rarr; Founders' Agreement &rarr; Employment Agreements</b>. Investors will later require their SHA to override the Founders' Agreement.</div>
+</div>
+
+<!-- 3 -->
+<div class="section">
+  <h2><span class="num">3.</span> Master Clause Checklist</h2>
+  <p class="lead">Clause-by-clause agenda for the drafting session. <span class="pill must">must-have</span> marks clauses that founders most often skip and later regret.</p>
+
+  <h3><span class="num">3.1</span> Parties &amp; entity</h3>
+  <ul>
+    <li><span class="cid">C-01</span> Full legal names, residential addresses, PAN, and identification of each founder.</li>
+    <li><span class="cid">C-02</span> Entity name, type, CIN / registration number, registered office, date of incorporation.</li>
+    <li><span class="cid">C-03</span> Recitals: background, purpose of the agreement, effective date, definitions.</li>
+  </ul>
+
+  <h3><span class="num">3.2</span> Business scope</h3>
+  <ul>
+    <li><span class="cid">C-04</span> Description of the business (the ed-tech B2B2C platform per the companion Requirements doc).</li>
+    <li><span class="cid">C-05</span> Exclusivity &mdash; founders devote themselves to this business; no competing activity.</li>
+    <li><span class="cid">C-06</span> Effect of a future pivot &mdash; agreement continues to apply.</li>
+  </ul>
+
+  <h3><span class="num">3.3</span> Capital contribution</h3>
+  <ul>
+    <li><span class="cid">C-07</span> Cash contributed by each founder, amounts, dates, tranche schedule.</li>
+    <li><span class="cid">C-08</span> <span class="pill must">must-have</span> Non-cash contributions and their agreed rupee value: existing code / repositories, requirements &amp; design documents, domain names, brand, hardware, prior out-of-pocket spend. Itemise each. (Technology contribution &rarr; Section 5.)</li>
+    <li><span class="cid">C-09</span> Consequence of failing to contribute committed capital (dilution / penalty interest / forfeiture of unvested equity).</li>
+    <li><span class="cid">C-10</span> Founder loans to the company: amount, interest, repayment priority, whether convertible.</li>
+    <li><span class="cid">C-11</span> Reconciliation of pre-signing expenses already incurred by each founder.</li>
+  </ul>
+
+  <h3><span class="num">3.4</span> Equity / ownership split</h3>
+  <ul>
+    <li><span class="cid">C-12</span> Exact shareholding: share count, class, face value, percentage per founder; attach the cap table (Annexure E).</li>
+    <li><span class="cid">C-13</span> Basis of the split &mdash; record the rationale (capital, IP, full-time role, risk, network) so it is defensible later.</li>
+    <li><span class="cid">C-14</span> <span class="pill must">must-have</span> ESOP pool: size (e.g. 10&ndash;15%), created now or at first round, diluted pro-rata from all founders, who administers it.</li>
+    <li><span class="cid">C-15</span> Dilution acknowledgement &mdash; all founders dilute pro-rata on fundraising and ESOP top-ups.</li>
+    <li><span class="cid">C-16</span> Treatment of future co-founders / senior hires (equity band, board approval).</li>
+  </ul>
+
+  <h3><span class="num">3.5</span> Vesting</h3>
+  <ul>
+    <li><span class="cid">C-17</span> <span class="pill must">must-have</span> Vesting schedule &mdash; standard 4 years, 1-year cliff, then monthly / quarterly. Applies to every founder.</li>
+    <li><span class="cid">C-18</span> Upfront-vested portion, if any (credit for work already delivered &mdash; see Section 5.5).</li>
+    <li><span class="cid">C-19</span> Acceleration on a liquidity event &mdash; single-trigger or (more common) double-trigger.</li>
+    <li><span class="cid">C-20</span> Unvested shares on exit &rarr; company / founders buy back at face value or nominal.</li>
+    <li><span class="cid">C-21</span> Vesting pauses if a founder drops below full-time.</li>
+  </ul>
+
+  <h3><span class="num">3.6</span> Roles &amp; commitment</h3>
+  <ul>
+    <li><span class="cid">C-22</span> Title and functional ownership per founder; who is CEO and holds the tie-breaking vote.</li>
+    <li><span class="cid">C-23</span> <span class="pill must">must-have</span> Full-time vs part-time; if part-time now, the date each must go full-time and the consequence of missing it.</li>
+    <li><span class="cid">C-24</span> Minimum time commitment; no external job / venture / advisory without board consent.</li>
+    <li><span class="cid">C-25</span> Decisions the CEO may not take alone (link to reserved matters, C-30).</li>
+    <li><span class="cid">C-26</span> Annual role review.</li>
+  </ul>
+
+  <h3><span class="num">3.7</span> Remuneration &mdash; see Section 4 for the detailed format</h3>
+  <ul>
+    <li><span class="cid">C-27</span> Salary trigger, amounts, payment mechanics, increments, deferral / accrual, behaviour during fundraising.</li>
+    <li><span class="cid">C-28</span> Expense reimbursement policy &mdash; scope, limits, approval, timelines.</li>
+    <li><span class="cid">C-29</span> Salary is separate from equity, dividends and profit share &mdash; state explicitly.</li>
+  </ul>
+
+  <h3><span class="num">3.8</span> Governance &amp; decision-making</h3>
+  <ul>
+    <li><span class="cid">C-30</span> <span class="pill must">must-have</span> Reserved / affirmative matters requiring unanimous or supermajority founder consent: issuing shares; debt above &#8377;X; annual budget; hiring / firing a founder; changing founder salaries; sale of the company or material assets; IP transfer or exclusive licensing; related-party transactions; change of business; winding up; opening / closing bank accounts; capex above &#8377;X; commencing litigation.</li>
+    <li><span class="cid">C-31</span> Board composition, appointment / removal of directors, quorum, meeting cadence, notice, minutes, voting by email.</li>
+    <li><span class="cid">C-32</span> Ordinary matters &mdash; simple majority.</li>
+    <li><span class="cid">C-33</span> Information rights &mdash; every founder receives monthly MIS, bank statements, and the cap table.</li>
+  </ul>
+
+  <h3><span class="num">3.9</span> Deadlock</h3>
+  <ul>
+    <li><span class="cid">C-34</span> Escalation: founders &rarr; mediation &rarr; mechanism (CEO casting vote / neutral third director / buy-sell &ldquo;shotgun&rdquo; clause). Cooling-off period before any drastic step.</li>
+  </ul>
+
+  <h3><span class="num">3.10</span> IP &amp; confidentiality</h3>
+  <ul>
+    <li><span class="cid">C-35</span> <span class="pill must">must-have</span> All IP relating to the business &mdash; source code, content, curriculum, question banks, designs, requirement / architecture docs, domains, trademarks, data &mdash; is assigned to the company, <b>including pre-incorporation work</b>.</li>
+    <li><span class="cid">C-36</span> Moral rights waived to the extent permitted; obligation to execute further assignment documents on request.</li>
+    <li><span class="cid">C-37</span> Confidentiality obligations, survival post-exit, standard carve-outs.</li>
+    <li><span class="cid">C-38</span> Disclosure of third-party / open-source components and their licences.</li>
+    <li><span class="cid">C-39</span> Data-protection responsibilities (the platform processes minors' data).</li>
+  </ul>
+
+  <h3><span class="num">3.11</span> Restrictive covenants</h3>
+  <ul>
+    <li><span class="cid">C-40</span> During tenure: non-compete, no advisory to competitors, full attention to the company.</li>
+    <li><span class="cid">C-41</span> Post-exit: non-compete 12&ndash;24 months in Indian ed-tech (keep reasonable &mdash; Indian courts routinely strike down overbroad post-employment non-competes).</li>
+    <li><span class="cid">C-42</span> Non-solicit of employees, institutes and customers for a defined period (more readily enforceable).</li>
+  </ul>
+
+  <h3><span class="num">3.12</span> Founder exit &mdash; leaver provisions</h3>
+  <ul>
+    <li><span class="cid">C-43</span> <span class="pill must">must-have</span> <b>Good leaver</b> (death, disability, mutual separation, removal without cause): retains vested shares or sells at fair market value.</li>
+    <li><span class="cid">C-44</span> <span class="pill must">must-have</span> <b>Bad leaver</b> (resignation before cliff; termination for cause &mdash; fraud, material breach, gross misconduct, conviction, prolonged unapproved absence): company / founders may buy back at the <b>lower of cost and FMV</b>.</li>
+    <li><span class="cid">C-45</span> Valuation method for buyback: agreed formula (revenue / EBITDA multiple) OR independent registered valuer OR last round price with a discount; who bears the cost.</li>
+    <li><span class="cid">C-46</span> Payment terms &mdash; lump sum or instalments over 12&ndash;24 months.</li>
+    <li><span class="cid">C-47</span> Exiting founder resigns directorships, returns all company property and access, and cooperates in transition (credential / code / account handover).</li>
+    <li><span class="cid">C-48</span> Survival of confidentiality, non-compete and non-solicit after exit.</li>
+  </ul>
+
+  <h3><span class="num">3.13</span> Share transfer restrictions (also into the AoA)</h3>
+  <ul>
+    <li><span class="cid">C-49</span> Lock-in &mdash; no founder transfers shares for N years except as permitted.</li>
+    <li><span class="cid">C-50</span> Right of First Refusal / First Offer to other founders, then the company.</li>
+    <li><span class="cid">C-51</span> Tag-along (minority joins a majority sale) and drag-along (majority can require minority to sell in a bona fide exit).</li>
+    <li><span class="cid">C-52</span> Permitted transfers (e.g. to a family trust) with conditions; no pledge / encumbrance without consent.</li>
+  </ul>
+
+  <h3><span class="num">3.14</span> Fundraising</h3>
+  <ul>
+    <li><span class="cid">C-53</span> Founders support bona fide fundraising; reserved-matter consent still applies.</li>
+    <li><span class="cid">C-54</span> Pre-emptive rights for existing shareholders; ESOP top-ups each round.</li>
+  </ul>
+
+  <h3><span class="num">3.15</span> Financial controls</h3>
+  <ul>
+    <li><span class="cid">C-55</span> Bank operation &mdash; two-of-three signatories; per-signatory limits; dual authorisation above &#8377;X; no cash withdrawal above &#8377;X.</li>
+    <li><span class="cid">C-56</span> Accounting standard, bookkeeping tool, statutory + internal audit, financial year.</li>
+    <li><span class="cid">C-57</span> Budget approval and variance reporting; no personal expenses through the company.</li>
+    <li><span class="cid">C-58</span> Ownership of statutory compliance (GST, TDS, ROC, PF / ESI).</li>
+  </ul>
+
+  <h3><span class="num">3.16</span> Death / disability / insolvency of a founder</h3>
+  <ul>
+    <li><span class="cid">C-59</span> Shares pass to the nominee / legal heir with <b>economic rights only</b> &mdash; no board or management rights unless approved.</li>
+    <li><span class="cid">C-60</span> Company / founders' option to buy back within N months at FMV.</li>
+    <li><span class="cid">C-61</span> Key-man insurance &mdash; who is covered, company pays premium and is the beneficiary.</li>
+  </ul>
+
+  <h3><span class="num">3.17</span> Representations, warranties &amp; boilerplate</h3>
+  <ul>
+    <li><span class="cid">C-62</span> Each founder warrants: authority to sign; no conflicting obligation; no prior IP encumbrance; not bound by a former employer's non-compete / IP clause; no pending litigation or criminal case; disclosures are true.</li>
+    <li><span class="cid">C-63</span> Dispute resolution &mdash; governing law India; arbitration (Arbitration &amp; Conciliation Act 1996), single arbitrator, seat &amp; venue = your city, English; courts for interim relief.</li>
+    <li><span class="cid">C-64</span> Term &amp; survival; amendment only in writing signed by all (or required majority); entire agreement; severability; no waiver; notices (email + registered post); counterparts; assignment restrictions; precedence clause (see 2.1).</li>
+  </ul>
+</div>
+
+<!-- 4 -->
+<div class="section">
+  <h2><span class="num">4.</span> Founder Salary &amp; Drawings &mdash; the Withdrawal Format</h2>
+  <p class="lead">Agree this in writing now. It belongs in each Founder Employment Agreement (Pvt Ltd) or the Partnership Deed (firm).</p>
+
+  <h3><span class="num">4.1</span> When salary starts &mdash; the trigger</h3>
+  <ul>
+    <li>Define an objective trigger, e.g. the earliest of: (a) monthly revenue &ge; &#8377;X for 3 consecutive months; (b) external funding of &ge; &#8377;Y raised; (c) company bank balance &gt; N months of runway.</li>
+    <li>Until the trigger: zero cash salary, or a token amount, with the balance <b>accruing</b> (see 4.4).</li>
+  </ul>
+
+  <h3><span class="num">4.2</span> Amount</h3>
+  <ul>
+    <li>State a figure or a band per founder &mdash; equal, or differentiated by role / prior earnings / time commitment (record the reason).</li>
+    <li>Cap total founder payroll as a percentage of monthly burn (e.g. &le; 30&ndash;40%).</li>
+    <li>A below-market founder salary now can support a larger equity share or a sweat-equity claim &mdash; keep the two conversations linked (Section 5.3).</li>
+  </ul>
+
+  <h3><span class="num">4.3</span> Payment mechanics</h3>
+  <ul>
+    <li>Monthly, on a fixed date, through <b>payroll</b> with TDS, PF / ESI and professional tax as applicable; payslips issued; Form 16 annually.</li>
+    <li>Paid only from the company current account; never as undocumented cash or ad-hoc transfers.</li>
+    <li>Partnership firm equivalent: &ldquo;remuneration to working partners&rdquo; within Section 40(b) limits, <b>plus a monthly drawings cap</b> per partner charged to the partner's current account, with interest on capital and on drawings, trued up at year-end against the profit-sharing ratio.</li>
+  </ul>
+
+  <h3><span class="num">4.4</span> Deferral &amp; accrual (cash-short months)</h3>
+  <ul>
+    <li>If cash is insufficient, unpaid salary <b>accrues as an unsecured payable</b> to the founder and is settled when the trigger in 4.1 is met.</li>
+    <li>Cap total accrual per founder (e.g. 12 months) to avoid a large hidden liability at diligence.</li>
+    <li>Board must approve any accrual repayment; investors may require accrued founder salary to be waived or converted at their round.</li>
+  </ul>
+
+  <h3><span class="num">4.5</span> Increments &amp; changes</h3>
+  <ul>
+    <li>Reviewed once a year; any raise above a stated percentage or absolute figure needs unanimous founder / board / (later) investor consent &mdash; a reserved matter (C-30).</li>
+    <li>No consultancy fees, director sitting fees, or vendor payments to a founder or a founder-controlled entity without board approval and disclosure.</li>
+  </ul>
+
+  <h3><span class="num">4.6</span> What salary is not</h3>
+  <ul>
+    <li>Salary is compensation for <b>work</b>. It does not buy equity, does not create additional equity, and is separate from dividends and profit share. State this expressly so no one later claims &ldquo;unpaid salary = extra shares.&rdquo;</li>
+  </ul>
+
+  <div class="callout"><span class="label">Put in Annexure D</span> A small table: founder | role | salary band | trigger met? | accrual cap | review month.</div>
+</div>
+
+<!-- 5 -->
+<div class="section">
+  <h2><span class="num">5.</span> Valuing the Technology Contribution (Separately from Cash)</h2>
+  <p class="lead">One founder is contributing &ldquo;full tech&rdquo;: the existing codebase and IP already built, plus ongoing full-time engineering leadership to build the entire platform. This must be recognised distinctly from cash contributions &mdash; but structured so it is fair to the others and survives investor due diligence.</p>
+
+  <h3><span class="num">5.1</span> First, split the contribution into two things</h3>
+  <table class="no-break">
+    <thead><tr><th>What</th><th>Nature</th><th>How it is recognised</th></tr></thead>
+    <tbody>
+      <tr><td><b>(A) Pre-existing tech &amp; IP already built</b> &mdash; source code, architecture, requirement / design docs, domains, prototypes, accounts, out-of-pocket spend</td><td>A one-time asset transferred into the company at formation</td><td><b>Value it now</b> (this Section). Settle as equity, or a founder loan / reimbursable, or a mix.</td></tr>
+      <tr><td><b>(B) Future full-time work</b> &mdash; building, running and maintaining the platform going forward</td><td>The job the founder is signing up for</td><td>Compensated by the <b>equity split + vesting</b> (Section 3.4&ndash;3.5) and, once triggered, <b>salary</b> (Section 4). Do <b>not</b> also invoice the company monthly for this &mdash; that is double-counting.</td></tr>
+    </tbody>
+  </table>
+  <div class="callout risk"><span class="label">Guardrail</span> Only <b>(A)</b> is valued separately. Ongoing effort is what the larger equity slice and vesting are <i>for</i>. Mixing them is the most common way founder cap tables get challenged later.</div>
+
+  <h3><span class="num">5.2</span> Methods to value (A) &mdash; use two and cross-check</h3>
+  <table>
+    <thead><tr><th>Method</th><th>How</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Replacement / cost-to-build</b></td><td>What an agency would charge to build the equivalent, delivered scope today. Anchor to the companion Requirements doc estimate (&#8377;1.5&ndash;2.5&nbsp;Cr for full build).</td><td>Apply a discount for early-stage / unproven / needs-maintenance code: typically <b>40&ndash;70%</b> of the agency quote. Only count what is actually built, not the whole roadmap.</td></tr>
+      <tr><td><b>Foregone market compensation</b></td><td>Market CTO + lead-engineer package the founder is giving up, &times; months already worked unpaid, pre-incorporation.</td><td>Good sanity check; also used to size the sweat-equity premium in the split.</td></tr>
+      <tr><td><b>Independent registered valuer</b></td><td>An IBBI-registered valuer prepares a valuation report of the intangible assets.</td><td><b>Mandatory</b> if you issue shares for this contribution (non-cash consideration) &mdash; see 5.4.</td></tr>
+      <tr><td><b>Relative-contribution model</b></td><td>Assign weights to each founder's inputs (cash, IP, full-time role, risk, network) and derive the equity split; tech IP carries a defined weight.</td><td>Keeps the outcome as a % split rather than a booked asset &mdash; often the cleanest.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">5.3</span> How to settle the agreed value &mdash; pick one (or a mix)</h3>
+  <table>
+    <thead><tr><th>Option</th><th>Mechanics</th><th>Trade-off</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. Reflected in the equity split only</b></td><td>All founders subscribe at face value; the tech founder simply gets a larger share count. The rationale (incl. the valuation of A) is recorded in a schedule.</td><td>Simplest, cleanest, no valuation report, no tax question. Nothing booked as an asset. <b>Recommended default.</b></td></tr>
+      <tr><td><b>2. Shares issued for non-cash consideration</b></td><td>Company issues shares to the tech founder against the IP at the valuer's figure; IP recorded as an intangible asset.</td><td>Puts a number on the balance sheet, but needs a registered valuer report, board + shareholder approval, PAS-3 filing, and invites s.56 / valuation scrutiny.</td></tr>
+      <tr><td><b>3. Founder loan / reimbursable</b></td><td>IP + documented out-of-pocket spend assigned to the company at an agreed value, recorded as an unsecured payable to the founder, repaid from the first funding round or from revenue. Interest optional.</td><td>Cash back to the founder later without extra dilution; but it is a liability at diligence and investors may push to waive / convert it.</td></tr>
+      <tr><td><b>4. Hybrid</b></td><td>e.g. larger equity slice for the bulk of (A), plus a capped reimbursable for actual cash already spent (infra, domains, freelancers, tools).</td><td>Balanced and common. Keep the reimbursable small and fully receipted.</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">5.4</span> If you issue shares against the IP (Option 2) &mdash; compliance</h3>
+  <ul>
+    <li>Valuation by an <b>IBBI-registered valuer</b> (and a merchant banker / CA report for pricing under FEMA if any non-resident is involved).</li>
+    <li>Board resolution + special resolution (s.62(1)(c) for a preferential issue) or private-placement route (s.42) as advised.</li>
+    <li>Executed <b>IP Assignment Agreement</b> first &mdash; the company cannot issue shares for an asset it does not own (ties to C-35).</li>
+    <li>File <b>PAS-3</b> (return of allotment) with the valuation report; record the intangible asset and amortise per accounting policy.</li>
+    <li>Tax: shares issued to a founder must be at fair value &mdash; a &ldquo;cheap&rdquo; issue can be treated as a perquisite / income; an issue above FMV raises s.56(2)(viib) (&ldquo;angel tax&rdquo;-type) issues. Get a CA sign-off before allotment.</li>
+  </ul>
+
+  <h3><span class="num">5.5</span> Vesting still applies &mdash; with a carve-out</h3>
+  <ul>
+    <li>The tech founder's shares vest on the standard schedule (C-17) so the others are protected if the founder leaves early.</li>
+    <li><b>Carve-out:</b> the portion attributable to <b>(A) pre-existing IP already delivered</b> may be treated as <b>upfront-vested</b> (say 10&ndash;20% of that founder's stake), because that value is already in the company. Agree the exact upfront-vested number and put it in Annexure C.</li>
+    <li>The portion attributable to <b>(B) future work</b> stays fully subject to the 4-year / 1-year-cliff schedule.</li>
+  </ul>
+
+  <h3><span class="num">5.6</span> Cash the tech founder spends running the build</h3>
+  <ul>
+    <li>If the tech founder also pays and manages an external agency or contractors, that cash is a straightforward <b>capital contribution or founder loan</b> &mdash; track it in Annexure A / B with invoices, entirely separate from the sweat / IP value of (A).</li>
+  </ul>
+
+  <h3><span class="num">5.7</span> Documentation to keep (diligence-proof the claim)</h3>
+  <ul>
+    <li>Inventory of contributed assets: repository names + commit history / first-commit dates, module list, approximate scope mapped to the Requirements doc, design files, domain registrations, third-party accounts, licences.</li>
+    <li>Effort log or scope-to-estimate mapping showing what part of the agency estimate the delivered work corresponds to.</li>
+    <li>All invoices / receipts for out-of-pocket spend already incurred.</li>
+    <li>The two valuation calculations from 5.2 and, if using Option 2, the registered valuer report.</li>
+    <li>Signed IP Assignment Agreement.</li>
+    <li>Board resolution + a <b>schedule to the Founders' Agreement</b> recording: the agreed value of (A), the method(s) used, the discount applied, and how it is settled (equity / loan / reimbursement / mix), plus the upfront-vested carve-out.</li>
+  </ul>
+
+  <h3><span class="num">5.8</span> Worked example (illustrative &mdash; replace with your figures)</h3>
+  <div class="box">
+    <table class="no-break">
+      <tbody>
+        <tr><td>Agency replacement cost of the scope already delivered</td><td class="mono">&#8377;1,80,00,000</td></tr>
+        <tr><td>Discount &mdash; early-stage, unproven, maintenance required (55%)</td><td class="mono">&minus; &#8377;99,00,000</td></tr>
+        <tr><td><b>Imputed value of pre-existing tech IP (A)</b></td><td class="mono"><b>&#8377;81,00,000</b></td></tr>
+        <tr><td>Documented out-of-pocket spend already incurred (infra, domains, freelancers, tools)</td><td class="mono">+ &#8377;6,00,000</td></tr>
+        <tr><td><b>Total tech-side contribution recognised</b></td><td class="mono"><b>&#8377;87,00,000</b></td></tr>
+        <tr><td>Cash contributed by the other founder(s)</td><td class="mono">&#8377;50,00,000</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px;"><b>Ways to reflect it</b></p>
+    <ul style="margin-top:2px;">
+      <li><b>Split-only (Option 1):</b> contribution ratio &#8776; 87 : 50 &rarr; tech founder ~63%, cash founder(s) ~37% before any role / vesting adjustment. No asset booked; rationale in the schedule.</li>
+      <li><b>Hybrid (Option 4):</b> tech founder ~55%, plus &#8377;6,00,000 reimbursable for actual spend, with the remaining premium expressed through the split; &#8377;81L not booked.</li>
+      <li><b>Loan (Option 3):</b> broadly equal equity split, and &#8377;87,00,000 recorded as an unsecured founder payable, repaid from the first priced round (subject to investor consent).</li>
+    </ul>
+  </div>
+  <div class="callout note"><span class="label">Re-true-up</span> Whatever you choose, add a clause to revisit / confirm the treatment at the first priced funding round, when there is an external valuation to reference.</div>
+</div>
+
+<!-- 6 -->
+<div class="section">
+  <h2><span class="num">6.</span> Stamp Duty, Notarisation &amp; Registration (India)</h2>
+  <ul>
+    <li><b>Stamp paper value is state-specific.</b> Founders' / shareholders' agreements are commonly executed on &#8377;100&ndash;500 stamp paper; some states levy <b>ad valorem</b> duty on the capital / contribution &mdash; confirm your state Stamp Act schedule before printing.</li>
+    <li><b>Partnership Deed:</b> stamp per state (often a fixed slab, sometimes a % of capital). <b>Register with the Registrar of Firms</b> &mdash; an unregistered firm cannot sue to enforce the deed. Notarise as well.</li>
+    <li><b>LLP Agreement:</b> stamp duty per state schedule on contribution; file <b>MCA Form 3</b> within 30 days of incorporation.</li>
+    <li><b>Execution:</b> print on stamp paper &rarr; every founder signs <b>every page</b> &rarr; two witnesses &rarr; <b>notarise</b> (the notary attests execution; this gives evidentiary weight, not registration).</li>
+    <li><b>Registration &gt; notarisation</b> for enforceability. For a Pvt Ltd, notarise the SHA / Founders' Agreement <b>and</b> write the transfer / vesting / reserved-matter clauses into the <b>Articles of Association</b> filed with the ROC &mdash; otherwise they may not bind the company or a later shareholder.</li>
+    <li><b>IP Assignment &amp; Confidentiality:</b> execute as a separate stamped document, signed by every founder (and every employee / contractor).</li>
+    <li><b>Originals</b> stay with the company; each founder gets a certified copy. Keep scanned copies in the data room.</li>
+    <li>If any signatory is outside India at signing, follow proper cross-border execution / apostille / adjudication of stamp duty on entry into the state.</li>
+  </ul>
+</div>
+
+<!-- 7 -->
+<div class="section">
+  <h2><span class="num">7.</span> Execution &amp; Filing Checklist</h2>
+  <ol>
+    <li>Decide the structure (Section 2). If Pvt Ltd, incorporate (SPICe+), get CIN, PAN, TAN, bank account.</li>
+    <li>Engage a CS / startup lawyer; share this document and the companion Requirements doc.</li>
+    <li>Agree the equity split, vesting, salary format, and the tech-contribution treatment (Sections 3&ndash;5). Fill Annexures A&ndash;E.</li>
+    <li>Draft: Founders' Agreement, SHA, Share Subscription Agreement, Founder Employment Agreements, IP Assignment &amp; Confidentiality, updated AoA.</li>
+    <li>If issuing shares for non-cash consideration: obtain the IBBI registered valuer report; CA sign-off on pricing / tax.</li>
+    <li>Confirm state stamp duty; buy stamp paper of the correct value.</li>
+    <li>Board resolution approving the agreements, share allotments, ESOP pool, key-man insurance, bank signatories.</li>
+    <li>Execute all documents: sign every page, two witnesses, notarise.</li>
+    <li>File with ROC: PAS-3 (allotment), MGT-14 / DIR-12 as applicable; update the register of members and the cap table.</li>
+    <li>Register the Partnership Deed with the Registrar of Firms / file LLP Form 3 (if applicable).</li>
+    <li>Put executed copies, valuation report, IP inventory and Annexures in the data room.</li>
+    <li>Diarise: vesting dates, salary-trigger review, annual role &amp; salary review, contribution true-up at first round.</li>
+  </ol>
+</div>
+
+<!-- 8 -->
+<div class="section">
+  <h2><span class="num">8.</span> Annexures &mdash; Schedule Templates</h2>
+  <p class="lead">Fill these and attach them to the signed agreement.</p>
+
+  <h3><span class="num">8.1</span> Annexure A &mdash; Capital &amp; contribution schedule</h3>
+  <table>
+    <thead><tr><th>Founder</th><th>Cash (&#8377;)</th><th>Dates / tranches</th><th>Non-cash contribution</th><th>Agreed value (&#8377;)</th><th>How settled</th></tr></thead>
+    <tbody>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>equity / loan / reimb.</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.2</span> Annexure B &mdash; Technology-contribution valuation worksheet</h3>
+  <table>
+    <tbody>
+      <tr><td>Agency replacement cost of delivered scope (from Requirements doc estimate)</td><td class="mono">&#8377; __________</td></tr>
+      <tr><td>Discount applied for early-stage / unproven / maintenance (____%)</td><td class="mono">&minus; &#8377; __________</td></tr>
+      <tr><td>= Imputed value of pre-existing tech IP (A)</td><td class="mono">&#8377; __________</td></tr>
+      <tr><td>Cross-check &mdash; foregone market compensation (____ months &times; &#8377; ____ / month)</td><td class="mono">&#8377; __________</td></tr>
+      <tr><td>Documented out-of-pocket spend already incurred (attach invoices)</td><td class="mono">+ &#8377; __________</td></tr>
+      <tr><td><b>Total tech-side contribution recognised</b></td><td class="mono"><b>&#8377; __________</b></td></tr>
+      <tr><td>Settlement method (Option 1 / 2 / 3 / 4 &mdash; Section 5.3)</td><td>__________</td></tr>
+      <tr><td>Upfront-vested carve-out for delivered IP (% of this founder's stake)</td><td>____ %</td></tr>
+      <tr><td>Registered valuer report reference (if Option 2)</td><td>__________</td></tr>
+      <tr><td>True-up review event</td><td>First priced funding round</td></tr>
+    </tbody>
+  </table>
+  <p><small class="hint">Attach: IP inventory (repos + first-commit dates, module list, scope mapping), design files list, domain &amp; account list, invoices, IP Assignment Agreement, valuation calculations.</small></p>
+
+  <h3><span class="num">8.3</span> Annexure C &mdash; Vesting schedule (per founder)</h3>
+  <table>
+    <thead><tr><th>Founder</th><th>Total shares</th><th>Upfront-vested</th><th>Cliff</th><th>Vesting term</th><th>Frequency</th><th>Acceleration</th></tr></thead>
+    <tbody>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>12 months</td><td>48 months</td><td>monthly</td><td>double-trigger</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.4</span> Annexure D &mdash; Salary &amp; drawings</h3>
+  <table>
+    <thead><tr><th>Founder</th><th>Role</th><th>Salary band (&#8377;/mo)</th><th>Start trigger</th><th>Accrual cap</th><th>Review month</th></tr></thead>
+    <tbody>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.5</span> Annexure E &mdash; Cap table at formation</h3>
+  <table>
+    <thead><tr><th>Shareholder</th><th>Shares</th><th>Class</th><th>%</th><th>Consideration</th></tr></thead>
+    <tbody>
+      <tr><td>Founder 1</td><td>&nbsp;</td><td>Equity</td><td>&nbsp;</td><td>cash / IP / mix</td></tr>
+      <tr><td>Founder 2</td><td>&nbsp;</td><td>Equity</td><td>&nbsp;</td><td>cash</td></tr>
+      <tr><td>ESOP pool (reserved)</td><td>&nbsp;</td><td>&mdash;</td><td>10&ndash;15%</td><td>&mdash;</td></tr>
+      <tr><td><b>Total</b></td><td>&nbsp;</td><td>&nbsp;</td><td>100%</td><td>&nbsp;</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">8.6</span> Annexure F &mdash; Reserved matters list</h3>
+  <p>Copy the list at C-30, adjust thresholds (&#8377;X, capex limit, debt limit), and have all founders initial it.</p>
+
+  <hr>
+  <p style="text-align:center;color:var(--muted);font-size:8.5pt;">End of document &mdash; Founders' Agreement Checklist &amp; Tech-Contribution Valuation v1.0 &middot; 10 September 2026 &middot; Confidential &middot; Not legal advice</p>
+</div>
+
+</body>
+</html>

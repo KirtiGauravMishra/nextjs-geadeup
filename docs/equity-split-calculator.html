@@ -1,0 +1,1045 @@
+<title>Founders' Split Worksheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#f3f5f4; --surface:#ffffff; --surface-2:#f8faf9;
+    --ink:#17211e; --ink-soft:#3b4642; --muted:#66716c;
+    --line:#dde3e1; --line-strong:#c5cdca;
+    --accent:#12695c; --accent-soft:#e2efec; --accent-ink:#0c4a41;
+    --good:#2f7d5b; --warn:#9a6b16; --crit:#b34334;
+    --warn-soft:#f6ecd8; --crit-soft:#f6e2de; --good-soft:#e0efe7;
+    --f1:#12695c; --f2:#c07d2a; --f3:#4a6fa5; --f4:#8a5a83; --f5:#5b8c5a; --f6:#9c6b4a;
+    --esop:#9aa4a1;
+    --cash:#4a6fa5; --sweat:#12695c; --ipk:#c07d2a;
+    --shadow:0 1px 2px rgba(20,30,28,.06), 0 10px 26px -14px rgba(20,30,28,.16);
+    --radius:10px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0e1512; --surface:#151d1a; --surface-2:#1a2320;
+      --ink:#e8ecea; --ink-soft:#b4bdb9; --muted:#7f8b86;
+      --line:#283530; --line-strong:#35453f;
+      --accent:#3cad88; --accent-soft:#17302a; --accent-ink:#bfe6da;
+      --good:#56b98a; --warn:#d0a24e; --crit:#e0776a;
+      --warn-soft:#2c2716; --crit-soft:#2e1e1b; --good-soft:#16281f;
+      --f1:#3cad88; --f2:#d69a54; --f3:#7fa0d0; --f4:#b98cb0; --f5:#86b884; --f6:#c79a7c;
+      --esop:#6c7672;
+      --cash:#7fa0d0; --sweat:#3cad88; --ipk:#d69a54;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0e1512; --surface:#151d1a; --surface-2:#1a2320;
+    --ink:#e8ecea; --ink-soft:#b4bdb9; --muted:#7f8b86;
+    --line:#283530; --line-strong:#35453f;
+    --accent:#3cad88; --accent-soft:#17302a; --accent-ink:#bfe6da;
+    --good:#56b98a; --warn:#d0a24e; --crit:#e0776a;
+    --warn-soft:#2c2716; --crit-soft:#2e1e1b; --good-soft:#16281f;
+    --f1:#3cad88; --f2:#d69a54; --f3:#7fa0d0; --f4:#b98cb0; --f5:#86b884; --f6:#c79a7c;
+    --esop:#6c7672;
+    --cash:#7fa0d0; --sweat:#3cad88; --ipk:#d69a54;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 32px -14px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px; margin:0 auto; padding:0 20px 96px;}
+
+  h1,h2,h3{font-family:"Spectral",Georgia,"Times New Roman",serif; font-weight:600; color:var(--ink); text-wrap:balance; margin:0;}
+  h1{font-size:30px; letter-spacing:-.01em;}
+  h2{font-size:20px; letter-spacing:-.005em;}
+  h3{font-size:15px; font-weight:600;}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums;}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);}
+  .num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+
+  a{color:var(--accent-ink);}
+  button{font-family:inherit;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+
+  /* ---------- header ---------- */
+  header.top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding:30px 0 18px;
+  }
+  header.top .lede{max-width:60ch; color:var(--ink-soft); margin-top:8px; font-size:14.5px;}
+  .theme-btn{
+    flex:none; background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+    width:38px; height:38px; border-radius:9px; cursor:pointer; font-size:16px; line-height:1;
+    display:grid; place-items:center; box-shadow:var(--shadow);
+  }
+  .theme-btn:hover{border-color:var(--line-strong);}
+
+  /* ---------- sticky summary ---------- */
+  .summary{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    margin:0 -20px 22px; padding:10px 20px;
+    display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center;
+  }
+  .summary .s-label{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-family:"IBM Plex Mono",monospace;}
+  .chip{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:13px; padding:4px 10px; border-radius:999px;
+    background:var(--surface); border:1px solid var(--line);
+  }
+  .chip .dot{width:9px; height:9px; border-radius:50%; flex:none;}
+  .chip b{font-family:"IBM Plex Mono",monospace; font-weight:600;}
+
+  /* ---------- panels ---------- */
+  .panel{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; margin-bottom:20px; box-shadow:var(--shadow);
+  }
+  .panel > .p-head{display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:4px;}
+  .panel > .p-head .hint{font-size:12.5px; color:var(--muted);}
+  .panel-note{font-size:13px; color:var(--muted); margin:2px 0 16px;}
+
+  /* ---------- settings grid ---------- */
+  details.settings{margin-bottom:20px; border:1px solid var(--line); border-radius:var(--radius); background:var(--surface); box-shadow:var(--shadow); overflow:hidden;}
+  details.settings > summary{
+    cursor:pointer; padding:14px 20px; font-weight:600; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+  }
+  details.settings > summary::-webkit-details-marker{display:none;}
+  details.settings > summary .caret{transition:transform .18s ease; color:var(--muted);}
+  details.settings[open] > summary .caret{transform:rotate(90deg);}
+  details.settings > summary:hover{background:var(--surface-2);}
+  .settings-body{padding:6px 20px 20px; border-top:1px solid var(--line);}
+
+  .grid{display:grid; gap:14px 18px;}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .grid.cols-4{grid-template-columns:repeat(4,1fr);}
+
+  .field{display:flex; flex-direction:column; gap:5px;}
+  .field > label{font-size:12px; font-weight:600; color:var(--ink-soft); display:flex; align-items:center; gap:6px;}
+  .field .sub{font-size:11.5px; color:var(--muted); font-weight:400;}
+  .field input[type=number], .field input[type=text], .field select{
+    font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:14px; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--line); border-radius:8px;
+    padding:8px 10px; width:100%; -moz-appearance:textfield;
+  }
+  .field input:focus, .field select:focus{border-color:var(--accent); background:var(--surface);}
+  .field.money{position:relative;}
+  .field.money input{padding-left:22px;}
+  .field.money::after{content:"\20B9"; position:absolute; left:10px; bottom:9px; color:var(--muted); font-family:"IBM Plex Mono",monospace; font-size:13px;}
+
+  .seg{display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--surface-2);}
+  .seg button{
+    border:0; background:transparent; color:var(--ink-soft); padding:7px 12px; font-size:12.5px; cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;
+  }
+  .seg button[aria-pressed="true"]{background:var(--accent); color:#fff;}
+  :root[data-theme="dark"] .seg button[aria-pressed="true"], :root:not([data-theme="light"]) .seg button[aria-pressed="true"]{color:#0e1512;}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .seg button[aria-pressed="true"]{color:#fff;}}
+
+  .range-row{display:flex; align-items:center; gap:10px;}
+  .range-row input[type=range]{flex:1; accent-color:var(--accent);}
+  .range-row .rv{font-family:"IBM Plex Mono",monospace; font-size:13px; min-width:44px; text-align:right; color:var(--ink);}
+
+  /* ---------- founders ---------- */
+  .founders{display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(288px,1fr));}
+  .founder{
+    border:1px solid var(--line); border-radius:var(--radius); padding:16px; background:var(--surface-2);
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .founder .f-top{display:flex; align-items:center; gap:9px;}
+  .founder .f-swatch{width:12px; height:12px; border-radius:3px; flex:none;}
+  .founder .f-name{
+    flex:1; font-family:"Spectral",Georgia,serif; font-size:17px; font-weight:600; color:var(--ink);
+    background:transparent; border:0; border-bottom:1px dashed var(--line-strong); padding:2px 0;
+  }
+  .founder .f-name:focus{border-bottom-color:var(--accent); outline:none;}
+  .founder .rm{
+    flex:none; background:transparent; border:1px solid var(--line); color:var(--muted);
+    width:26px; height:26px; border-radius:7px; cursor:pointer; font-size:14px; line-height:1;
+  }
+  .founder .rm:hover{border-color:var(--crit); color:var(--crit);}
+  .founder fieldset{border:0; margin:0; padding:0; display:grid; gap:10px 12px; grid-template-columns:1fr 1fr;}
+  .founder legend{
+    font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+    font-family:"IBM Plex Mono",monospace; padding:0; margin:2px 0 -2px; grid-column:1/-1;
+  }
+  .founder .pts fieldset{grid-template-columns:1fr;}
+  .pt-row{display:grid; grid-template-columns:88px 1fr 26px; align-items:center; gap:8px;}
+  .pt-row label{font-size:12px; color:var(--ink-soft); font-weight:500;}
+  .pt-row input[type=range]{accent-color:var(--accent); width:100%;}
+  .pt-row .pv{font-family:"IBM Plex Mono",monospace; font-size:12.5px; text-align:right; color:var(--muted);}
+
+  .composition{height:8px; border-radius:5px; overflow:hidden; display:flex; background:var(--line); margin-top:2px;}
+  .composition i{display:block; height:100%;}
+  @media (prefers-reduced-motion:no-preference){ .composition i{transition:width .35s ease;} }
+  .comp-key{display:flex; gap:12px; font-size:11px; color:var(--muted); margin-top:6px; flex-wrap:wrap;}
+  .comp-key span{display:inline-flex; align-items:center; gap:5px;}
+  .comp-key i{width:9px; height:9px; border-radius:2px; display:inline-block;}
+
+  .addbtn{
+    border:1px dashed var(--line-strong); background:var(--surface-2); color:var(--ink-soft);
+    border-radius:var(--radius); padding:14px; cursor:pointer; font-size:14px; font-weight:500;
+    display:grid; place-items:center; min-height:120px;
+  }
+  .addbtn:hover{border-color:var(--accent); color:var(--accent-ink);}
+  .addbtn:disabled{opacity:.4; cursor:not-allowed;}
+
+  /* ---------- results ---------- */
+  .results-top{display:grid; grid-template-columns:minmax(220px,280px) 1fr; gap:24px; align-items:center;}
+  .donut-wrap{position:relative; width:200px; height:200px; margin:0 auto;}
+  .donut{transform:rotate(-90deg);}
+  .donut-center{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; margin:0; pointer-events:none;}
+  .donut-center .dc-big{font-family:"Spectral",Georgia,serif; font-size:22px; font-weight:700;}
+  .donut-center .dc-sm{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-family:"IBM Plex Mono",monospace;}
+  .legend{display:flex; flex-direction:column; gap:9px;}
+  .legend-row{display:grid; grid-template-columns:14px 1fr auto auto; gap:10px; align-items:center; font-size:13.5px; padding:6px 0; border-bottom:1px solid var(--line);}
+  .legend-row:last-child{border-bottom:0;}
+  .legend-row .lg-dot{width:12px; height:12px; border-radius:3px;}
+  .legend-row .lg-name{font-weight:500;}
+  .legend-row .lg-pct{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:14px;}
+  .legend-row .lg-sh{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted);}
+
+  .tbl-scroll{overflow-x:auto; margin-top:8px;}
+  table.cap{border-collapse:collapse; width:100%; font-size:13px; min-width:640px;}
+  table.cap th, table.cap td{padding:9px 12px; text-align:right; border-bottom:1px solid var(--line);}
+  table.cap th:first-child, table.cap td:first-child{text-align:left;}
+  table.cap thead th{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; border-bottom:1px solid var(--line-strong); vertical-align:bottom;
+  }
+  table.cap td{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+  table.cap td:first-child{font-family:"IBM Plex Sans",sans-serif;}
+  table.cap tbody tr:hover{background:var(--surface-2);}
+  table.cap tfoot td{font-weight:600; border-top:1px solid var(--line-strong); border-bottom:0;}
+  table.cap .swat{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:7px; vertical-align:baseline;}
+
+  /* ---------- warnings ---------- */
+  .flags{display:flex; flex-direction:column; gap:8px; margin-bottom:20px;}
+  .flag{
+    display:flex; gap:10px; align-items:flex-start; font-size:13px; padding:10px 13px; border-radius:9px;
+    border:1px solid var(--line);
+  }
+  .flag .ic{flex:none; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12px; margin-top:1px;}
+  .flag.warn{background:var(--warn-soft); border-color:color-mix(in srgb,var(--warn) 40%,var(--line));}
+  .flag.warn .ic{color:var(--warn);}
+  .flag.crit{background:var(--crit-soft); border-color:color-mix(in srgb,var(--crit) 45%,var(--line));}
+  .flag.crit .ic{color:var(--crit);}
+  .flag.info{background:var(--accent-soft); border-color:color-mix(in srgb,var(--accent) 30%,var(--line));}
+  .flag.info .ic{color:var(--accent-ink);}
+  .flag.good{background:var(--good-soft); border-color:color-mix(in srgb,var(--good) 35%,var(--line));}
+  .flag.good .ic{color:var(--good);}
+
+  /* ---------- profit ---------- */
+  .waterfall{display:flex; flex-direction:column; gap:2px; margin:14px 0 4px; font-size:13px;}
+  .wf-row{display:grid; grid-template-columns:1fr auto; gap:12px; padding:8px 12px; border-radius:7px;}
+  .wf-row.head{background:var(--surface-2); font-weight:600;}
+  .wf-row.sub{color:var(--ink-soft);}
+  .wf-row .wf-amt{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+  .wf-row.total{border-top:1px solid var(--line-strong); font-weight:600; margin-top:4px;}
+  .wf-neg .wf-amt{color:var(--crit);}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .toolbar button, .toolbar .file-like{
+    background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+    padding:8px 13px; border-radius:8px; font-size:13px; cursor:pointer; box-shadow:var(--shadow);
+  }
+  .toolbar button:hover{border-color:var(--accent); color:var(--accent-ink);}
+  .toolbar button.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .toolbar button.primary{color:#0e1512;}}
+  :root[data-theme="dark"] .toolbar button.primary{color:#0e1512;}
+  .toolbar select{
+    background:var(--surface); border:1px solid var(--line); color:var(--ink-soft);
+    padding:8px 10px; border-radius:8px; font-size:13px; box-shadow:var(--shadow); font-family:inherit;
+  }
+
+  .footnote{font-size:12px; color:var(--muted); margin-top:8px; max-width:78ch;}
+  details.method{margin-top:14px; font-size:13px;}
+  details.method summary{cursor:pointer; color:var(--accent-ink); font-weight:500;}
+  details.method .m-body{margin-top:10px; color:var(--ink-soft); display:flex; flex-direction:column; gap:7px;}
+  details.method code{font-family:"IBM Plex Mono",monospace; background:var(--surface-2); padding:1px 5px; border-radius:4px; font-size:12px;}
+
+  .disclaimer{font-size:12px; color:var(--muted); border-top:1px solid var(--line); padding-top:16px; margin-top:34px; max-width:80ch;}
+
+  @media (max-width:720px){
+    .grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr;}
+    .results-top{grid-template-columns:1fr;}
+    h1{font-size:25px;}
+  }
+
+  @media print{
+    :root{--surface:#fff; --surface-2:#fff; --paper:#fff; --ink:#000; --ink-soft:#222; --muted:#555; --line:#bbb; --line-strong:#888; --shadow:none;}
+    .toolbar, .theme-btn, .addbtn, .founder .rm, details.settings, .summary{display:none !important;}
+    .panel{break-inside:avoid; box-shadow:none; border-color:#bbb;}
+    body{font-size:12px;}
+    .wrap{padding:0;}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">Founders&rsquo; toolkit &middot; equity &amp; profit</div>
+      <h1>Founders&rsquo; Split Worksheet</h1>
+      <p class="lede">Model how ownership and profit divide when one founder brings cash, another brings the build, and everyone brings something less tangible &mdash; idea, leadership, network, risk. Adjust the weights, see the cap table move.</p>
+    </div>
+    <button class="theme-btn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle light or dark theme">&#9681;</button>
+  </header>
+
+  <div class="summary" id="summary" aria-live="polite">
+    <span class="s-label">Split</span>
+  </div>
+
+  <div class="toolbar">
+    <button class="primary" id="btnExample">Load the ed-tech example</button>
+    <button id="btnBlank">Start blank</button>
+    <button id="btnSave">Save scenario&hellip;</button>
+    <select id="scenarioSel" aria-label="Load a saved scenario"><option value="">Saved scenarios&hellip;</option></select>
+    <button id="btnDelete">Delete saved</button>
+    <button id="btnCopy">Copy summary</button>
+    <button id="btnPrint">Print / PDF</button>
+  </div>
+
+  <div class="flags" id="flags"></div>
+
+  <details class="settings" id="settingsWrap">
+    <summary><span>Model settings &mdash; multipliers, treatment of IP &amp; spend, ESOP</span><span class="caret">&#9656;</span></summary>
+    <div class="settings-body">
+      <div class="grid cols-3">
+        <div class="field">
+          <label>Cash multiplier <span class="sub" title="How at-risk cash is weighted vs. its face value. Slicing-Pie style models use up to 4x.">?</span></label>
+          <div class="range-row"><input type="range" id="set_cashMult" min="1" max="4" step="0.25"><span class="rv" id="rv_cashMult"></span></div>
+        </div>
+        <div class="field">
+          <label>Sweat multiplier <span class="sub" title="Unpaid work is riskier than cash, so it is usually weighted 1.5x-2x.">?</span></label>
+          <div class="range-row"><input type="range" id="set_sweatMult" min="1" max="3" step="0.25"><span class="rv" id="rv_sweatMult"></span></div>
+        </div>
+        <div class="field">
+          <label>IP / assets multiplier</label>
+          <div class="range-row"><input type="range" id="set_ipMult" min="0.5" max="2" step="0.25"><span class="rv" id="rv_ipMult"></span></div>
+        </div>
+        <div class="field">
+          <label>Intangibles influence <span class="sub" title="Share of final equity decided by the idea / role / network / risk sliders rather than the money+work base.">?</span></label>
+          <div class="range-row"><input type="range" id="set_intangible" min="0" max="35" step="1"><span class="rv" id="rv_intangible"></span></div>
+        </div>
+        <div class="field">
+          <label>ESOP pool reserved</label>
+          <div class="range-row"><input type="range" id="set_esop" min="0" max="20" step="1"><span class="rv" id="rv_esop"></span></div>
+        </div>
+        <div class="field money">
+          <label>Total shares to allocate</label>
+          <input type="number" id="set_totalShares" min="1000" step="1000" style="padding-left:10px">
+        </div>
+        <div class="field">
+          <label>Money already spent counts as&hellip;</label>
+          <div class="seg" id="set_spentAs" role="group" aria-label="Treatment of money already spent">
+            <button type="button" data-v="cash">Cash contribution</button>
+            <button type="button" data-v="loan">Repayable from profit</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Pre-built IP / assets count as&hellip;</label>
+          <div class="seg" id="set_ipAs" role="group" aria-label="Treatment of pre-built IP">
+            <button type="button" data-v="equity">Equity contribution</button>
+            <button type="button" data-v="loan">Repayable from profit</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Profit distributed by&hellip;</label>
+          <div class="seg" id="set_distBy" role="group" aria-label="Profit distribution basis">
+            <button type="button" data-v="equity">Equity %</button>
+            <button type="button" data-v="custom">Custom ratio</button>
+          </div>
+        </div>
+      </div>
+      <p class="footnote">The <b>money+work base</b> is <code>cash&times;m<sub>c</sub> + IP&times;m<sub>ip</sub> + (market&minus;drawn salary)&times;months&times;commitment&times;m<sub>s</sub></code> per founder, taken as a share of the total. The <b>intangibles influence</b> then blends in the idea/role/network/risk points. ESOP is carved from the combined founder pool.</p>
+    </div>
+  </details>
+
+  <div class="panel">
+    <div class="p-head"><h2>Founders &amp; contributions</h2><span class="hint" id="founderCount"></span></div>
+    <p class="panel-note">Enter monthly figures for salary. &ldquo;Market salary&rdquo; is what the founder could earn elsewhere; &ldquo;drawn&rdquo; is what they actually take from the company now &mdash; the gap, over the months worked, is their sweat.</p>
+    <div class="founders" id="founders"></div>
+    <div style="margin-top:16px">
+      <button class="addbtn" id="btnAdd" style="width:100%">+ Add founder</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="p-head"><h2>Equity split</h2><span class="hint">before dilution from future funding rounds</span></div>
+    <div class="results-top">
+      <div class="donut-wrap">
+        <svg class="donut" id="donut" width="200" height="200" viewBox="0 0 200 200" role="img" aria-label="Equity split donut chart"></svg>
+        <div class="donut-center"><div class="dc-big" id="dcBig"></div><div class="dc-sm">founders + ESOP</div></div>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="cap" id="capTable"></table>
+    </div>
+    <details class="method">
+      <summary>How each number is derived</summary>
+      <div class="m-body">
+        <span><b>Cash units</b> = (cash + spend-as-cash) &times; cash multiplier.</span>
+        <span><b>Sweat units</b> = max(0, market salary &minus; drawn salary) &times; months &times; (commitment % / 100) &times; sweat multiplier.</span>
+        <span><b>IP units</b> = IP value &times; IP multiplier, only when IP is set to count as equity.</span>
+        <span><b>Base %</b> = a founder&rsquo;s (cash + sweat + IP) units &divide; everyone&rsquo;s.</span>
+        <span><b>Points %</b> = a founder&rsquo;s (idea + role + network + risk) &divide; everyone&rsquo;s.</span>
+        <span><b>Final founder %</b> = (1 &minus; influence) &times; Base % + influence &times; Points %.</span>
+        <span><b>Cap-table %</b> = Final founder % &times; (100 &minus; ESOP %). The ESOP pool takes the remainder.</span>
+      </div>
+    </details>
+  </div>
+
+  <div class="panel">
+    <div class="p-head"><h2>Profit sharing</h2><span class="hint" id="profitBasisHint"></span></div>
+    <p class="panel-note">A one-period waterfall: set aside money to reinvest, repay any founder money that was booked as repayable, then divide what&rsquo;s left. Monthly founder salaries are an operating cost and sit outside this.</p>
+    <div class="grid cols-3">
+      <div class="field money"><label>Distributable profit for the period</label><input type="number" id="pf_amount" min="0" step="10000"></div>
+      <div class="field"><label>Period label</label><input type="text" id="pf_label" placeholder="e.g. FY26 Q3"></div>
+      <div class="field"><label>Reinvest / retain</label><div class="range-row"><input type="range" id="pf_retain" min="0" max="100" step="5"><span class="rv" id="rv_pf_retain"></span></div></div>
+    </div>
+    <div id="customRatios" hidden>
+      <p class="panel-note" style="margin-top:16px">Custom profit-sharing ratio (need not match equity &mdash; common in partnership firms). Values are normalised to 100%.</p>
+      <div class="grid cols-4" id="customRatioGrid"></div>
+    </div>
+    <div class="waterfall" id="waterfall"></div>
+    <div class="tbl-scroll">
+      <table class="cap" id="profitTable"></table>
+    </div>
+  </div>
+
+  <p class="disclaimer" id="disclaimer">
+    This worksheet is a modelling aid, not legal, tax or valuation advice. Equity-for-IP, sweat equity, founder loans and profit-sharing ratios each carry company-law and tax consequences in India &mdash; have the numbers and the structure reviewed by a company secretary / chartered accountant before you sign anything. Figures are stored only in this browser.
+  </p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var FCOLORS = ['--f1','--f2','--f3','--f4','--f5','--f6'];
+  var inr = new Intl.NumberFormat('en-IN', {maximumFractionDigits:0});
+  var pct1 = function(x){ return (Math.round(x*10)/10).toFixed(1) + '%'; };
+  var money = function(x){ return '₹ ' + inr.format(Math.round(x||0)); };
+  var $ = function(s,el){ return (el||document).querySelector(s); };
+  var cssv = function(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); };
+
+  var LS = {
+    last:'fsw:last', scen:'fsw:scenarios', theme:'fsw:theme'
+  };
+
+  function uid(){ return 'f'+Math.random().toString(36).slice(2,8); }
+
+  function exampleState(){
+    return {
+      settings:{ cashMult:1, sweatMult:2, ipMult:1, intangible:12, esop:10, totalShares:1000000,
+                 spentAs:'loan', ipAs:'equity', distBy:'equity' },
+      founders:[
+        { id:uid(), name:'Tech founder', cash:0, ipValue:8100000, spent:600000,
+          market:150000, drawn:0, months:12, commitment:100,
+          pIdea:7, pRole:8, pNetwork:4, pRisk:8 },
+        { id:uid(), name:'Partner (capital)', cash:5000000, ipValue:0, spent:0,
+          market:120000, drawn:0, months:6, commitment:100,
+          pIdea:5, pRole:6, pNetwork:7, pRisk:6 }
+      ],
+      profit:{ amount:2000000, label:'First profitable year', retain:40, custom:{} }
+    };
+  }
+  function blankFounder(name){
+    return { id:uid(), name:name||'Founder', cash:0, ipValue:0, spent:0,
+             market:0, drawn:0, months:12, commitment:100,
+             pIdea:5, pRole:5, pNetwork:5, pRisk:5 };
+  }
+  function blankState(){
+    return { settings:{ cashMult:1, sweatMult:2, ipMult:1, intangible:12, esop:10, totalShares:1000000,
+              spentAs:'loan', ipAs:'equity', distBy:'equity' },
+      founders:[ blankFounder('Founder A'), blankFounder('Founder B') ],
+      profit:{ amount:0, label:'', retain:40, custom:{} } };
+  }
+
+  var state = load() || exampleState();
+
+  function load(){
+    try{ var raw = localStorage.getItem(LS.last); if(!raw) return null;
+      var s = JSON.parse(raw); if(!s || !s.founders || !s.founders.length) return null; return s;
+    }catch(e){ return null; }
+  }
+  var saveTimer;
+  function persist(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try{ localStorage.setItem(LS.last, JSON.stringify(state)); }catch(e){}
+    }, 200);
+  }
+  function getScenarios(){
+    try{ return JSON.parse(localStorage.getItem(LS.scen)||'{}') || {}; }catch(e){ return {}; }
+  }
+  function setScenarios(o){ try{ localStorage.setItem(LS.scen, JSON.stringify(o)); }catch(e){} }
+
+  /* ---------- compute ---------- */
+  function compute(){
+    var S = state.settings, F = state.founders;
+    var rows = F.map(function(f){
+      var cashUnits = (num(f.cash) + (S.spentAs==='cash' ? num(f.spent) : 0)) * S.cashMult;
+      var ipUnits   = (S.ipAs==='equity' ? num(f.ipValue) : 0) * S.ipMult;
+      var sweatMo   = Math.max(0, num(f.market) - num(f.drawn));
+      var sweatUnits= sweatMo * num(f.months) * (clamp(num(f.commitment),0,100)/100) * S.sweatMult;
+      var monetary  = cashUnits + ipUnits + sweatUnits;
+      var points    = num(f.pIdea)+num(f.pRole)+num(f.pNetwork)+num(f.pRisk);
+      var loanBal   = (S.ipAs==='loan' ? num(f.ipValue) : 0) + (S.spentAs==='loan' ? num(f.spent) : 0);
+      return { f:f, cashUnits:cashUnits, ipUnits:ipUnits, sweatUnits:sweatUnits,
+               monetary:monetary, points:points, loanBal:loanBal };
+    });
+    var sumMon = rows.reduce(function(a,r){return a+r.monetary;},0);
+    var sumPts = rows.reduce(function(a,r){return a+r.points;},0);
+    var n = rows.length;
+    var k = clamp(S.intangible,0,100)/100;
+    rows.forEach(function(r){
+      r.baseShare = sumMon>0 ? r.monetary/sumMon : 1/n;
+      r.ptShare   = sumPts>0 ? r.points/sumPts   : 1/n;
+      r.finalShare= (1-k)*r.baseShare + k*r.ptShare;
+    });
+    var sumFinal = rows.reduce(function(a,r){return a+r.finalShare;},0) || 1;
+    rows.forEach(function(r){
+      r.finalShare = r.finalShare / sumFinal;                     // normalise
+      r.capPct = r.finalShare * (100 - clamp(S.esop,0,90));       // founder cap-table %
+      r.shares = Math.round(r.finalShare * (100 - clamp(S.esop,0,90))/100 * num(S.totalShares));
+    });
+    var esopPct = clamp(S.esop,0,90);
+    var esopShares = num(S.totalShares) - rows.reduce(function(a,r){return a+r.shares;},0);
+    return { rows:rows, sumMon:sumMon, sumPts:sumPts, esopPct:esopPct, esopShares:esopShares, n:n };
+  }
+
+  function computeProfit(c){
+    var P = state.profit, S = state.settings;
+    var amount = Math.max(0, num(P.amount));
+    var retain = amount * clamp(num(P.retain),0,100)/100;
+    var avail = amount - retain;
+    var totalLoans = c.rows.reduce(function(a,r){return a+r.loanBal;},0);
+    var repayPool = Math.min(avail, totalLoans);
+    var distributable = avail - repayPool;
+
+    var custSum = 0;
+    if(S.distBy==='custom'){
+      c.rows.forEach(function(r){ custSum += Math.max(0, num(P.custom[r.f.id])); });
+    }
+    var per = c.rows.map(function(r){
+      var repay = totalLoans>0 ? repayPool * (r.loanBal/totalLoans) : 0;
+      var shareFrac;
+      if(S.distBy==='custom'){
+        shareFrac = custSum>0 ? Math.max(0,num(P.custom[r.f.id]))/custSum : 1/c.n;
+      } else {
+        shareFrac = r.finalShare;
+      }
+      var profitShare = distributable * shareFrac;
+      return { r:r, repay:repay, shareFrac:shareFrac, profitShare:profitShare,
+               total:repay+profitShare, loanAfter:r.loanBal-repay };
+    });
+    return { amount:amount, retain:retain, avail:avail, totalLoans:totalLoans,
+             repayPool:repayPool, distributable:distributable, per:per };
+  }
+
+  /* ---------- flags ---------- */
+  function buildFlags(c){
+    var out = [];
+    var S = state.settings;
+    var maxr = c.rows.slice().sort(function(a,b){return b.capPct-a.capPct;});
+    if(maxr[0] && maxr[0].capPct > 70)
+      out.push(['warn', maxr[0].f.name+' holds '+pct1(maxr[0].capPct)+'. Above ~70% leaves little room for co-founders, ESOP and investors.']);
+    c.rows.forEach(function(r){
+      if(r.capPct > 0 && r.capPct < 5)
+        out.push(['warn', r.f.name+' ends up with just '+pct1(r.capPct)+' — check the inputs, a stake this small rarely keeps a founder motivated.']);
+      if(num(r.f.commitment) < 50 && r.capPct > 25)
+        out.push(['warn', r.f.name+' is '+num(r.f.commitment)+'% committed but holds '+pct1(r.capPct)+'. Part-time founders with large stakes are the most common source of later disputes.']);
+    });
+    if(c.n === 2){
+      var d = Math.abs(c.rows[0].finalShare - c.rows[1].finalShare)*100;
+      if(d < 6) out.push(['warn','A near 50/50 two-founder split has no tie-breaker. Agree a casting vote or a deadlock mechanism.']);
+    }
+    if(S.esop < 8)
+      out.push(['info','ESOP pool is '+S.esop+'%. Most institutional investors expect a 10–15% option pool at the first round.']);
+    if(S.ipAs === 'equity' && c.rows.some(function(r){return num(r.f.ipValue)>0;}))
+      out.push(['info','IP is set to count as equity. Issuing shares for IP needs a signed IP-assignment and, formally, an IBBI registered-valuer report — or keep it in the split rationale only.']);
+    if(c.rows.every(function(r){return r.monetary===0;}))
+      out.push(['info','No cash, IP or sweat entered yet — the split is currently equal by default.']);
+    if(!out.length)
+      out.push(['good','No structural red flags in this split. Still put vesting (4-year, 1-year cliff) and leaver terms in writing.']);
+    return out;
+  }
+
+  /* ---------- render ---------- */
+  function render(){
+    var c = compute();
+    renderFounders();
+    renderSettingsControls();
+    renderSummary(c);
+    renderFlags(c);
+    renderDonut(c);
+    renderLegend(c);
+    renderCapTable(c);
+    renderProfit(c);
+    persist();
+  }
+
+  function renderSummary(c){
+    var el = $('#summary');
+    el.innerHTML = '<span class="s-label">Split</span>';
+    c.rows.forEach(function(r,i){
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = '<span class="dot" style="background:'+cssv(FCOLORS[i%6])+'"></span>'+
+        escapeHtml(r.f.name)+' <b>'+pct1(r.capPct)+'</b>';
+      el.appendChild(chip);
+    });
+    if(c.esopPct>0){
+      var e = document.createElement('span');
+      e.className='chip';
+      e.innerHTML = '<span class="dot" style="background:'+cssv('--esop')+'"></span>ESOP <b>'+pct1(c.esopPct)+'</b>';
+      el.appendChild(e);
+    }
+  }
+
+  function renderFlags(c){
+    var box = $('#flags'); box.innerHTML='';
+    buildFlags(c).forEach(function(fl){
+      var d = document.createElement('div');
+      d.className = 'flag '+fl[0];
+      var ic = fl[0]==='crit'?'✕':fl[0]==='warn'?'⚠':fl[0]==='good'?'✓':'i';
+      d.innerHTML = '<span class="ic">'+ic+'</span><span>'+fl[1]+'</span>';
+      box.appendChild(d);
+    });
+  }
+
+  function renderDonut(c){
+    var svg = $('#donut');
+    var cx=100, cy=100, r=78, sw=30, C=2*Math.PI*r;
+    var segs = c.rows.map(function(row,i){ return { v:row.finalShare*(100-c.esopPct), color:cssv(FCOLORS[i%6]) }; });
+    if(c.esopPct>0) segs.push({ v:c.esopPct, color:cssv('--esop') });
+    var total = segs.reduce(function(a,s){return a+s.v;},0) || 1;
+    var acc = 0, parts = '';
+    parts += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+cssv('--line')+'" stroke-width="'+sw+'"/>';
+    segs.forEach(function(s){
+      var frac = s.v/total;
+      var len = frac*C;
+      parts += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+s.color+'" stroke-width="'+sw+
+        '" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-acc)+'" '+
+        (frac>0.003?'':'opacity="0"')+'/>';
+      acc += len;
+    });
+    svg.innerHTML = parts;
+    var lead = c.rows.slice().sort(function(a,b){return b.capPct-a.capPct;})[0];
+    $('#dcBig').textContent = lead ? pct1(lead.capPct) : '—';
+  }
+
+  function renderLegend(c){
+    var el = $('#legend'); el.innerHTML='';
+    c.rows.forEach(function(r,i){
+      var row = document.createElement('div');
+      row.className='legend-row';
+      row.innerHTML =
+        '<span class="lg-dot" style="background:'+cssv(FCOLORS[i%6])+'"></span>'+
+        '<span class="lg-name">'+escapeHtml(r.f.name)+'</span>'+
+        '<span class="lg-pct">'+pct1(r.capPct)+'</span>'+
+        '<span class="lg-sh">'+inr.format(r.shares)+' sh</span>';
+      el.appendChild(row);
+    });
+    if(c.esopPct>0){
+      var e=document.createElement('div');
+      e.className='legend-row';
+      e.innerHTML='<span class="lg-dot" style="background:'+cssv('--esop')+'"></span>'+
+        '<span class="lg-name">ESOP pool (reserved)</span>'+
+        '<span class="lg-pct">'+pct1(c.esopPct)+'</span>'+
+        '<span class="lg-sh">'+inr.format(Math.max(0,c.esopShares))+' sh</span>';
+      el.appendChild(e);
+    }
+  }
+
+  function renderCapTable(c){
+    var t = $('#capTable');
+    var head = '<thead><tr>'+
+      '<th>Founder</th><th>Cash units</th><th>Sweat units</th><th>IP units</th>'+
+      '<th>Money+work base</th><th>Points</th><th>Final founder %</th><th>Cap-table %</th><th>Shares</th>'+
+      '</tr></thead>';
+    var body = '<tbody>';
+    c.rows.forEach(function(r,i){
+      body += '<tr>'+
+        '<td><span class="swat" style="background:'+cssv(FCOLORS[i%6])+'"></span>'+escapeHtml(r.f.name)+'</td>'+
+        '<td>'+inr.format(Math.round(r.cashUnits))+'</td>'+
+        '<td>'+inr.format(Math.round(r.sweatUnits))+'</td>'+
+        '<td>'+inr.format(Math.round(r.ipUnits))+'</td>'+
+        '<td>'+pct1(r.baseShare*100)+'</td>'+
+        '<td>'+r.points+' &middot; '+pct1(r.ptShare*100)+'</td>'+
+        '<td>'+pct1(r.finalShare*100)+'</td>'+
+        '<td><b>'+pct1(r.capPct)+'</b></td>'+
+        '<td>'+inr.format(r.shares)+'</td>'+
+      '</tr>';
+    });
+    body += '</tbody>';
+    var esopRow = c.esopPct>0 ? '<tr><td>ESOP pool</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><b>'+pct1(c.esopPct)+'</b></td><td>'+inr.format(Math.max(0,c.esopShares))+'</td></tr>' : '';
+    var foot = '<tfoot>'+esopRow+'<tr><td>Total</td><td>'+inr.format(Math.round(c.sumMon))+' base</td><td colspan="3"></td><td>'+c.sumPts+'</td><td>100.0%</td><td>100.0%</td><td>'+inr.format(num(state.settings.totalShares))+'</td></tr></tfoot>';
+    t.innerHTML = head + body + foot;
+  }
+
+  function renderProfit(c){
+    var P = state.profit, S = state.settings;
+    $('#pf_amount').value = P.amount || '';
+    $('#pf_label').value = P.label || '';
+    setRange('pf_retain', P.retain);
+    $('#rv_pf_retain').textContent = (P.retain||0)+'%';
+    $('#profitBasisHint').textContent = S.distBy==='custom' ? 'dividing by a custom ratio' : 'dividing by equity %';
+
+    var cr = $('#customRatios');
+    cr.hidden = S.distBy!=='custom';
+    if(S.distBy==='custom'){
+      var g = $('#customRatioGrid'); g.innerHTML='';
+      c.rows.forEach(function(r){
+        if(P.custom[r.f.id]==null) P.custom[r.f.id] = Math.round(r.finalShare*100);
+        var d = document.createElement('div');
+        d.className='field';
+        d.innerHTML = '<label>'+escapeHtml(r.f.name)+'</label>'+
+          '<input type="number" min="0" step="1" data-cr="'+r.f.id+'" value="'+num(P.custom[r.f.id])+'">';
+        g.appendChild(d);
+      });
+      g.querySelectorAll('input[data-cr]').forEach(function(inp){
+        inp.addEventListener('input', function(){
+          state.profit.custom[inp.getAttribute('data-cr')] = num(inp.value);
+          renderProfitOnly();
+        });
+      });
+    }
+    renderProfitOnly();
+  }
+
+  function renderProfitOnly(){
+    var c = compute();
+    var pr = computeProfit(c);
+    var wf = $('#waterfall');
+    wf.innerHTML =
+      row('head','Distributable profit — '+(state.profit.label||'this period'), money(pr.amount)) +
+      row('sub wf-neg','Less: reinvest / retain ('+num(state.profit.retain)+'%)', '− '+money(pr.retain)) +
+      row('sub wf-neg','Less: repay founder money booked as repayable', '− '+money(pr.repayPool)) +
+      row('total','Divided among founders', money(pr.distributable));
+    if(pr.totalLoans > pr.repayPool + 0.5){
+      wf.innerHTML += row('sub','Repayable balance carried to next period', money(pr.totalLoans - pr.repayPool));
+    }
+
+    var t = $('#profitTable');
+    var head = '<thead><tr><th>Founder</th><th>Share</th><th>Loan / spend repaid</th><th>Profit share</th><th>Cash this period</th><th>Repayable left</th></tr></thead>';
+    var body = '<tbody>';
+    pr.per.forEach(function(p,i){
+      body += '<tr>'+
+        '<td><span class="swat" style="background:'+cssv(FCOLORS[i%6])+'"></span>'+escapeHtml(p.r.f.name)+'</td>'+
+        '<td>'+pct1(p.shareFrac*100)+'</td>'+
+        '<td>'+money(p.repay)+'</td>'+
+        '<td>'+money(p.profitShare)+'</td>'+
+        '<td><b>'+money(p.total)+'</b></td>'+
+        '<td>'+money(Math.max(0,p.loanAfter))+'</td>'+
+      '</tr>';
+    });
+    body += '</tbody>';
+    var tot = pr.per.reduce(function(a,p){return a+p.total;},0);
+    var foot = '<tfoot><tr><td>Total</td><td>100.0%</td><td>'+money(pr.repayPool)+'</td><td>'+money(pr.distributable)+'</td><td>'+money(tot)+'</td><td>'+money(Math.max(0,pr.totalLoans-pr.repayPool))+'</td></tr></tfoot>';
+    t.innerHTML = head+body+foot;
+
+    function row(cls,label,amt){
+      return '<div class="wf-row '+cls+'"><span>'+label+'</span><span class="wf-amt">'+amt+'</span></div>';
+    }
+  }
+
+  /* ---------- founders UI ---------- */
+  function renderFounders(){
+    var box = $('#founders'); box.innerHTML='';
+    $('#founderCount').textContent = state.founders.length + ' founder' + (state.founders.length>1?'s':'');
+    $('#btnAdd').disabled = state.founders.length >= 6;
+
+    var c = compute();
+    state.founders.forEach(function(f,i){
+      var r = c.rows[i];
+      var maxComp = Math.max(r.cashUnits, r.sweatUnits, r.ipUnits, 1);
+      var totComp = r.cashUnits + r.sweatUnits + r.ipUnits;
+      var wCash = totComp>0 ? r.cashUnits/totComp*100 : 0;
+      var wSweat= totComp>0 ? r.sweatUnits/totComp*100 : 0;
+      var wIp   = totComp>0 ? r.ipUnits/totComp*100 : 0;
+
+      var el = document.createElement('div');
+      el.className='founder';
+      el.innerHTML =
+        '<div class="f-top">'+
+          '<span class="f-swatch" style="background:'+cssv(FCOLORS[i%6])+'"></span>'+
+          '<input class="f-name" value="'+escapeAttr(f.name)+'" data-k="name" aria-label="Founder name">'+
+          (state.founders.length>2 ? '<button class="rm" data-rm="'+f.id+'" title="Remove founder" aria-label="Remove founder">✕</button>' : '')+
+        '</div>'+
+
+        '<fieldset>'+
+          '<legend>Money &amp; assets</legend>'+
+          moneyField(f,'cash','Cash invested')+
+          moneyField(f,'ipValue','Pre-built IP / assets (value)')+
+          moneyField(f,'spent','Money already spent')+
+          '<div class="field"><label>Commitment %</label><input type="number" min="0" max="100" step="5" value="'+num(f.commitment)+'" data-k="commitment"></div>'+
+        '</fieldset>'+
+
+        '<fieldset>'+
+          '<legend>Work (monthly ₹)</legend>'+
+          '<div class="field"><label>Market salary / mo</label><input type="number" min="0" step="5000" value="'+num(f.market)+'" data-k="market"></div>'+
+          '<div class="field"><label>Salary drawn / mo</label><input type="number" min="0" step="5000" value="'+num(f.drawn)+'" data-k="drawn"></div>'+
+          '<div class="field"><label>Months worked</label><input type="number" min="0" step="1" value="'+num(f.months)+'" data-k="months"></div>'+
+          '<div class="field"><label>Sweat / mo</label><input type="number" value="'+Math.max(0,num(f.market)-num(f.drawn))+'" disabled></div>'+
+        '</fieldset>'+
+
+        '<div class="pts"><fieldset>'+
+          '<legend>Intangibles (0–10)</legend>'+
+          ptRow(f,'pIdea','Idea / origin')+
+          ptRow(f,'pRole','Role / lead')+
+          ptRow(f,'pNetwork','Network / BD')+
+          ptRow(f,'pRisk','Risk taken')+
+        '</fieldset></div>'+
+
+        '<div>'+
+          '<div class="composition" aria-hidden="true">'+
+            '<i style="width:'+wCash+'%;background:'+cssv('--cash')+'"></i>'+
+            '<i style="width:'+wSweat+'%;background:'+cssv('--sweat')+'"></i>'+
+            '<i style="width:'+wIp+'%;background:'+cssv('--ipk')+'"></i>'+
+          '</div>'+
+          '<div class="comp-key">'+
+            '<span><i style="background:'+cssv('--cash')+'"></i>cash '+pct1(wCash)+'</span>'+
+            '<span><i style="background:'+cssv('--sweat')+'"></i>sweat '+pct1(wSweat)+'</span>'+
+            '<span><i style="background:'+cssv('--ipk')+'"></i>IP '+pct1(wIp)+'</span>'+
+          '</div>'+
+        '</div>';
+
+      box.appendChild(el);
+    });
+
+    box.querySelectorAll('input[data-k]').forEach(function(inp){
+      inp.addEventListener('input', function(){
+        var fid = closestFounderId(inp);
+        var f = state.founders.find(function(x){return x.id===fid;});
+        if(!f) return;
+        var k = inp.getAttribute('data-k');
+        f[k] = (k==='name') ? inp.value : num(inp.value);
+        if(k==='name'){ renderSummary(compute()); renderLegend(compute()); renderCapTable(compute()); persist(); }
+        else { softRerender(); }
+      });
+    });
+    box.querySelectorAll('input[type=range][data-k]').forEach(function(inp){
+      inp.addEventListener('input', function(){
+        var fid = closestFounderId(inp);
+        var f = state.founders.find(function(x){return x.id===fid;});
+        if(!f) return;
+        f[inp.getAttribute('data-k')] = num(inp.value);
+        var pv = inp.parentElement.querySelector('.pv'); if(pv) pv.textContent = num(inp.value);
+        softRerender();
+      });
+    });
+    box.querySelectorAll('button[data-rm]').forEach(function(b){
+      b.addEventListener('click', function(){
+        state.founders = state.founders.filter(function(x){return x.id!==b.getAttribute('data-rm');});
+        delete state.profit.custom[b.getAttribute('data-rm')];
+        render();
+      });
+    });
+  }
+
+  function softRerender(){
+    var c = compute();
+    renderSummary(c); renderFlags(c); renderDonut(c); renderLegend(c);
+    renderCapTable(c); renderProfitOnly(c);
+    updateCompositionBars(c);
+    persist();
+  }
+  function updateCompositionBars(c){
+    var cards = $('#founders').children;
+    c.rows.forEach(function(r,i){
+      var card = cards[i]; if(!card) return;
+      var tot = r.cashUnits+r.sweatUnits+r.ipUnits;
+      var bars = card.querySelectorAll('.composition i');
+      var keys = card.querySelectorAll('.comp-key span');
+      if(bars.length===3){
+        var wc = tot>0?r.cashUnits/tot*100:0, ws=tot>0?r.sweatUnits/tot*100:0, wi=tot>0?r.ipUnits/tot*100:0;
+        bars[0].style.width=wc+'%'; bars[1].style.width=ws+'%'; bars[2].style.width=wi+'%';
+        keys[0].innerHTML='<i style="background:'+cssv('--cash')+'"></i>cash '+pct1(wc);
+        keys[1].innerHTML='<i style="background:'+cssv('--sweat')+'"></i>sweat '+pct1(ws);
+        keys[2].innerHTML='<i style="background:'+cssv('--ipk')+'"></i>IP '+pct1(wi);
+      }
+      var sweatBox = card.querySelector('fieldset:nth-of-type(2) input[disabled]');
+      if(sweatBox) sweatBox.value = Math.max(0, num(r.f.market) - num(r.f.drawn));
+    });
+  }
+
+  function moneyField(f,k,label){
+    return '<div class="field money"><label>'+label+'</label>'+
+      '<input type="number" min="0" step="10000" value="'+num(f[k])+'" data-k="'+k+'"></div>';
+  }
+  function ptRow(f,k,label){
+    return '<div class="pt-row"><label>'+label+'</label>'+
+      '<input type="range" min="0" max="10" step="1" value="'+num(f[k])+'" data-k="'+k+'" aria-label="'+label+'">'+
+      '<span class="pv">'+num(f[k])+'</span></div>';
+  }
+  function closestFounderId(node){
+    var card = node.closest('.founder');
+    if(!card) return null;
+    var idx = Array.prototype.indexOf.call($('#founders').children, card);
+    return state.founders[idx] && state.founders[idx].id;
+  }
+
+  /* ---------- settings controls ---------- */
+  function renderSettingsControls(){
+    var S = state.settings;
+    setRange('set_cashMult', S.cashMult); $('#rv_cashMult').textContent = S.cashMult.toFixed(2)+'×';
+    setRange('set_sweatMult', S.sweatMult); $('#rv_sweatMult').textContent = S.sweatMult.toFixed(2)+'×';
+    setRange('set_ipMult', S.ipMult); $('#rv_ipMult').textContent = S.ipMult.toFixed(2)+'×';
+    setRange('set_intangible', S.intangible); $('#rv_intangible').textContent = S.intangible+'%';
+    setRange('set_esop', S.esop); $('#rv_esop').textContent = S.esop+'%';
+    $('#set_totalShares').value = S.totalShares;
+    seg('set_spentAs', S.spentAs);
+    seg('set_ipAs', S.ipAs);
+    seg('set_distBy', S.distBy);
+  }
+  function seg(id,val){
+    $('#'+id).querySelectorAll('button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-v')===val ? 'true':'false');
+    });
+  }
+  function setRange(id,val){ var el=$('#'+id); if(el) el.value = val; }
+
+  function wireSettings(){
+    bindRange('set_cashMult','cashMult',function(v){return v.toFixed(2)+'×';},'rv_cashMult');
+    bindRange('set_sweatMult','sweatMult',function(v){return v.toFixed(2)+'×';},'rv_sweatMult');
+    bindRange('set_ipMult','ipMult',function(v){return v.toFixed(2)+'×';},'rv_ipMult');
+    bindRange('set_intangible','intangible',function(v){return v+'%';},'rv_intangible');
+    bindRange('set_esop','esop',function(v){return v+'%';},'rv_esop');
+    $('#set_totalShares').addEventListener('input', function(){
+      state.settings.totalShares = Math.max(0, num(this.value)); render();
+    });
+    ['set_spentAs','set_ipAs','set_distBy'].forEach(function(id){
+      $('#'+id).querySelectorAll('button').forEach(function(b){
+        b.addEventListener('click', function(){
+          var key = id==='set_spentAs'?'spentAs':id==='set_ipAs'?'ipAs':'distBy';
+          state.settings[key] = b.getAttribute('data-v');
+          render();
+        });
+      });
+    });
+    $('#pf_amount').addEventListener('input', function(){ state.profit.amount = num(this.value); renderProfitOnly(); persist(); });
+    $('#pf_label').addEventListener('input', function(){ state.profit.label = this.value; renderProfitOnly(); persist(); });
+    bindRange('pf_retain','__retain',function(v){return v+'%';},'rv_pf_retain', true);
+  }
+  function bindRange(id, key, fmt, rvId, isProfit){
+    var el = $('#'+id);
+    el.addEventListener('input', function(){
+      var v = num(el.value);
+      if(isProfit) state.profit.retain = v;
+      else state.settings[key] = v;
+      if(rvId) $('#'+rvId).textContent = fmt(v);
+      if(isProfit){ renderProfitOnly(); persist(); }
+      else softRerender();
+    });
+  }
+
+  /* ---------- helpers ---------- */
+  function num(v){ v = parseFloat(v); return isFinite(v) ? v : 0; }
+  function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; }); }
+  function escapeAttr(s){ return escapeHtml(s); }
+
+  /* ---------- toolbar ---------- */
+  function refreshScenarioSelect(){
+    var sel = $('#scenarioSel');
+    var names = Object.keys(getScenarios()).sort();
+    sel.innerHTML = '<option value="">Saved scenarios…</option>' +
+      names.map(function(n){ return '<option value="'+escapeAttr(n)+'">'+escapeHtml(n)+'</option>'; }).join('');
+  }
+  function wireToolbar(){
+    $('#btnExample').addEventListener('click', function(){ state = exampleState(); render(); });
+    $('#btnBlank').addEventListener('click', function(){ state = blankState(); render(); });
+    $('#btnAdd').addEventListener('click', function(){
+      if(state.founders.length>=6) return;
+      state.founders.push(blankFounder('Founder '+String.fromCharCode(65+state.founders.length)));
+      render();
+    });
+    $('#btnSave').addEventListener('click', function(){
+      var name = prompt('Name this scenario:');
+      if(!name) return;
+      var all = getScenarios();
+      all[name.trim()] = JSON.parse(JSON.stringify(state));
+      setScenarios(all); refreshScenarioSelect();
+      $('#scenarioSel').value = name.trim();
+    });
+    $('#scenarioSel').addEventListener('change', function(){
+      var all = getScenarios();
+      if(this.value && all[this.value]){ state = JSON.parse(JSON.stringify(all[this.value])); render(); }
+    });
+    $('#btnDelete').addEventListener('click', function(){
+      var sel = $('#scenarioSel'); if(!sel.value) return;
+      var all = getScenarios(); delete all[sel.value]; setScenarios(all); refreshScenarioSelect();
+    });
+    $('#btnPrint').addEventListener('click', function(){ window.print(); });
+    $('#btnCopy').addEventListener('click', function(){ copySummary(this); });
+  }
+
+  function copySummary(btn){
+    var c = compute(); var pr = computeProfit(c);
+    var L = [];
+    L.push('FOUNDERS’ SPLIT — '+(state.profit.label||new Date().toISOString().slice(0,10)));
+    L.push('');
+    L.push('EQUITY (cap-table %, shares of '+inr.format(num(state.settings.totalShares))+')');
+    c.rows.forEach(function(r){ L.push('  '+pad(r.f.name,22)+' '+pad(pct1(r.capPct),8)+' '+inr.format(r.shares)+' sh'); });
+    if(c.esopPct>0) L.push('  '+pad('ESOP pool',22)+' '+pad(pct1(c.esopPct),8)+' '+inr.format(Math.max(0,c.esopShares))+' sh');
+    L.push('');
+    L.push('SETTINGS: cash ×'+state.settings.cashMult+', sweat ×'+state.settings.sweatMult+', IP ×'+state.settings.ipMult+
+           ', intangibles '+state.settings.intangible+'%, ESOP '+state.settings.esop+'%');
+    L.push('  spend='+state.settings.spentAs+', IP='+state.settings.ipAs+', profit by '+state.settings.distBy);
+    L.push('');
+    L.push('PROFIT — '+(state.profit.label||'period')+': '+money(pr.amount));
+    L.push('  retain '+state.profit.retain+'% = '+money(pr.retain)+'; repay '+money(pr.repayPool)+'; divide '+money(pr.distributable));
+    pr.per.forEach(function(p){ L.push('  '+pad(p.r.f.name,22)+' '+money(p.total)+'  (repay '+money(p.repay)+' + share '+money(p.profitShare)+')'); });
+    L.push('');
+    L.push('Modelling aid only — not legal / tax / valuation advice.');
+    var txt = L.join('\n');
+    navigator.clipboard && navigator.clipboard.writeText(txt).then(function(){
+      var t = btn.textContent; btn.textContent = 'Copied ✓';
+      setTimeout(function(){ btn.textContent = t; }, 1600);
+    }, function(){ window.prompt('Copy the summary:', txt); });
+    function pad(s,n){ s=String(s); return s.length>=n?s.slice(0,n):s+Array(n-s.length+1).join(' '); }
+  }
+
+  /* ---------- theme ---------- */
+  function initTheme(){
+    var saved;
+    try{ saved = localStorage.getItem(LS.theme); }catch(e){}
+    if(saved==='dark'||saved==='light') document.documentElement.setAttribute('data-theme', saved);
+    updateThemeIcon();
+    $('#themeBtn').addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      var mq = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var next = cur ? (cur==='dark'?'light':'dark') : (mq?'light':'dark');
+      document.documentElement.setAttribute('data-theme', next);
+      try{ localStorage.setItem(LS.theme, next); }catch(e){}
+      updateThemeIcon();
+      render();
+    });
+  }
+  function updateThemeIcon(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var mq = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = cur ? cur==='dark' : mq;
+    $('#themeBtn').textContent = isDark ? '☀' : '☾';
+  }
+
+  /* ---------- boot ---------- */
+  wireSettings();
+  wireToolbar();
+  initTheme();
+  refreshScenarioSelect();
+  render();
+})();
+</script>
